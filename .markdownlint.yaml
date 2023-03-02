@@ -1,0 +1,6 @@
+line-length:
+   line_length: 300
+
+single-h1: false
+
+no-emphasis-as-header: false
