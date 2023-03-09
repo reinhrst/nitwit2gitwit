@@ -123,7 +123,7 @@ Most (basic) commands are supposed to run non-interactive
                       V
                   *-------*
      (stdin --->) |PROGRAM|----> stdout
-                  |       |----> stdout
+                  |       |----> stderr
                   *-------*
                       |
                       |
