@@ -31,24 +31,68 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/plugin/highlight/monokai.min.css"
     />
+    <style>
+      .reveal section {
+        font-size: 0.8em;
+      }
+      .reveal section table code,
+      .reveal section p code {
+        background-color: rgba(192, 192, 192, 0.3);
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+      }
+      .reveal section > table {
+        font-size: 0.7em;
+      }
+      .mermaid > svg {
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
-        <section></section>
+        <section data-separator-vertical="\r?\nvvvvvvv*\r?\n"></section>
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/reveal.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/plugin/notes/notes.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/plugin/markdown/markdown.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/plugin/highlight/highlight.min.js"></script>
     <script type="module">
+      import Reveal from "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/reveal.esm.min.js";
+      import RevealMarkdown from "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/plugin/markdown/markdown.esm.min.js";
+      import RevealHighlight from "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/plugin/highlight/highlight.esm.min.js";
+      import RevealNotes from "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.4.0/plugin/notes/notes.esm.min.js";
       import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
-      const slideDir = new URL(document.location).searchParams.get("slide-dir");
+      const searchParams = new URL(document.location).searchParams;
+      if (!searchParams.has("markdown-url")) {
+        alert("Make sure to call this page with ?markdown-url=...");
+        throw new Error("Make sure to call this page with ?markdown-url=...");
+      }
+      const markdownUrl = new URL(document.location).searchParams.get(
+        "markdown-url"
+      );
       document
         .querySelector(".reveal section")
-        .setAttribute("data-markdown", `${slideDir}/slides.md`);
+        .setAttribute("data-markdown", markdownUrl);
+
+      const MermaidPlugin = {
+        id: "mermaid",
+        init: async (deck) => {
+          mermaid.initialize({
+            startOnLoad: false,
+            // useMaxHeight: false,
+            // useMaxWidth: false,
+            logLevel: 0,
+          });
+          const slides = deck.getSlidesElement();
+          console.log(deck.getSlidesElement());
+          console.log(deck.getSlidesElement().parentNode);
+          await mermaid.run({
+            nodes: deck.getSlidesElement().querySelectorAll(".mermaid"),
+          });
+          await new Promise((resolve) => window.setTimeout(resolve, 100));
+        },
+      };
+
       // More info about initialization & config:
       // - https://revealjs.com/initialization/
       // - https://revealjs.com/config/
@@ -57,12 +101,11 @@
         slideNumber: "c/t",
         width: 960,
         height: 700,
+        markdown: { gfm: true },
 
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes, MermaidPlugin],
       });
-      mermaid.initialize({ startOnLoad: false });
-      await mermaid.run();
     </script>
   </body>
 </html>
