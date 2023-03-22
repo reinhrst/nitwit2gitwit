@@ -84,12 +84,20 @@
             logLevel: 0,
           });
           const slides = deck.getSlidesElement();
-          console.log(deck.getSlidesElement());
-          console.log(deck.getSlidesElement().parentNode);
-          await mermaid.run({
-            nodes: deck.getSlidesElement().querySelectorAll(".mermaid"),
-          });
-          await new Promise((resolve) => window.setTimeout(resolve, 100));
+          for (let el of slides.querySelectorAll(".mermaid")) {
+            // we need to move the element out of the current location, since
+            // mermaid will want to figure out display size and the slides are
+            // not (yet) shown
+            const placeholder = document.createElement("placeholder");
+            const parent = el.parentNode;
+            parent.insertBefore(placeholder, el);
+            slides.appendChild(el); // removes it from original spot
+            await mermaid.run({ nodes: [el] });
+            // places it back in the original spot
+            parent.insertBefore(el, placeholder);
+            placeholder.remove();
+          }
+          // pre.remove();
         },
       };
 
@@ -106,6 +114,7 @@
         // Learn about plugins: https://revealjs.com/plugins/
         plugins: [RevealMarkdown, RevealHighlight, RevealNotes, MermaidPlugin],
       });
+      console.log("reveal");
     </script>
   </body>
 </html>
