@@ -18,4 +18,4 @@ jobs:
       - name: Combine and create index
         run: mkdir dist && cp -r lessons/* dist && python create-index-md.py
       - name: Deploy
-        run: aws s3 sync --delete --content-encoding utf8 dist s3://videtect.claude-apps.com/website/${GITHUB_REF/refs\/heads\//}/
+        run: aws s3 sync --delete --content-encoding utf8 dist s3://n2g.claude-apps.com/website/${GITHUB_REF/refs\/heads\//}/
