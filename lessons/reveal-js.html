@@ -36,6 +36,8 @@
         font-size: 0.8em;
       }
       .reveal section table code,
+      .reveal section ul code,
+      .reveal section ul code,
       .reveal section p code {
         background-color: rgba(192, 192, 192, 0.3);
         padding-left: 0.2em;
@@ -79,8 +81,8 @@
         init: async (deck) => {
           mermaid.initialize({
             startOnLoad: false,
-            // useMaxHeight: false,
-            // useMaxWidth: false,
+            useMaxHeight: false,
+            useMaxWidth: false,
             logLevel: 0,
           });
           const slides = deck.getSlidesElement();
@@ -97,7 +99,6 @@
             parent.insertBefore(el, placeholder);
             placeholder.remove();
           }
-          // pre.remove();
         },
       };
 
@@ -114,7 +115,6 @@
         // Learn about plugins: https://revealjs.com/plugins/
         plugins: [RevealMarkdown, RevealHighlight, RevealNotes, MermaidPlugin],
       });
-      console.log("reveal");
     </script>
   </body>
 </html>
