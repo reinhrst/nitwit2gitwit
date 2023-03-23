@@ -1,0 +1,21 @@
+name: Deploy to AWS (release)
+on:
+  push:
+    tags:
+      - "v*"
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Combine and create index
+        run: mkdir dist && cp -r lessons/* dist && python create-index-md.py
+      - name: Deploy
+        run: aws s3 sync --delete --exclude=beta/\* --content-encoding utf8 dist s3://n2g.claude-apps.com/website/
