@@ -110,10 +110,10 @@ You never edit files directly in the VCS. You always get files from the VCS into
 |                                                                | **Main**                                                                                 |                                                                             |                                                                                        |
 | 1                                                              | We are going to Bergen                                                                   | \*\*                                                                        | new plan                                                                               |
 | 1-2                                                            | We are flying to Bergen                                                                  | going -> flying                                                             | Go by airplane                                                                         |
-| 1-3                                                            | Go to Gdansk after all                                                                   |
+| 1-3                                                            | We are flying to Gdansk                                                                  | Bergen -> Gdansk                                                            | Go to Gdansk after all                                                                 |
 | 1-4                                                            | You are flying to Gdansk                                                                 | We -> You                                                                   | Actually I'm not going                                                                 |
 |                                                                | **branch: past (from rev 1)**<!-- .element: class="fragment" data-fragment-index="1" --> |                                                                             |                                                                                        |
-| 2-2<!-- .element: class="fragment" data-fragment-index="1" --> | We were going to Bergen<!-- .element: class="fragment" data-fragment-index="1" -->       | We -> You<!-- .element: class="fragment" data-fragment-index="1" -->        | Story is better in the past<!-- .element: class="fragment" data-fragment-index="1" --> |
+| 2-2<!-- .element: class="fragment" data-fragment-index="1" --> | We were going to Bergen<!-- .element: class="fragment" data-fragment-index="1" -->       | are -> were<!-- .element: class="fragment" data-fragment-index="1" -->      | Story is better in the past<!-- .element: class="fragment" data-fragment-index="1" --> |
 |                                                                | **Merged (in main)**<!-- .element: class="fragment" data-fragment-index="2" -->          |                                                                             |                                                                                        |
 | M-2<!-- .element: class="fragment" data-fragment-index="2" --> | You were flying to Gdansk<!-- .element: class="fragment" data-fragment-index="2" -->     | Merge 1-4 & 2-2 <!-- .element: class="fragment" data-fragment-index="2" --> | _\*All changes\*_<!-- .element: class="fragment" data-fragment-index="2" -->           |
 
@@ -373,7 +373,7 @@ git help subcommand -- show help for certain subcommand
 | `init`     | Start a new (empty) git respository in the current directory                  |
 | `checkout` | Make a certain revision the "current revision" and apply to working directory |
 | `add`      | Move changes into the index                                                   |
-| `rseset`   | Move changes out of the index (although there are other ways)                 |
+| `reset`    | Move changes out of the index (although there are other ways)                 |
 | `commit`   | Commit the (changes in the) index into the respository (as a new commit)      |
 | `diff`     | Run a `diff` between different commits, or a commit and your local files      |
 | `log`      | See a list, starting at the current commit and showing all parents            |
