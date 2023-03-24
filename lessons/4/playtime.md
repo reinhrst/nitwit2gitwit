@@ -18,6 +18,29 @@ There may be solutions or hints to the exercise in the vertical scroll, so only 
 
 ---
 
+### Extra assignment (multiple down-pages, read all)
+
+At some point (but maybe better after you do at least some of the exercises):
+
+- Create a git repository for one of your code bases on your own computer.
+  Remember that a repository is typically one project, code that belongs together.
+  For me, this class (the markdown for the slides, and the example files about ravens) are one repository.
+  The "comfyviewer" is another (which includes both the (javascript) code for the viewer, as the (python) code to download files from Dropbox, process them, and upload the detection and mp4 file).
+
+vvvvvvvv
+
+- Make a first commit with the current state of your code (don't worry about the exact commit message; first commit can just be called "initial state" or something like that).
+  Make sure you choose what to check in; data and results from your code runs (e.g. graphs that you created) should not be checked in. Files larger than 1MB should (probably) not be checked in. Plugins/packages that you downloaded from somewhere else should (probably) not be checked in.
+
+vvvvvvvv
+
+- If you work on this code, try to commit a new version whenever you tell yourself "I did that very well, it's working now".
+  Try to come up with semantic commit messages -- if you find yourself writing messages like "I did this and I did this and I did this", you should probably commit more often :).
+
+---
+
+### Start of exercises
+
 Create a new directory in your home directory named `minions` and move to this new directory
 
 ```bash
@@ -305,9 +328,153 @@ Changes to be committed:
 
 ---
 
-If you got to here, you're quicker in making the homework than I'm in creating it. Below more things to do (but not worked out yet)
+Commit index into repo. Create a commit message
 
-- Commit index into repo. Create a commit message
+```python
+# NB: THIS ANSWER BOX CAN BE SCROLLED DOWN FOR THE WHOLE ANSWER
+$ pwd
+/home/claude/minions
+$ git status -s
+A  bananas.txt
+# -s means "--short". See vertical slide for explanation of the format
+# Feel free to use -s or not use it in the future.
+$ git commit
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your accounts default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'claude@8a554909b6fd.(none)')
+
+# Oops, git needs to know what name and email to put on our commits.
+# Remember that (for now) we're using git 100% locally, so it really
+# doesn't matter what you use here, but let's be honest.
+# See below for more info
+$ git config --global user.email "claude@claude.nl"
+$ git config --global user.name "Claude"
+# Let's try again
+$ git commit
+# This opened a nano editor. Type a commit message (e.g. "Bananas for minions") and
+# press CTRL-O <enter> to save and CTRL-X to exit
+# You can ignore the stuff beneath, as described it will all be ignored since it starts with `#`
+[main (root-commit) 4075390] Bananas for minions
+ 1 file changed, 9 insertions(+)
+ create mode 100644 bananas.txt
+# Looked like that worked, a new commit with sha `4075390`
+$ git status
+On branch main
+nothing to commit, working tree clean
+# makes sense, after we committed, there are no further changes
+$ ls -la
+total 20
+drwxr-xr-x 3 claude claude 4096 Mar 24 11:24 .
+drwxr-x--- 1 claude claude 4096 Mar 24 17:50 ..
+drwxr-xr-x 8 claude claude 4096 Mar 24 18:16 .git
+-rw-r--r-- 1 claude claude  145 Mar 24 11:47 bananas.txt
+# but the file is (obviously) still there
+```
+
+<!-- .element class="hidden-answer" -->
+
+<button>show answer</button>
+
+vvvvvvvv
+
+`git status --short` format.
+
+- Each file (except those that are the same in local directory, index, and current revision) get a single line.
+- The first character describes the differences between current revision and index
+- The second character describes the differences between index and working directory
+- Generally in `git status` green colours are about index stuff, red about local directory stuff
+- A space means "no changes"
+- `A` means the file is [A]dded (new)
+- `M` means the file is [M]odified
+- `D` means the file is [D]eleted
+- `??` means an untracked file.
+
+vvvvvvvv
+
+Example (note that colours are wrong)
+
+```shell
+A  bananas.txt
+ M orange.txt
+```
+
+means:
+
+- `bananas.txt` was "Added to index, no local changes" (`A` as first character, space as second)
+- `orange.txt` was "Modified in local directory, but changes were not staged" (staged means: present in index)
+
+vvvvvvvv
+
+### git config
+
+- First time you use git on a new computer, git wants to know who you are (name and email).
+  Git will never do anything with this data, except add it to every commit you make.
+  If someone checks the log of commits later on, they can see this information
+  (and will be able to talk to you, or email you in case they don't know you).
+
+- What you fill in here is 100% your choice. It does mean that I can fill in `Joe Biden` and `president@whitehouse.org` if I want.
+  Or I can fill in "Martyna Syposz" as name and make some commits to a project we both work on, and she'll get blames for all mistakes I make.
+
+- Takeaway: this is for convenience only, never take a name or email address on a git commit as _proof_ that it was that person!
+
+vvvvvvvv
+
+### A good commit message
+
+- As discussed in the lesson, a good commit message says "what the change means", not "what the change is".
+- So `Make code not crash with large input files` is a good commit message. `Changed "MAX_SIZE=500" into "MAX_SIZE=1000" in line 34` is a bad message.
+- Long(er) commit messages are completely ok (although more than 5 lines is maybe too much); convention is then (although you can change the convention if you want):
+  - First line is short (max 50 characters), a summary
+  - Second line is empty
+  - Beyond that, write as much as you want)
+- For trivial commits (e.g. fixing typos), I'm quite happy with just a trivial (e.g. `typo`) commit message
+
+Good (but maybe bit elaborate) commit message:
+
+```shell
+Bugfix: code crashed if input was empty
+
+It turned out that if you provided an empty list to the `process()` function, the code would crash.
+This is because `process()` would display a percentage completion, which was `nr_processed / input.length`, so en empty list resulted in division by zero error.
+Added an if statement that makes progress = 100% if input.length == 0
+```
+
+vvvvvvvv
+
+![XKCD commit messages commic](https://imgs.xkcd.com/comics/git_commit_2x.png)
+
+The sad truth, especially late at night - Source: [XKCD](https://xkcd.com/1296/)
+
+vvvvvvvv
+
+### Last one (I promise!)
+
+- `git commit` without a commit message on the command line, will open the nano editor
+- You have to save the text message to some pre-aranged location (the default save place), and `git commit` will pick the message up from there (this is what we did in the "solution")
+- Opening the nano text editor may be useful to write a long commit message, but overkill for a short one
+- You can give a commit message with the `-m` flag. If your commit message has spaces, you will need quotes (`"`) around it
+- In that case, watch out for quotes in your commit message itself (also don't use `!`, because this has special meaning in `bash`)
+
+```bash
+git commit -m "typo"  # since there are no spaces in the message, the quotes around `typo` are not needed, but they don't hurt either
+git commit -m "Bananas for minions"
+git commit -m "I can write a very long commit message and this will not be a problem (except that convention said it should be short)"
+git commit -m "ONE MORE TYPO!!!!" # WRONG: you cannot use ! on the terminal (in addition that, the message is not very informative, just `typo` would be better)
+git commit -m "A fix for the "cannot open editor" bug"  # WRONG: the whole message must be between quotes, but the " before `cannot` closes the start quote
+```
+
+---
+
 - Create another file, add it to the index
 - Run git status
 - Also edit the first file a bit
@@ -317,11 +484,4 @@ If you got to here, you're quicker in making the homework than I'm in creating i
 - commit the current index (only file nr 2)
 - add and commit file nr 1
 - add and commit file nr 3
-- delete file nr 1
-- What does git status show now?
-- add the delete-change to the index. What does git status show
-- commit the delete
-- Check git log
-- Checkout a previous revision (let's say the second)
-- Check the content of the directory and the files. Is it what you expect?
-- Go back to the end of the branch
+- delete f
