@@ -373,37 +373,7 @@ git help subcommand -- show help for certain subcommand
 | `init`     | Start a new (empty) git respository in the current directory                  |
 | `checkout` | Make a certain revision the "current revision" and apply to working directory |
 | `add`      | Move changes into the index                                                   |
-| `reset`    | Move changes out of the index                                                 |
+| `rseset`   | Move changes out of the index (although there are other ways)                 |
 | `commit`   | Commit the (changes in the) index into the respository (as a new commit)      |
 | `diff`     | Run a `diff` between different commits, or a commit and your local files      |
 | `log`      | See a list, starting at the current commit and showing all parents            |
-
----
-
-### Playtime
-
-- Create a new directory in your home directory (choose a name) and move to this new directory
-- Start a new git respository in this directory
-- Check the current git log
-- Create a simple file, write some text (5 lines) and save the file
-- Run git status. What does it tell you?
-- Move the file (or technically the changes) into the index
-- Run git status again. What does it tell you now?
-- Commit index into repo. Create a commit message
-- Create another file, add it to the index
-- Run git status
-- Also edit the first file a bit
-- Run git status
-- Make a third file
-- Run git status
-- commit the current index (only file nr 2)
-- add and commit file nr 1
-- add and commit file nr 3
-- delete file nr 1
-- What does git status show now?
-- add the delete-change to the index. What does git status show
-- commit the delete
-- Check git log
-- Checkout a previous revision (let's say the second)
-- Check the content of the directory and the files. Is it what you expect?
-- Go back to the end of the branch
