@@ -475,13 +475,27 @@ git commit -m "A fix for the "cannot open editor" bug"  # WRONG: the whole messa
 
 ---
 
-- Create another file, add it to the index
-- Run git status
-- Also edit the first file a bit
-- Run git status
-- Make a third file
-- Run git status
-- commit the current index (only file nr 2)
-- add and commit file nr 1
-- add and commit file nr 3
-- delete f
+Create `fluffy.txt`, add it to index and commit
+
+(nb: it's hard to find good semantic commit messages when you're just doing exercises. I think just using "exercise page 26" or something is fine)
+
+```console
+$ pwd
+/home/claude/minions
+$ git status -s
+# no reply means latest revision, index and working directory are all the same
+$ echo "It's so fluffy" > fluffy.txt
+$ git add fluffy.txt
+$ git status -s
+A  fluffy.txt
+$ git commit -m "exercise 26"
+[main a587278] fluffy
+ 1 file changed, 1 insertion(+)
+ create mode 100644 fluffy.txt
+```
+
+<!-- .element class="hidden-answer" -->
+
+<button>show answer</button>
+
+---
