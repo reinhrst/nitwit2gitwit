@@ -499,3 +499,12 @@ $ git commit -m "exercise 26"
 <button>show answer</button>
 
 ---
+
+### Congratulations
+
+# 🎉
+
+You made it to the end
+
+The things in this lesson are essential, and exercise is required.
+Try to commit something once a day at least in your normal code.
