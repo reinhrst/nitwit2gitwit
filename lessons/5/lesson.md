@@ -151,7 +151,7 @@ vvvvvv
 ### What stuff should one commit (in real life)
 
 - Everything that you created (code, images, graphs)
-- Readme files / documentation / instrcutions (ideally in Markdown)
+- Readme files / documentation / instructions (ideally in Markdown)
 
 ##### But not:
 - Raw data (usually; you can have a "data repo")
