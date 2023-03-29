@@ -190,6 +190,7 @@ It's a personal preference / agree on rules per project or repo / you will get a
 - At least every couple of hours (lunchtime, before end of day?)
 - It does not have to work (although commit it as soon as it works), and note in commit message
 - Remember: semantic changes
+- Completely ok to have single-char commits, or 50-page commits
 
 - When you start to change / rewrite lots of code
 
