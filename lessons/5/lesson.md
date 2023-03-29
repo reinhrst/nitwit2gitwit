@@ -160,6 +160,10 @@ vvvvvv
 - Binary files that change a lot (e.g. Word documents or zip files)
 - Commented out / not used code (make branch!)
 - Code that is in another repo
+- Development files for your environment
+- PASSWORDS / SECRETS (remember that all history is normally kept!)
+
+vvvvvv
 
 _There are always exceptions to this rule, in time you'll find out what works for you. However have rules within one repo!_
 
@@ -178,7 +182,7 @@ _There are always exceptions to this rule, in time you'll find out what works fo
 
 ### How often should one commit their code
 
-It's a personal preference / agree on rules per project or repo / you will get a feeling for what works for you
+It's a personal preference / agree on rules per project or repo / you will get a feeling for what works for you _(for now: often to get experience)_
 
 ##### My suggestion:
 - When you finish something
@@ -189,4 +193,3 @@ It's a personal preference / agree on rules per project or repo / you will get a
 
 - When you start to change / rewrite lots of code
 
-_For now, let's commit often, so we get experience_
