@@ -270,8 +270,6 @@ Where possible I will try to use the more modern/more user-friendly commands her
 
 ---
 
-Sooo, we're going to play some more before we commit:
-
 - Add the unstaged changes in `bananas.txt` to the index as well, so that all changes (both the ones currently in the index, and the ones currently in the working directory) are in the index
 - Confirm that this worked with `git status` and `git diff --staged`
 
@@ -376,6 +374,11 @@ index 0000000..9a64460
 +
 # No more bananas. You could also look at "git diff" and see that all diffs are in there.
 ```
+
+<!-- .element class="hidden-answer" -->
+
+<button>show answer</button>
+
 
 vvvvvvvv
 
@@ -573,6 +576,6 @@ vvvvvvvv
 ---
 
 
-# Done
+# ⭐️⭐️⭐️ Done ⭐️⭐️⭐️
 
 Don't forget to regularly commit your own work!
