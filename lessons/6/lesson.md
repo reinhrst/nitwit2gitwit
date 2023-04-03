@@ -4,6 +4,7 @@
 - Setup ssh for Github
 - Setup R Studio for use with git(hub)
 - "What should I make a repository" discussion
+- Selective commits (`.gitignore`)
 
 ---
 
@@ -192,3 +193,151 @@ _Readme files on private repos are very useful to remind future-you what this re
 vvvvvv
 
 From now on, after every commit in this repository, you should type `git push` to push it (no need to do `-u origin` unless you have a new branch).
+
+---
+
+#### Workflow new Github repo
+
+1. Local in the lead
+  - Create repo on your computer (`git init`)
+  - Create empty repo on Github
+  - Copy-paste the `git remote add` and `git push -i origin main` codes
+2. Github in the lead
+  - Create repo on Github, including Readme / License / anything (Github will do `git init`)
+  - `git clone` on your local computer
+
+NB: `git clone` clones an existing repo from Github (or elsewhere); it can be used for new and (long) existing repos.
+
+---
+
+### Setup R Studio to work with git(hub)
+
+---
+
+### "What should I make a repository" discussion
+
+- Git should not dictate your directory structure (usually)
+- Normally, your directory structure will look something like this:
+
+```asciiart
+projects
+|- projectA
+|  |- src
+|  |- data
+|  |- output
+|  |- cache
+|  |- doc
+|- projectB
+|  |- src
+|  |- data
+|  |- output
+|  |- cache
+|  |- doc
+```
+
+vvvvvv
+
+
+- Or with one more level
+
+```asciiart
+projects
+|- Gdansk
+|  |- projectA
+|  |  |- src
+|  |  |- data
+|  |  |- output
+|  |  |- cache
+|  |  |- doc
+|  |- projectB
+|  |  |- src
+|  |  |- data
+|  |  |- output
+|  |  |- cache
+|  |  |- doc
+|- OxNav
+|  |- projectC
+|  |  |- src
+etc
+```
+
+vvvvvv
+
+- The dirs with `*` are the ones that you want to make repo roots (where the `.git` directory lives)
+- The dirs with `$` are the ones that you want to add to your repos
+
+```asciiart
+projects
+|- projectA *
+|  |- src $
+|  |- data
+|  |- output
+|  |- cache
+|  |- doc $
+|- projectB *
+|  |- src $
+|  |- data
+|  |- output
+|  |- cache
+|  |- doc $
+```
+
+vvvvvv
+
+- Sometimes you find that one project borrows from another. For instance, if in `projectA` you wrote an amazing function, you might have somewhere in `projectB` something like:
+
+```
+import "../../projectA/src/function.R"
+```
+
+- This is not good (since a repo should not depend on things outside of the repo)
+
+Solutions:
+
+- If projectB uses most of projectA's code, make projectA a module and import it in projectB
+- Else make a module "KasiaLibrary" and move the shared code in there. Make this module a dependency of both.
+
+---
+
+### Selective commits
+
+- You can only commit the `src` and `doc` directories to your repository by doing `git add src doc`, rather than `git add .`.
+- You don't have to add directories to the repo, you add files. So even to an empty repo, you can do `git add src/test.R src/library/subdir/test.R`. No need to `git mkdir` (also, it's not possible to do so)
+- (Because git has no concepts of directories, you were making placeholder files during the gitlab course; if you want a `git clone` to create an (empty) `data` directory, you just check in a `data/.placeholder` file.)
+- However, if you only check in some files / directory, there will always be a mess in your `git status` with untracked files.
+- Also, if you want to ignore (for git) files _inside_ directories, things get even more complex; you'd have to do `git add src/*.R src/*.Rmd` or something.
+
+## 🎈`.gitignore`🎈
+
+<!-- .element class="fragment" -->
+
+vvvvvv
+
+### `.gitignore`
+
+- Put a file called `.gitignore` in your repo root (next to the `.git` directory)
+
+```gitignore
+# ignore all .doc files (anywhere)
+*.doc
+
+# ignore all .html files (anywhere)
+*.html
+
+# ignore all files in ANY directory named temp
+temp/
+
+# ignore all files in the data,cache and output dir in the root directory
+/data/
+/cache/
+/output/
+
+# make an exception for the placeholder file in data
+!/data/.placeholder
+```
+
+vvvvvv
+
+- The `.gitignore` file is committed like anything else, so the ignores apply to all people sharing the repo
+- There is also a `global.gitignore` file (in your home dir) that applies to your whole computer, and a way to add files to the ignore list without putting them in the shared `.gitignore` file.
+- In time you'll learn to put the files specific to the _project_ in `.gitignore`, whereas the files specific to your OS / IDE (e.g. `.DS_Store`) in the other ignore locations
