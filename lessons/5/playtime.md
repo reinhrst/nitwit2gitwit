@@ -147,7 +147,7 @@ vvvvvvvv
 - There are many ways do "edit a file".
 - Nano is only one of the editors (actually the traditional editors on \*nix systems are `vi` or `vim` and `emacs`. Both are very very powerfull (quite a lot of programmers swear by them for all their work) but they are not very user-friendly (steep learning curve). So `nano` is used for people who don't want to start with 10 lessons of "how to use vim" :)
 - In this example we used `>>` to add text to a file (usually one or more lines, but it could just be more text on the last line); this mode is called "append". You could also use a single `>` but this will overwrite the whole file (so the file would only be the one line).
-- You could try to do something like (don't do this) `cat bananas.txt | tr a b > bananas.txt`. As we saw in lesson 2, `tr a b` replaces every `a` with a `b`. This will fail, because since all commands will run at the same time, it will write to the file while reading from it, and the result is an empty file.....
+- (if you don't get this and the next remark, don't worry, they're very advanced). You could try to do something like (don't do this) `cat bananas.txt | tr a b > bananas.txt`. As we saw in lesson 2, `tr a b` replaces every `a` with a `b`. This will fail, because since all commands will run at the same time, it will write to the file while reading from it, and the result is an empty file.....
 - So you _could_ do something like `cat bananas.txt | tr a b > bananas1.txt && rm bananas.txt && mv bananas1.txt bananas.txt`
 
 ---
@@ -211,7 +211,7 @@ index 9a64460..c12cf20 100644
 vvvvvvvv
 
 
-One small detail to add is that `git diff` shows the diff between the the index and the working directory only for those files that are in the index. So if you have files in your working directory that you never did `git add` on, they are not included in the diff.
+One small detail to add is that `git diff` shows the diff between the index and the working directory only for those files that are in the index. So if you have files in your working directory that you never did `git add` on, they are not included in the diff.
 
 
 ---
@@ -569,9 +569,6 @@ Date:   Fri Mar 24 17:50:15 2023 +0000
 <!-- .element class="hidden-answer" -->
 
 <button>show answer</button>
-
-vvvvvvvv
-
 
 ---
 
