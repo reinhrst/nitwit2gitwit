@@ -139,6 +139,7 @@ Connection to ssh.github.com closed.
 
 - On the Github homepage, choose "New" (repository)
 - Choose a name, make it private, and don't select anything else (but click "Create Repository)
+- At the top of the new page, you can choose between "https" and "ssh"; make sure you choose "ssh"
 
 ...or push an existing repository from the command line
 ```bash
