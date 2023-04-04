@@ -123,7 +123,7 @@ vvvvvv
   - Go to <https://github.com/>, log in, click your photo on the right top and choose "settings"
   - Go to "SSH and GPG keys" --> New SSH Key
   - Title: computer name, type: Authentication key, key: whatever you just copied, and "Add SSH key"
-- Now again connect to github: `ssh git@github.com` (explain parts of the command)
+- Now again connect to github: `ssh git@github.com`
 
 ```console
 $ ssh git@github.com
