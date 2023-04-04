@@ -71,7 +71,7 @@ sequenceDiagram
   local ->> remote: start ssh session please
   remote ->> local: sure, my public key is ABC
   Note over local: check remote's public key
-  local ->> remote: Encrypted(Here's by public key)
+  local ->> remote: Encrypted(Here's my public key)
   local ->> remote: Encrypted(ok, welcome)
 </span>
 
