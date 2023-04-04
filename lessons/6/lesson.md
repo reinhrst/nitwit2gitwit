@@ -199,13 +199,14 @@ From now on, after every commit in this repository, you should type `git push` t
 
 #### Workflow new Github repo
 
-1. Local in the lead
-  - Create repo on your computer (`git init`)
-  - Create empty repo on Github
-  - Copy-paste the `git remote add` and `git push -i origin main` codes
-2. Github in the lead
-  - Create repo on Github, including Readme / License / anything (Github will do `git init`)
-  - `git clone` on your local computer
+##### 1. Local in the lead
+- Create repo on your computer (`git init`)
+- Create empty repo on Github
+- Copy-paste the `git remote add` and `git push -i origin main` codes
+
+##### 2. Github in the lead
+- Create repo on Github, including Readme / License / anything (Github will do `git init`)
+- `git clone` on your local computer
 
 NB: `git clone` clones an existing repo from Github (or elsewhere); it can be used for new and (long) existing repos.
 
@@ -282,6 +283,26 @@ projects
 |  |- cache
 |  |- doc $
 ```
+```asciiart
+projects
+|- Gdansk
+|  |- projectA *
+|  |  |- src $
+|  |  |- data
+|  |  |- output
+|  |  |- cache
+|  |  |- doc $
+|  |- projectB *
+|  |  |- src $
+|  |  |- data
+|  |  |- output
+|  |  |- cache
+|  |  |- doc $
+|- OxNav
+|  |- projectC *
+|  |  |- src $
+etc
+```
 
 vvvvvv
 
@@ -296,7 +317,7 @@ import "../../projectA/src/function.R"
 Solutions:
 
 - If projectB uses most of projectA's code, make projectA a module and import it in projectB
-- Else make a module "KasiaLibrary" and move the shared code in there. Make this module a dependency of both.
+- Else make a module "KasiaLibrary" (in it's own git repo) and move the shared code in there. Make this module a dependency of both.
 
 ---
 
@@ -305,7 +326,7 @@ Solutions:
 - You can only commit the `src` and `doc` directories to your repository by doing `git add src doc`, rather than `git add .`.
 - You don't have to add directories to the repo, you add files. So even to an empty repo, you can do `git add src/test.R src/library/subdir/test.R`. No need to `git mkdir` (also, it's not possible to do so)
 - (Because git has no concepts of directories, you were making placeholder files during the gitlab course; if you want a `git clone` to create an (empty) `data` directory, you just check in a `data/.placeholder` file.)
-- However, if you only check in some files / directory, there will always be a mess in your `git status` with untracked files.
+- However, if you only check in some files / directories, there will always be a mess in your `git status` with untracked files.
 - Also, if you want to ignore (for git) files _inside_ directories, things get even more complex; you'd have to do `git add src/*.R src/*.Rmd` or something.
 
 ## 🎈`.gitignore`🎈
