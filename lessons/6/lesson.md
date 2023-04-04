@@ -202,7 +202,7 @@ From now on, after every commit in this repository, you should type `git push` t
 ##### 1. Local in the lead
 - Create repo on your computer (`git init`)
 - Create empty repo on Github
-- Copy-paste the `git remote add` and `git push -i origin main` codes
+- Copy-paste the `git remote add` and `git push -u origin main` codes
 
 ##### 2. Github in the lead
 - Create repo on Github, including Readme / License / anything (Github will do `git init`)
