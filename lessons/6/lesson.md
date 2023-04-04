@@ -92,7 +92,7 @@ vvvvvv
 
 vvvvvv
 
-- Github only allows connections using `ssh` with Key-Based Authentication (no password authentication). Anonymous connections are allowed over HTTPS.
+- Github only allows connections using `ssh` with Key-Based Authentication (no password authentication). Anonymous connections are allowed over HTTPS (though the `git` util; on a browser you can login through HTTPS).
 - So in order to use Github, we need to have a (unique) private/public key pair.
 - We will then associate our public key with our account, so github knows that if that key is used, it is you wanting in.
 - Even github will not know (or ever ask for, etc) your private key.
