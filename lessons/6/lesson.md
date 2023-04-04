@@ -99,6 +99,7 @@ vvvvvv
 - Keep your private key as secure as your Github password (as in: never let it leave your computer)
 - If you have multiple computers, best to generate 1 key per computer and associate multiple keys in your Github account.
 - If you loose your private key (and only use it for Github): no problem, just generate a new key, and associate it with your account.
+- (System administrators use their keys to other computers through `ssh`, so they (must) really care about key security; in our case, slightly less problematic).
 
 ---
 
