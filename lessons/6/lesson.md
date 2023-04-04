@@ -97,7 +97,7 @@ vvvvvv
 - We will then associate our public key with our account, so github knows that if that key is used, it is you wanting in.
 - Even github will not know (or ever ask for, etc) your private key.
 - Keep your private key as secure as your Github password (as in: never let it leave your computer)
-- If you have multiple computers, best to generate 1 key per computer and associate multiple in your account.
+- If you have multiple computers, best to generate 1 key per computer and associate multiple keys in your Github account.
 - If you loose your private key (and only use it for Github): no problem, just generate a new key, and associate it with your account.
 
 ---
