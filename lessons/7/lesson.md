@@ -2,6 +2,7 @@
 - Understand commit refs
 - Make branches 
 - Merge
+- (and remote repos are just branches)
 
 ---
 
@@ -244,7 +245,7 @@ gitGraph
 
 vvvvvvv
 
-#### rebase / squash-merge
+#### squash-merge
 
 <pre class="mermaid">
 gitGraph
@@ -260,6 +261,25 @@ gitGraph
     commit id: "M3"
 </pre>
 
+Squash
+
+<pre class="mermaid">
+gitGraph
+    commit id: "1"
+    branch A
+    checkout main
+    commit id: "M1"
+    commit id: "M2"
+    checkout A
+    commit id: "A1&2"
+    checkout main
+    commit id: "M3"
+</pre>
+
+(continued on next slide...)
+
+vvvvvvv
+
 Rebase
 
 <pre class="mermaid">
@@ -270,11 +290,10 @@ gitGraph
     commit id: "M2"
     commit id: "M3"
     branch A
-    commit id: "A1*"
-    commit id: "A2*"
+    commit id: "A1&2*"
 </pre>
 
-We fast-forward but first "squash" the commit into 1, so that we'll only have one commit on the main branch.
+Now just fast-forward
 
 <pre class="mermaid">
 gitGraph
