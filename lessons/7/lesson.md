@@ -109,9 +109,9 @@ gitGraph
 </pre>
 
 - When you merge branch _A_ into branch _main_ it means:
-  - Any method that results in branch _main_ having all changed in branch _A_ (in addition to what it already had)
+  - At the end,  _main_ should have all the changes in branch _A_ (in addition to what it already had)
 - Different methods:
-  - (manually -- no git;  sometimes if change is simple)
+  - (manually -- no git;  sometimes if change is simple (or super complex))
   - merge-commit
   - rebase / fast-forward
   - squash
@@ -311,7 +311,7 @@ vvvvvvv
 - In the diagrams we pretend the branch disappears after merge; this is a manual operation (and not always what you want)
 - Git merge always tries to do it's best to not create conflicts, but if it does, you will have to manually fix them
 - Rebase may result in rebase conflicts (which are more or less the same)
-- avoid conflicts by not checking in more than you want!!!!
+- avoid conflicts by not checking in more than you want (remember `git diff --cached` before commit)!!!!
 
 Differences in strategies
 
@@ -356,6 +356,7 @@ vvvvvvv
   - I think "rebase" is the cleanest (but [discussion](https://stackoverflow.com/questions/2472254/when-should-i-use-git-pull-rebase)).
   - Be prepared that you may get merge (rebase) conflicts if you have local commits or local working directory changes
   - Avoid too many conflicts by pushing regularly (as soon as your commits are in GitHub, conflicts are not _your_ problem anymore)
+- As long as all changes are made in 1 remote (1 person / 1 computer) you should not have merges / rebases / conflicts.
 
 vvvvvvv
 
