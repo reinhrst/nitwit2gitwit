@@ -1,9 +1,10 @@
-### Local git advanced
+### 7: Local git advanced
 - Understand commit refs
 - Make branches 
 - Merge
 - (and remote repos are just branches)
 
+(8: Github and integrations)
 ---
 
 ### Commit ref(erenece)s
