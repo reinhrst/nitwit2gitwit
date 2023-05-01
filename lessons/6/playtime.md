@@ -2,7 +2,7 @@ For this playtime, we start in an empty git repository (so create an empty direc
 
 ```console
 $ pwd
-/Userss/reinoud
+/Users/reinoud
 $ mkdir playtime
 $ cd playtime
 $ git init
