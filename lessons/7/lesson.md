@@ -334,15 +334,14 @@ Differences in strategies
 |---|---|
 |`git cherry-pick COMMITREF`|Apply the _diff_ pointed to by COMMITREF to the current branch.<br>`cherry-pick` may pause if not clean
 |`git merge BRANCH`|Starts merging BRANCH into current branch.<br>`merge` may pause if not clean.
-|`git merge --abort`|Abort a pause merged
-|`git merge --continue`|Continue a paused merge after manually resolving conlicts
+|`git merge --abort`|Abort a paused merged
 
 ---
 
 ### Branches and remote git
 
 ```
-git add remote origin git@github.com:reinhrst/nitwit2gitwit`
+git add remote origin git@github.com:reinhrst/nitwit2gitwit
 git push --set-upstream origin branch
 ```
 
