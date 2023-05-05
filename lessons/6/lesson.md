@@ -11,7 +11,7 @@
 We're going to optimise your shell-experience a bit
 
 |shell|rc file|
-|----|----|
+|-------|------|
 |`bash`|`~/.bashrc`|
 |`zsh`|`~/.zshrc`|
 
