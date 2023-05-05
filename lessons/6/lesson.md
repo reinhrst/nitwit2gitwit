@@ -308,7 +308,7 @@ etc
 vvvvvv
 
 - Sometimes you find that one project borrows from another. For instance, if in `projectA` you wrote an amazing function, you might have somewhere in `projectB` something like:
-
+\
 ```
 import "../../projectA/src/function.R"
 ```
@@ -322,7 +322,7 @@ Solutions:
 
 ---
 
-### Selective commits
+### Selective commits - MARTYNA CHANGE :)
 
 - You can only commit the `src` and `doc` directories to your repository by doing `git add src doc`, rather than `git add .`.
 - You don't have to add directories to the repo, you add files. So even to an empty repo, you can do `git add src/test.R src/library/subdir/test.R`. No need to `git mkdir` (also, it's not possible to do so)
