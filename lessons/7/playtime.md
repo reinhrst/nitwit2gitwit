@@ -253,6 +253,9 @@ Use `git log` to see the history
 ```console
 $ git log
 [.... some output ...]
+# note that sometimes git log may seem be to "stuck" when there is a lot of text.
+# In this case it shows the results in a "scollable context".
+# To leave this context, press q (for quit).
 $ git checkout dangerous-experiment
 Switched to branch 'dangerous-experiment'
 $ git log
