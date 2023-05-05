@@ -1,8 +1,9 @@
 We'll continue in the playtime repository that we made last week.
 - If you don't have this anymore, or want to make sure you start afresh, download the [zipfile containing that state here](https://www.dropbox.com/s/kt9ws03kipdqlo9/playtime.zip?dl=1)
+- Make sure you do the above in a place where you don't already have a directory called "playtime".
 - Remember that a git repository is nothing but a directory with a `.git` subdirectory (in a special format). So you can zip a whole repository and save the exact state (including what is in the working directory and in the index) and move it to a new computer, or email it to someone, etc.
 - Tip: if you ever want to do something on a repository and you're not 100% sure that you won't destroy it all, you can just zip the whole directory and if you destroy everything, you can unzip and try again (or just copy the whole directory, rather than zipping it).
-- If you want to be a commandline-guru, you can actually do `wget "https://www.dropbox.com/s/kt9ws03kipdqlo9/playtime.zip?dl=1"` to download the file, and `unzip playtime.zip` to unzip it. `wget` and `unzip` are installed on most (but not all) systems.
+- If you want to be a commandline-guru, you can actually do `wget "https://www.dropbox.com/s/kt9ws03kipdqlo9/playtime.zip?dl=1" -O playtime.zip` to download the file, and `unzip playtime.zip` to unzip it. `wget` and `unzip` are installed on most (but not all) systems.
 
 (see vertical-scroll for more)
 
