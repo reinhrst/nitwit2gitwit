@@ -14,6 +14,8 @@ for file in md_files:
             output.append("\nvvvvvv\n")
         output.append(f"# Lesson {rel_file.parent}\n")
     lastfile = file
-    output.append(f"- [{rel_file.stem}](/index.html?markdown-url={rel_file})")
+    output.append(f"- [{rel_file.stem}](/index.html?markdown-url={rel_file}) "
+                  f"-- [print (chrome only)]"
+                  f"(/index.html?markdown-url={rel_file}&print-pdf)")
 
 index_md_file.write_text("\n".join(output))

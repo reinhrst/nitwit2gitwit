@@ -15,7 +15,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - name: Combine and create index
-        run: mkdir dist && cp -r lessons/* dist && python create-index-md.py
+      - name: Build
+        run: make
       - name: Deploy
         run: aws s3 sync --delete --content-encoding utf8 dist s3://n2g.claude-apps.com/website/${GITHUB_REF/refs\/heads\//}/
