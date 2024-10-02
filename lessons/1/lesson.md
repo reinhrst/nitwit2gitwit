@@ -301,38 +301,44 @@ vvvvvv
 
 ### Redirects
 
-`>`: redirect stdout to file (overwrite; e.g. `echo hello > test.txt`)
-`>>`: append stdout to file (e.g. `echo hello again >> test.txt`)
-`|`: send stdout as stdin of next command
+- `>`: redirect stdout to file (overwrite; e.g. `echo hello > test.txt`)
+- `>>`: append stdout to file (e.g. `echo hello again >> test.txt`)
+- `|`: send stdout as stdin of next command
+
+vvvvvv
 
 ### Separators between commands on same line
 
-`;`: end of command
-`&&`: "and"; next command only runs if previous succeeded
-`||`: "or"; next command only runs if previous failed
+- `;`: end of command
+- `&&`: "and"; next command only runs if previous succeeded
+- `||`: "or"; next command only runs if previous failed
+
+vvvvvv
 
 ### Subshell
 
-`$(cmd)` execute `cmd` and put the output in place of this. e.g `echo "I'm in $(pwd)"`
+- `$(cmd)` execute `cmd` and put the output in place of this. e.g `echo "I'm in $(pwd)"`
 
 ---
 
 # Cheat sheet 2: files and directory names
 
-`~`: home directory
-`/`: directory separator; if at start: absolute directory. if by itself: root
-`/root`: home directory for root user (note: NOT root directory)
-`/home/NAME/` or `~NAME/`: home directory for NAME user
-`.`: current (or same) directory
-`..`: one directory up
-`/tmp`: place for temporary files (e.g. removed after restart)
-`.xxxx`: hidden file / directory (starts with `.`)
+- `~`: home directory
+- `/`: directory separator; if at start: absolute directory. if by itself: root
+- `/root`: home directory for root user (note: NOT root directory)
+- `/home/NAME/` or `~NAME/`: home directory for NAME user
+- `.`: current (or same) directory
+- `..`: one directory up
+- `/tmp`: place for temporary files (e.g. removed after restart)
+- `.xxxx`: hidden file / directory (starts with `.`)
 
-wildcards:
-`*`: 0 or more characters
-`?`: 1 character
-`[abc]`, [a-z]: any of the characters in `a`, `b` and `c` or between `a` and `z`
-`{mp4,MTS}`: either `mp4` or `MTS`
+vvvvvv
+
+### wildcards:
+- `*`: 0 or more characters
+- `?`: 1 character
+- `[abc]`, [a-z]: any of the characters in `a`, `b` and `c` or between `a` and `z`
+- `{mp4,MTS}`: either `mp4` or `MTS`
 
 ---
 
@@ -340,8 +346,6 @@ wildcards:
 
 - Note: in \*nix stuff *generally* is case-sensitive
 - general idea `filename.ext`; extension no special meaning in linux
-- **directorynames / filenames with spaces / special chars need escaping**
-  (put them between `""` or `''`)
 
 - `-h` / `--help`: (usually) shows some help about a command. (e.g. `mkdir -h`)
 - `man`: shows manual page (if available; e.g. `man mkdir`)
