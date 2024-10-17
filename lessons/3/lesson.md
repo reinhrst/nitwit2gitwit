@@ -1,9 +1,4 @@
----
-marp: true
-paginate: true
----
-
-# Homework take aways
+# Homework take-aways
 
 `cat test.txt` will print the content of `test.txt` to the screen.
 
@@ -17,83 +12,150 @@ However, don't press it twice, or you'll exit your shell ;)
 
 ---
 
-# Lesson 2
+# Lesson 3
 
-- Number systems: binary, octal, decimal, hexadecimal
+- Numeral systems: binary, octal, decimal, hexadecimal
 - CLI commands: pipe, redirect, how programs fit together (& terminal)
 - Diff and Patch
 
 ---
 
-# Decimal (base 10):
+## Numeral systems
 
+If you thought that at least numbers were something you could count on being simple....
+
+**You're wrong!!**
+
+vvvvvv
+
+## Numeral systems
+
+- Decimal (base 10)
+- Binary (base 2)
+- Octal (base 8)
+- Hexadecimal (base 16)
+- Base 64
+- Base 256
+
+
+---
+
+## Decimal (base 10):
+
+
+<foobar>
 $$
-\begin{align}
+\begin{aligned}
 42 &= 4 * 10 + 2 * 1 \\
 42 &= 4 * 10^1 + 2 * 10 ^0 \\
 123450 &= 1 * 10^5 + 2 * 10 ^ 4 + 3 * 10^3 * 4 * 10 ^ 2 + 5 * 10^1 + 0 * 10^0 \\
 & \\
 3.14 &= 3 * 10^0 + 1 * 10^{-1} + 4 * 10^{-2}
-\end{align}
+\end{aligned}
 $$
+</foobar>
 
 ---
 
-# Binary (base 2)
+## Binary (base 2)
 
-"The other day I told my friend 10 jokes about binary.
-Unfortunately, he didn’t get either of them!"
 
 Written as `0b.....`
 
+<foobar>
 $$
-\begin{align}
+\begin{aligned}
  0\mathrm{b}10 &= 1 * 2^1 + 0 * 2 ^ 0 = 2 \\
  0\mathrm{b}101010 &= ...
-\end{align}
+\end{aligned}
 $$
+</foobar>
 
 A single 1 or 0 is called a bit. 8 bits is a byte:
 
+<foobar>
 $$
-\begin{align}
+\begin{aligned}
  0\mathrm{b}00000000 &= 0 \\
  0\mathrm{b}11111111 &= 255
-\end{align}
+\end{aligned}
 $$
+</foobar>
 
-(Note: little-endian vs big-endian)
+_There are 10 types of people in the world: those who understand binary, and those who don't._
+
+vvvvvv
+
+## Endianness
+
+![byte](3/byte.webp)
+
+Please decode what byte is in the signal above
 
 ---
 
-# Hexadecimal (hex; base 16)
+## Hexadecimal (hex; base 16)
 
 Written as `0x.....`
 We need characters for the numbers 10-15: `A=10, B=11, C=12, D=13, E=14, F=15`.
 Both uppercase and lowercase used
 
+<foobar>
 $$
-\begin{align}
+\begin{aligned}
  0\mathrm{x}10 &= 16 \\
  0\mathrm{xFF} &= ... \\
- 0\mathrm{xfaceb00c} &= ... \\
-\end{align}
+ 0\mathrm{xdeadbeef} &= ... \\
+\end{aligned}
 $$
+</foobar>
 
-Note: `0xFF FF FF FF` (`=0x01 00 00 00 00 - 1`)
+Two hex-digits are one byte (16 * 16 = 256)
 
 ---
 (lesser systems)
 
-# Octal (base 8)
+## Octal (base 8)
 
-Written as `0o.....` or `0....` (so sometimes `0123 != 123`)
+Written as `0o.....` or `0....`
 
 Only used in specific contexts
 
-# Base 256
+## Base 64
 
-Each byte is one "character"; used in practice by writing hexadecimal as groups of two.
+Uses symbols `0-9a-zA-Z` (10 + 26 + 26 = 62) and two extra (often `+` and `\`).
+
+Used to display binary data in "printable symbols"
+
+vvvvvv
+
+### Side note: other non-computer bases
+
+- Base 10 comes from "counting on one's fingers"
+- Base 12  (duodecimal) minor and speculative usage, foot-inch, dozen-gross, months in year, 12 hours in a day (and 12 in a night).
+- Base 20 (vigesimal) Mayans, some early European systems
+- Base 60 (sexagesimal) used by Babylonians and still in use for time-keeping / angular positioning:
+
+<foobar>
+$$
+\begin{aligned}
+ 5\mathrm{h}30\mathrm{m}12\mathrm{s} &= 5 * 60^2 + 30 * 60^1 + 12 * 60 ^ 0 \mathrm{s} \\
+ 77^{\circ} 00\mathrm{`} 06`` &= 77 * 60 ^ 0 + 0 * 60 ^{-1} + 6 * 60^{-2} = 77.0013^{\circ} \\
+ 15^{\circ} 32` 28`` &= 15 * 60 ^ 0 + 32 * 60 ^{-1} + 28 * 60^{-2} = 15.54410^{\circ} \\
+\end{aligned}
+$$
+</foobar>
+
+UK until 1971: 4 farthing = 1 penny, 12 pence = 1 shilling, 20 shilling = £1
+
+Note that base 12 and base 60 nice for mathematical reasons.
+
+---
+
+## Why all these bases / when to use which
+
+
+
 
 ---
 

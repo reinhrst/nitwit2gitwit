@@ -1,7 +1,6 @@
 # Lesson 2
 
 - Version Control System
-- Number Systems
 
 ---
 
