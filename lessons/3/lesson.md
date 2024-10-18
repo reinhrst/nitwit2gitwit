@@ -139,9 +139,9 @@ vvvvvv
 <foobar>
 $$
 \begin{aligned}
- 5\mathrm{h}30\mathrm{m}12\mathrm{s} &= 5 * 60^2 + 30 * 60^1 + 12 * 60 ^ 0 \mathrm{s} \\
- 77^{\circ} 00\mathrm{`} 06`` &= 77 * 60 ^ 0 + 0 * 60 ^{-1} + 6 * 60^{-2} = 77.0013^{\circ} \\
- 15^{\circ} 32` 28`` &= 15 * 60 ^ 0 + 32 * 60 ^{-1} + 28 * 60^{-2} = 15.54410^{\circ} \\
+ 5\mathrm{h} 30\mathrm{m} 12\mathrm{s} &= 5 * 60^2 + 30 * 60^1 + 12 * 60 ^ 0 \mathrm{s} \\
+ 77\mathrm{°} 00' 06'' &= 77 * 60 ^ 0 + 0 * 60 ^{-1} + 6 * 60^{-2} = 77.0013\mathrm{°} \\
+ 15\mathrm{°} 32' 28'' &= 15 * 60 ^ 0 + 32 * 60 ^{-1} + 28 * 60^{-2} = 15.54410\mathrm{°} \\
 \end{aligned}
 $$
 </foobar>
@@ -154,15 +154,36 @@ Note that base 12 and base 60 nice for mathematical reasons.
 
 ## Why all these bases / when to use which
 
+- Decimal is just because people are used to it
+- Computers work with bits and bytes (= 8 bits), which have 2 and $2^8=256$ values. So it's nice if your number system uses powers of 2 or powers of 256.
+- Binary has $$2^1$$ values per digit (so 1 bit)
+- Octal has $$2^3=8$$ values per digit (so 3 bits)
+- Hexadecimal has $$2^4=16$$ values per digit (so 4 bits, 2 hex-digits = 1 byte)
+- Base 64 has $$2^6=64$$ values per digit (so 4 digits = 24 bits = 3 bytes)
 
 
+vvvvvv
+
+Generally things will have a prefix:
+
+- No prefix: decimal
+- `0b...`: binary (eg. `0b10101010`)
+- `0o....`: octal. Sometimes also (annoyingly) just `0...`. So `0123 !== 123` (`0123 == 0o123 == ...`)
+- `0x...` hexadecimal. Often written in groups of two: `0xFF A0 01 00 45 76 7E 0E` to represent bytes.
+
+Sometimes, you can only know from context:
+
+- If things mix upper and lowercase letters and numbers, good chance it's base64
+- If things mix numbers and letters A-F (either uppercase or lowercase but not both) it's usually hexadecimal
+- Some commandline programs (like `chmod` always expect octal numbers)
+- Some domains always use hexadecimal (e.g. in HTML, color grey is `rgb(127, 127, 127) == #7F7F7F`. So `#111111 !== rgb(11, 11, 11)`
 
 ---
 
-# CLI programs
+## CLI programs
 
 
-```asciiart
+```text
            command line parameters
                       |
                       |
@@ -177,12 +198,14 @@ Note that base 12 and base 60 nice for mathematical reasons.
                 return code
 ```
 
----
+vvvvvv
 
-# Connect them (like audio equipment / signal processors)
+## Connect them
+
+(like audio equipment / signal processors)
 
 
-```asciiart
+```text
              *-----*        *-----*        *-----*
 (stdin --->) |PROG1|------->|PROG2|------->|PROG3|-------> stdout
              |     |--\     |     |--\     |     |--\
@@ -196,32 +219,24 @@ Note that base 12 and base 60 nice for mathematical reasons.
 
 ```
 
+vvvvvv
+
+## Default filedescriptors
+
+- `stdin`: standard input (to a program). Connected to terminal (what you type) by default, if not piped in from somewhere else
+- `stdout`: standard output (from a program). By default print to terminal.
+- `stderr`: standard error (from a program). Here the program will send warnings and error messages. By default connected to the terminal
+
+Redirections
+
+- `|` pipe character, connects the `stdout` of the previous program to the `stdin` of the next program.
+- `>` sends the `stdout` of the previous program to a file
+- `>>` appends the `stdout` of the previous program to a file
+- `<` uses the content of a file as `stdin` to the **previous** program
 ---
 
-# The terminal
-
-All connections between programs (incl shell) are binary: `0100101110100101010101...`
-
-The terminal (traditionally) transforms it into "characters" and then "pixels"
-
-```asciiart
-                    A
-                    S         F
-                    C         O    ....1....
-                    I         N    ...1.1...
-                    I         T    ..1...1..
-01000001 ----> 65 ----> 'A' ---->  .1.....1.
-                                   111111111
-                                   1.......1
-                                   1.......1
-```
-
-And in the other direction (when a key is pressed, sends the ASCII code as binary "on the wire").
-
----
-
-# Some commands
-These commands all work on stdin, but can also take a filename (or multiple)
+## Some commands
+These commands all work on `stdin`, but can also take a filename (or multiple)
 
 `cat` -- print content
 `tr abc def` -- replace every `a` with `d`, every `b` with `e`, etc.
@@ -238,11 +253,22 @@ e.g. `cat test.txt | grep hello | tr he ba`
 
 ---
 
-# Play time
+# Hands-on
 
-Each has their own environment.
+For this hands-on work, you need some files. In order to get the files, we will _clone_ a `git` repo from GitHub:
 
-In the directory `~/raven` there are 3 different versions of the poem by E.A.Poe.
+```
+# make sure you're in a directory where you want to make a subdir "raven"
+git clone --branch lesson3 https://github.com/reinhrst/raven
+cd raven
+```
+
+NOTE: Even though we use a `git` repo to download the files, the things we do in this playtime are NOT using `git`.
+
+---
+
+
+In the `raven` directory there are different versions of the poem by E.A.Poe.
 For now we focus on `original.txt`.
 
 - Print the poem
@@ -257,15 +283,23 @@ For now we focus on `original.txt`.
 
 ---
 
-# Diff and patch (the workhorses of git)
+## `diff` and `patch`
+
+Understanding `git` means understanding `diff` and `patch`, which do most of the interesting work.
 
 - `diff file1 file2` shows the difference between 2 files
-- `diff -u file1 file2` shows the difference between 2 files in better format
+- `diff --color --unified file1 file2` shows the difference between 2 files in better format
 - `patch orginal patchfile -o -` applies the patchfile (result of diff) to original
 
 ---
 
-# Playtime 2
+Let's use `diff` so we understand how it works
+
+- Look at the contents of `orginal.txt`
+- Now look at the contents of `orginal2.txt`
+- Determine the differences between the two files.
+
+---
 
 - look at the differences between `modern.txt` and each of `modern?.txt`
 - make a patchfile for `modern.txt` to `modern2.txt` (how can we write `stdout` to a file? See lesson 1)
