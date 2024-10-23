@@ -115,6 +115,21 @@ Some examples (to use on The Raven)?
 
 vvvvvv
 
+A hashing function takes (an arbitrary number of) _bytes_ as input and returns (a predefined number of) _bytes_ as output.
+
+A file on the computer (and any data in memory) are just bytes, so you can hash anything on your computer:
+
+- a text (or a text file)
+- source code
+- `.docx` word document
+- `.pdf` file
+- video file
+- program
+
+You can also hash multiple files (with some tricks) into a single hash.
+
+vvvvvv
+
 _If_ you choose the right function:
 
 - Quickly (few bytes) compare if two things are the same
@@ -151,6 +166,41 @@ E.g: 4 bytes (32 bits, 4B possibilities, after 9300 values you have a 1% possibi
 16 bytes (128 bits) has even with 26B values a 0.0000000000000001% chance of collision (10^-18)
 -->
 
+vvvvvv
+
+### Size of a hash
+
+<pre><code data-trim data-noescape data-line-numbers="2|1-2|2-5|2-3,6-9|2,10-11|" data-fragment-index="2">
+Base16:▕ 1 ▕ c ▕ 6 ▕ 1 ▕ 7 ▕ a ▕ 0 ▕ f ▕ c ▕ 0 ▕ 1 ▕ c ▕ 0 ▕ 8 ▕ 9 ▕ 6 ▕
+Memory: 0001110001100001011110100000111111000000000111000000100001100000
+Bytes: ▕       ▕       ▕       ▕       ▕       ▕       ▕       ▕       ▕
+Bytes:    (28)    (61)   (122)    (15)    (192)   (28)    (8)     (96)
+Bytes:   (0x1c)  (0x61)  (0x7a) (0x0f)   (0xc0)  (0x1c) (0x08)   (0x60)
+Ascii:    {FS}     =      z      {SI}     {?}     {FS}    {BS}     `
+Ascii:          ".=z....`"
+Latin_1:        ".=z.À..`"
+Latin_2:        ".=z.Ŕ..`"
+Hex:          0x1c617a0fc01c0860    (or 0x1C617A0FC01C0860)
+Decimal:               2045049913869076576</code></pre>
+
+- 64 bits (base 2)
+- 16 nibbles (base 16) <!-- .element: class="fragment" data-fragment-index="2" -->
+- 8 bytes (base 256) <!-- .element: class="fragment" data-fragment-index="3"  -->
+- 8 characters (BUT: only in "old" encodings) <!-- .element: class="fragment" data-fragment-index="4"  -->
+- hex-number of length 16 (without 0x!) (decimal nr of length 19) <!-- .element: class="fragment" data-fragment-index="5"  -->
+
+<span markdown="1" class="fragment" data-fragment-index="6">Normally length is in bits or bytes. Therefore a if the hash is `0x1c 61 7a 0f c0 1c 08 60`, it's of length _8 bytes_, or _64 bits_.</span>
+
+# Signatures
+
+Hashing + encryption can be used to create digital signatures:
+
+- Create a hash of the document you want to sign + extra info (who signs it, date-time, location)
+- Encrypt this hash with the person's private key, and attach this to the document (as some metadata).
+- Anyone opening the document can just read it; if they want to check your signature, they calculate the same hash on the document (carefully stripping out your signature first), and then compare it to decrypting the signature with your public key.
+- This way a signature only adds a couple of bytes to a document's length
+- This is why it's important that it's infeasible to find collisions in the used hash function.
+
 ---
 
 ## Playtime
@@ -165,7 +215,3 @@ E.g: 4 bytes (32 bits, 4B possibilities, after 9300 values you have a 1% possibi
 - How big is an md5 hash? How big a sha1 hash?
 - Advanced: did we _actually_ calculate the md5 of "hello world"?
 
-
-vvvvvv
-
-NB Hashing + encryption is used to create digital signatures!
