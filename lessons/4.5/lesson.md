@@ -21,11 +21,6 @@ Decimal:               2045049913869076576</code></pre>
 
 <span markdown="1" class="fragment" data-fragment-index="6">Normally length is in bits or bytes. Therefore a if the hash is `0x1c617a0fc01c0860`, it's of length _8 bytes_, or _64 bits_.</span>
 
-notes:
-I've been thinking how we're doing with homework these days.
-I'm afraid that I don't take enough time to "check" if homework is done, because I'm excited to move forward.
-New system, with answer, so you guys can move forward yourselves.
-
 ---
 
 ### Lesson 4
@@ -44,14 +39,13 @@ New system, with answer, so you guys can move forward yourselves.
 - Using patch-files to save space
 - (branches)
 
+vvvvvv
+
 History:
 
 - Have been around forever
 - Mostly centralised (lock files -- disadvantages)
 - In 2005 `git` was developed as decentralised (+local) VCS, for the linux kernel
-
-notes:
-dev versions vs "Versions"; note that certainly also very useful for one-person projects!
 
 ---
 
@@ -98,7 +92,7 @@ You never edit files directly in the VCS. You always get files from the VCS into
 | `merge`           | Combine all commits in two branches, to create a new revision (with 2 parents) |
 |                   |                                                                                |
 | `fetch`           | get new revisions from "remote location"                                       |
-| `pull`            | `fetch` + magic                                                                |
+| `pull`            | `fetch` + `merge`                                                                |
 | `push`            | push new commits to "remote location"                                          |
 
 ---
@@ -136,7 +130,7 @@ gitGraph
     merge past id: "1-4 & 2-2"
 </pre>
 
-NB: time is always from left to right (or top to bottom)
+NB: "time" is always from left to right (or top to bottom)
 
 - "Main" branch in `main` (or `master`)
 - From the initial commit `1` a branch `past` is made, to work on a version of the story in the past tense
@@ -145,62 +139,52 @@ NB: time is always from left to right (or top to bottom)
 - In the main branch, `commit` `1-4` is made
 - It's decided that the `past` branch should be merged (all changes from this branch should be pulled in) into `main`.
 
-notes: Say somethning about branch names
-
----
-
-### a git history
-
-"Linus Torvalds"
-
-- Early April 2005: Bitkeeper (commercial git-like software) removes free license for git kernel developers
-- 3 April: development of Git began
-- 6 April: project announced by Linus Torvalds,
-- 7 April: Git (source code) uses git as version management system
-- 18 April: First merge of branches
-- 29 April: "performance goals met"
-- 16 June: Linux Kernel 2.6.12 launched on git
+Note: how to choose a branch name?
 
 ---
 
 ### Local git
 
-**It's essential to understand git local mode**
-before moving on to non-local.
+_It's essential to understand git local mode before moving on to non-local._
 
 It's essential to (sort of) understand git non-local mode
-before moving to github.
+before moving to GitHub.
 
 For now, forget about `pull`, `fetch` and `push`
 
 Many devs (incl myself) have local gits on Dropbox for backup (less these days)
 
-notes:
-
-Just as it's essential to understand `diff` and `patch` before going on to
-emailing patch files around
-
 ---
 
 ### How to build a (local) VCS using diff and patch
 
-```madeup
+```none
 /
 - .vcs/
-  - commit 1/
-    - message.txt
-    - diffs/
-      - raven.txt.patch
-      - dove.txt.patch
-  - commit 2/
-    - message.txt
-    - diffs/
-      - raven.txt.patch
-  - commit 3/
-    - message.txt
-    - diffs/
-      - sparrow.txt.patch
-      - dove.txt.patch
+  - commits/
+    - 1/
+      - message.txt
+      - parents.txt (=none)
+      - diffs/
+        - raven.txt.patch
+        - dove.txt.patch
+    - 2/
+      - message.txt
+      - parents.txt (=1)
+      - diffs/
+        - raven.txt.patch
+    - 3/
+      - message.txt
+      - parents.txt (=2)
+      - diffs/
+        - sparrow.txt.patch
+        - dove.txt.patch
+  - branches/
+    - main.txt (=3)
+  - tags/
+    - v1.0.txt (=2)
+  - HEAD.txt (=3)
+  - CURRENT_BRANCH.txt (=main)
 - dove.txt
 - sparrow.txt
 - raven.txt
@@ -212,12 +196,18 @@ Example VCS system **(not git)** with 3 revisions, and revision 3 checked out.
 
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-notes:
+vvvvvv
 
-- Need some way to say "this is a version (= commit)
-- Version needs a number (sequential? or something else ?)
-- When commit, we save diff
-- When checkout certain version, we apply `patch` multiple times
+- `commit`:
+  - Create a new subdirectory under `commits`
+  - create patch files to show difference between `HEAD` and working directory
+  - create `message.txt` (based on message from user) and `parents.txt`
+  - change `HEAD.txt` to point to new commit
+  - change the file `branches/#CURRENT_BRANCH.txt#.txt` (so `branches/main.txt`) to point to new commit
+- Sequential version numbers a bad idea. What if we use the _hash_ of (`message.txt` + `parents.txt` + `diffs/*`)? That is _almost exactly_ what `git` does.
+- When `vcs checkout 2`, we just apply diffs for commits `1` and `2` and have version `2`
+
+---
 
 ### How is git different
 
@@ -288,9 +278,7 @@ hash(parent + diff + commit_name + commit_message + commit_datetime)
 
 - The sha is 20 bytes long (written as 40 hex-digits), but usually we only show the first 7 hex-digits (e.g. `8db12ee`); Larger projects need more.
 
----
-
-### How to think about git (2)
+vvvvvv
 
 - A _tag_ is a unique (semantic) label that points to a sha. It can be chosen by the user, and can be moved. Typ: version number
 
