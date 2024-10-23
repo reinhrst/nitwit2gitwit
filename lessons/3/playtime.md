@@ -28,7 +28,7 @@ The ones below are advanced:
 ---
 ## Math
 
-The following sums are in binary.
+The following sums are in binary, answers should also be in binary.
 Ideally you will be able to do them without converting them to decimal in your head (even if you convert to decimal to check your answer).
 
 - `0b1000 + 0b10`
