@@ -59,4 +59,4 @@ The same for hex sums
 
 ## Finally
 
-Redo the playtime from the lesson (possibly we didn't get to finish it).
+Redo the playtime/hands-on from the lesson (possibly we didn't get to finish it).
