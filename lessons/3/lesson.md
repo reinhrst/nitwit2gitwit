@@ -296,7 +296,87 @@ For now we focus on `original.txt`.
 - Print the lines with both `bird` and `fancy` in them
 - Now the same, but only the first line
 - Now the same, but with line numbers
-- Can you make the poem about a Bever?
+- Can you make the poem about a Tiger?
+
+---
+
+## Line endings
+
+One thing we have to talk about is line endings.
+
+For normal text (in English alphabet, no accents or emojis etc) each character is 1 byte:
+
+- "a" = 0x61, "b" = 0x62, "c" = 0x63, ..., z = "0x7a"
+- "A" = 0x41, "B" = 0x42, "C" = 0x43, ..., Z = "0x5a"
+- "0" = 0x30, "1" = 0x31, ... "9" = 0x39
+
+See [the ASCII table](https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html) for the full table.
+
+There are special characters here as well:
+
+- 0x20 = SPACE (if you ever noticed that in a URL spaces are (sometimes) represented as `%20`, now you know)
+- 0x0a = LINE FEED / NEWLINE (also written as `\n`)
+- 0x0d = CARRIAGE RETURN (CR; also written as `\r` or `^M`)
+
+vvvvvv
+
+Windows and the rest of the world disagree on what should be on the end of a line of text:
+
+- Windows wants all lines to end in `\r\n` (or 0x0d 0a, or CR LF)
+- The rest of the world wants lines to end in only `\n` (0x0a, or LF)
+- (old macs actually had only `\r` at the end of a line, but this was changed in 2001, now they use `\n`)
+
+Most editors on both Windows and Linux/Mac can these days deal with both types of line endings, however some cannot.
+
+If you open a file with windows line-endings in an editor without support, every line seems to end in `^M` before the newline,
+
+If you open a file with unix line-endings in a (windows) editor without support, all newlines seem to have disappeared (sometimes replaced by some character).
+
+vvvvvv
+
+![Carriage returns on linux](3/carriage-return-on-unix.png)
+
+A file with windows line-endings opened in a mac editor. The `^M` is actually a single byte (0x0d, CR).
+
+vvvvvv
+
+![Unix line endings on notepad](3/unix-lines-on-notepad.webp)
+
+A file with unix line endings opened in notepad (pre-2018; these days notepad does the right thing)
+
+vvvvvv
+
+These days most editors can deal with both types of enters, however some may always save files with a certain kind of line ending.
+
+This is a major issue for tools like `git`; if you open a text file in your editor, change one word, and save it with all line endings changed, _diff will think that every line has changed_`.
+
+The solution is some magic: By default, on Windows, `git` converts all line endings to `\r\n` on _checkout_ (we will get to this term next week, it means taking a version from the repository and presenting it in the working directory), and convert the line endings back to `\n` on _commit_.
+
+Tools like `diff` and `patch` also use magic, but...
+
+vvvvvv
+
+sometimes with magic, things go wrong...
+![Things go wrong](3/things-go-wrong.jpeg)
+
+vvvvvv
+
+If you ever find yourself in trouble:
+
+- `dos2unix filename.txt` converts window line endings to unix line endings
+- `unix2dos filename.txt` converts unix line endings to windows line endings
+
+These programs are idempotent; this means that if you run `dos2unix` on a file that already has unix line endings, it will do nothing (so there is no harm in trying).
+
+You can use the `file` program to find out if a file has windows line endings:
+```text
+$ file original.txt
+original.txt: Unicode text, UTF-8 text, with CRLF line terminators
+$ dos2unix original.txt
+dos2unix: converting file original.txt to Unix format...
+$ file original.txt
+original.txt: Unicode text, UTF-8 text
+```
 
 ---
 
@@ -308,6 +388,14 @@ Understanding `git` means understanding `diff` and `patch`, which do most of the
 - `diff --color --unified file1 file2` shows the difference between 2 files in better format
 - `patch orginal patchfile -o -` applies the patchfile (result of diff) to original
 
+vvvvvv
+
+- To save the diff to a file, make sure to exclude the `--color` option -- text files cannot have colour.
+- Windows users will have to run `diff --unified --strip-trailing-cr file1 file2` to create a patch file with the correct line endings.
+Note that this is only for this week, as soon as we start with `git` it should not be a problem anymore.
+- Alternatively, Windows users can run `diff --unified file1 file2 > patchfile.patch` and then `dos2unix patchfile.patch`
+
+<!-- .element class="note" -->
 ---
 
 Let's use `diff` so we understand how it works
@@ -318,8 +406,11 @@ Let's use `diff` so we understand how it works
 
 ---
 
+For the `modern?.txt` files, assume the following. `modern.txt` is the original file.
+Then 4 different people made some changes (independent of each other) leading to `modern2.txt`, `modern3.txt`, `modern4.txt` and `modern5.txt`.
+
 - look at the differences between `modern.txt` and each of `modern?.txt`
 - make a patchfile for `modern.txt` to `modern2.txt` (how can we write `stdout` to a file?)
 - apply this to `modern3.txt`. Save the result in `modern23.txt`.
 - now add the changes of `modern4.txt` to it `modern234.txt`
-- now make `modern2345.txt`. Did it work? Why not?
+- now make `modern2345.txt`, adding the changes of `modern5.txt`. Did it work? Why not?
