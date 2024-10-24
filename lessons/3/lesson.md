@@ -32,7 +32,7 @@ However, don't press it twice, or you'll exit your shell ;)
 - A byte is 8 bit, or a number between 0-255
 - Sometimes better to think of a byte as a letter out of a alphabet with 256 letters
 - (A=0, B=1, etc)
-- So 1kB = 1024 bytes; like a text of 256 "letters"
+- So 1kB = 1024 bytes; like a text of 1024 "256-letters"
 - Other times, multiple bytes work together to make a number (e.g. 4 bytes can represent a number between 0 and 4,294,967,296 (or -2,147,483,647 and 2,147,483,648, or float)
 - That is why we now need to talk about number systems
 
