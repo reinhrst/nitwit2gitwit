@@ -24,8 +24,8 @@ At some point (but maybe better after you do at least some of the exercises):
 
 - Create a git repository for one of your code bases on your own computer.
   Remember that a repository is typically one project, code that belongs together.
-  For me, this class (the markdown for the slides, and the example files about ravens) are one repository.
-  The "comfyviewer" is another (which includes both the (javascript) code for the viewer, as the (python) code to download files from Dropbox, process them, and upload the detection and mp4 file).
+  For me, this class is one repository.
+  Behave (the app + website) is another. I actually have a separate repository for the behave paper.
 
 vvvvvvvv
 
@@ -86,13 +86,13 @@ drwxr-xr-x 7 claude claude 4096 Mar 24 11:04 .git
 
 vvvvvvvv
 
-- `ls -la` is a short form for `ls -l -a` (in lesson 2 we saw that often two short flas (`-l` and `-a`) can be pulled together into `-la`).
+- `ls -la` is a short form for `ls -l -a` (in lesson 2 we saw that often two short flags (`-l` and `-a`) can be pulled together into `-la`).
 
 - `-a` means that we want to see *a*ll files, including hidden files (the ones starting with `.` -- see one more vertical slide for more info).
 
 - `-l` (lower-case L) means *l*ong format. It lists one file per line, and adds some info:
 
-- The exact format differs per system, but usually contains the same information
+- The exact format differs per system, but usually contains similar information
 
 vvvvvvvv
 
@@ -157,7 +157,7 @@ fatal: not a git repository (or any of the parent directories): .git
 
 vvvvvvvv
 
-Deleting the repo means you lose all info (commits, log messages, history) in the repo (unless it's e.g. in github)
+Deleting the repo means you lose all info (commits, log messages, history) in the repo (unless it's backed up, e.g. in GitHub)
 
 In "normal life" there is little reason to ever delete the repo; this exercise is mostly to show that the repository is no magic, just a directory and nothing more.
 
@@ -291,6 +291,7 @@ drwxr-xr-x 7 claude claude 4096 Mar 24 11:17 .git
 $ git add bananas.txt
 # That's it :)) -- next exercise we confirm whether it worked
 # alternatively you can do `git add *` to add all (non-hidden) files
+# or `git add .` to add (everything in) the current directory.
 ```
 
 <!-- .element class="hidden-answer" -->
@@ -506,5 +507,8 @@ $ git commit -m "exercise 26"
 
 You made it to the end
 
+
+Please keep the homework, we will continue working with this repository next week.
+
 The things in this lesson are essential, and exercise is required.
-Try to commit something once a day at least in your normal code.
+Try to commit something at least once a day in your normal code.
