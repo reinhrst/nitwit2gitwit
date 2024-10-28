@@ -10,8 +10,9 @@
 For profit company (owned by Microsoft)
 
 - "Centralised" repo -- either private or public (open source)
+- Very generous free tier, but probably your code can be used for AI training
 - Some tools to make git-stuff nicer (web based interface)
-- Suggested git workflows
+- Suggested `git` workflows
 - Project management (code reviews / issues / project boards / scrum boards)
 - Markdown rendering
 - Build & run "space"
@@ -34,14 +35,13 @@ sequenceDiagram
     Linus ->> Anne:  sha2
     Anne ->> Claire: sha2,sha5
     Sandra ->> Anne: sha7
-    John ->> Sandra: sha5,sha3
+    John ->> Sandra: sha6,sha3
     James ->> John: sha13
-    James ->> Claire: sha2
-    Claire ->> John: sha4
+    Claire ->> James: sha2
     Claire ->> Sandra: sha14
-    Sandra ->> Linus: sha1,sha15,sha2,sha3
+    Sandra ->> Linus: sha1,sha15,sha3
     John ->> Linus: sha16
-    Linus ->> Claire: sha7
+    Linus ->> Claire: sha15
     Claire ->> Linus: sha13
     Note over Linus: Releases version 2.16
 </pre>
@@ -82,13 +82,13 @@ vvvvvv
 - Github offers these kinds of repos "as a service" (GaaS)
 - Github made repos free for Open Source projects and small projects (you pay above certain limits)
 - Github added additional useful tools (like bug tracker)
-- These days most open source projects on Github (90%), some on GitLab (9%) and others (1%). Almost nobody self-hosted.
+- These days most open source projects on Github (83%), some on GitLab (37%) and some others. Almost nobody self-hosted.
 
 - Centralised repo just special case of Decentralised repo
 - Centralised repo great, if it's always up, and you have internet connection.
 - Even with centralised repo, decentralised workflow still works.
 
-_percentages were made up by me, please don't quote :)_
+_percentages were (possibly) made up by ChatGPT, please don't quote :)_
 
 vvvvvv
 
