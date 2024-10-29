@@ -1,3 +1,16 @@
+## Catchup of last week
+
+- I will sometimes drill down a bit deep, in the hope that the shallow parts stick
+- Important about number systems:
+  - There are different systems
+  - Everything in a computer is binary, which means powers-of-two make sense
+  - Hex(adecimal) system used a lot; `0x...` or just numbers and `abcdef`/`ABCDEF` combined
+- Using `|`, one can pipe from one command to another
+- Windows users are cursed with line endings
+- `diff` generates a diff-file between two files, `patch` applies that diff-file
+
+---
+
 # Lesson 4
 
 - Crypto and hash
@@ -215,8 +228,9 @@ Hashing + encryption can be used to create digital signatures:
 - Calculate md5 hash of `hello world` again
 - Calculate md5 hash of `hello world1`
 - Calculate md5 hash of `hello world2`
-- Calculate sha1 of `hello world`
-- How big is an md5 hash? How big a sha1 hash?
+- Calculate sha256 of `hello world`
+- Calculate sha512 of `hello world`
+- How big is an md5 hash? How big a sha256 hash? And the sha512 hash?
 - Advanced: did we _actually_ calculate the md5 of "hello world"?
 
 ---
@@ -458,16 +472,13 @@ gitGraph
 ### How to think about git
 
 - Git is a tree/subway map, where each "station" is a _revision_ (a "version" of the code).
-- Between any two revisions there is a _diff_; a diff between two connected stations is a _commit_.
-
+- Between any two revisions there is a _diff_
+- A _commit_ is a "commit package" of (parents + diffs + commit message + committer name & email + commit date-time)
+- Often _commit_ and _revision_ are used interchangeably. This means that both may point at a version of the code, and a commit package
 - Each station has a name which we call a _sha_ (SHA = Secure Hash Algorithm).
-  The sha is roughly (or: can be thought of as):
-
-```
-hash(parent + diff + commit_name + commit_message + commit_datetime)
-```
-
+  The sha is roughly a hash over the commit package
 - The sha is 20 bytes long (written as 40 hex-digits), but usually we only show the first 7 hex-digits (e.g. `8db12ee`); Larger projects need more.
+- If two commits have the same sha, they are the exact same commit package (barring the Birthday Problem; but you need $>10^{15}$ commits to have a 1-in-a-billion chance of collision)
 
 vvvvvv
 
@@ -563,7 +574,7 @@ It should open an editor and allow you to edit and then save a file.
 
 If not, do `brew install nano` (on Mac).
 
-Now, we need to make sure `git` uses this instead of `vim`:
+Now, we need to make sure `git` uses `nano` instead of `vim`:
 
 vvvvvv
 
