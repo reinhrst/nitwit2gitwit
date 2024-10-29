@@ -483,6 +483,11 @@ gitGraph
 
 vvvvvv
 
+> Thus, an **organic** SHA-1 collision is less likely than every member of your programming team being attacked and killed by wolves in unrelated incidents on the same night.
+
+
+vvvvvv
+
 - A _tag_ is a unique (semantic) label that points to a sha. It can be chosen by the user, and can be moved. Typ: version number
 
 - A _branch_ (act. branch-tag) is like a tag; it points to the latest sha on a branch (and moves when a new commit is made to the branch).
@@ -599,8 +604,8 @@ git help subcommand -- show help for certain subcommand
 |            |                                                                               |
 | `init`     | Start a new (empty) git respository in the current directory                  |
 | `checkout` | Make a certain revision the "current revision" and apply to working directory |
-| `add`      | Move changes into the index                                                   |
-| `reset`    | Move changes out of the index (although there are other ways)                 |
+| `add`      | _Stage_ changes (Move changes into the index)                                                   |
+| `restore`    | Restore files (staged on in WD) from repo                 |
 | `commit`   | Commit the (changes in the) index into the respository (as a new commit)      |
 | `diff`     | Run a `diff` between different commits, or a commit and your local files      |
 | `log`      | See a list, starting at the current commit and showing all parents            |
