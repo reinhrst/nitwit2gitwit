@@ -479,6 +479,7 @@ gitGraph
   The sha is roughly a hash over the commit package
 - The sha is 20 bytes long (written as 40 hex-digits), but usually we only show the first 7 hex-digits (e.g. `8db12ee`); Larger projects need more.
 - If two commits have the same sha, they are the exact same commit package (barring the Birthday Problem; but you need $>10^{15}$ commits to have a 1-in-a-billion chance of collision)
+- Therefore if two _revisions_ have the same _sha_ its the same revision (→ the same code)
 
 vvvvvv
 
@@ -610,5 +611,6 @@ git help subcommand -- show help for certain subcommand
 
 - How to choose what is one repository?
 - What projects make sense to use a text-based VCS for?
-- What files are part of your git repository, and which are not.
+- What files are part of your git repository, and which are not?
+- Should your repo be open or closed source?
 
