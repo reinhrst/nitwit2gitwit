@@ -584,9 +584,9 @@ Now, we need to make sure `git` uses `nano` instead of `vim`:
 
 vvvvvv
 
-- `git config list` shows the current git configuration.
-- `git config list | grep editor` shows if there is anything about an editor
-- `git config core.editor nano` sets the editor (check with the command above)
+- `git config --global --list` shows the current global (=not repository specific) git configuration.
+- `git config --global --list | grep editor` shows if there is anything about an editor
+- `git config --global core.editor nano` sets the editor (check with the command above)
 
 ---
 
