@@ -6,144 +6,72 @@
 - `git` uses _sha_-hashes as its revision "numbers". The same sha → the same commit, the same revision, the same code
 - Do `git` every day!
 
+vvvvvv
+
+If you compare two hashes and first X hex-digits match, how large is the change that the underlying data is different:
+
+| X | p |
+|---|---|
+| 1 | $\approx0.06$  |
+| 2 | $\approx0.004$  |
+| 4 | $\approx0.000015\approx10^{-5}$  |
+| 7 | $\approx0.0000000037\approx10^{-9}$  |
+| 40 | $\approx0.00000000000000000000000000000000000000000000000068\approx10^{-48}$  |
+
 ---
 
 # Lesson 5
 
-- Github (because....)
+- Take a breath
 - Much more about local git
 
 ---
 
-### Github: broad overview
+### Git for Windows
 
-For profit company (owned by Microsoft)
-
-- "Centralised" repo -- either private or public (open source)
-- Very generous free tier, but probably your code can be used for AI training (claims only on public repos)
-- Some tools to make git-stuff nicer (web based interface)
-- Suggested `git` workflows
-- Project management (code reviews / issues / project boards / scrum boards)
-- Markdown rendering
-- Build & run "space"
-- Web hosting for people/projects
-- All integrated (links)
-
-vvvvvv
-
-#### Decentralised repo
-
-<pre class="mermaid">
-sequenceDiagram
-    actor Linus
-    actor James
-    actor Anne
-    actor Claire
-    actor Sandra
-    actor John
-    Linus ->> James: sha23
-    Linus ->> Anne:  sha2
-    Anne ->> Claire: sha2,sha5
-    Sandra ->> Anne: sha7
-    John ->> Sandra: sha6,sha3
-    James ->> John: sha13
-    Claire ->> James: sha2
-    Claire ->> Sandra: sha14
-    Sandra ->> Linus: sha1,sha15,sha3
-    John ->> Linus: sha16
-    Linus ->> Claire: sha15
-    Claire ->> Linus: sha13
-    Note over Linus: Releases version 2.16
-</pre>
-
-vvvvvv
-
-#### Centralised repo
-
-<pre class="mermaid">
-sequenceDiagram
-    participant repo
-    autonumber
-    actor Linus
-    actor James
-    actor Anne
-    actor Sandra
-    actor John
-    Linus ->> repo: sha23
-    Linus ->> repo:  sha2
-    repo ->>+Anne: all changes
-    repo ->>+Sandra: all changes
-    Anne ->>-repo: sha2,sha5
-    Sandra-->> repo: sha7 (fails)
-    repo ->> Sandra: sha2,sha5
-    Sandra ->>-repo: sha7
-    repo ->>+John: all changes
-    John ->>-repo: sha5,sha3
-    repo ->> Linus: all changes
-    Note over repo,Linus: Releases version 2.16
-</pre>
-
-
-vvvvvv
-
-#### Github and centralised repo
-
-- Git is _free software_ and everyone can (and could) set up a centralised repo server for free (if they have a server)
-- Github offers these kinds of repos "as a service" (GaaS)
-- Github made repos free for Open Source projects and private projects
-- Github added additional useful tools (like bug tracker)
-- These days most open source projects on Github (83%), some on GitLab (37%) and some others. Almost nobody self-hosted.
-
-- Centralised repo just special case of Decentralised repo
-- Centralised repo great, if it's always up, and you have internet connection.
-- Even with centralised repo, decentralised workflow still works.
-
-_percentages were (possibly) made up by ChatGPT, please don't quote :)_
-
-vvvvvv
-
-
-#### Github suggested git workflows
-
-- "Conventions" on how to do things
-- _pull requests_
-    - Basically request for your changes to be pulled into some branch(es)
-    - If you don't have access
-    - By convention in some repos
-    - If you want someone to check you work
-    - Allows for code reviews
-
-
-vvvvvv
-
-#### Project management
-
-- Code reviews: back and forth on changes before merge is done
-- Github issues: list of bugs / questions / wishlist / (what you want it to be). Iterative back and forth / status / link to commits.
-- Project boards: Very flexible, a.o. scrum boards
-- Often too limited for very large projects, but great in 99% of cases
-
-vvvvvv
-
-#### Other tools
-
-- Lot of code needs a _build_ or _Continuous Integration_ step (e.g. make HTML from Markdown, compile programs, run tests). Github provides (secure) server-space where scripts can be run automatically.
-- Everyone gets a webspace (`https://#USERNAME#.github.io/`) that you can use for free (one per account). Afaik webspace per _repo_ is a paid option.
-- All Github tools try to be integrated; so commit messages can link (or modify) to issues, links are made between different parts of the system.
+- Not a full Linux for windows
+- Other solutions, such as WSL
 
 ---
+### How to build a (local) VCS using diff and patch
 
-#### Markdown
+```none
+/
+- .vcs/
+  - commits/
+    - 1/
+      - message.txt
+      - parents.txt (=none)
+      - diffs/
+        - raven.txt.patch
+        - dove.txt.patch
+    - 2/
+      - message.txt
+      - parents.txt (=1)
+      - diffs/
+        - raven.txt.patch
+    - 3/
+      - message.txt
+      - parents.txt (=2)
+      - diffs/
+        - sparrow.txt.patch
+        - dove.txt.patch
+  - branches/
+    - main.txt (=3)
+  - tags/
+    - v1.0.txt (=2)
+  - HEAD.txt (=3)
+  - CURRENT_BRANCH.txt (=main)
+- dove.txt
+- sparrow.txt
+- raven.txt
+```
 
-- Markdown is a language that allows you to write (readable) plain text documents, which render to text with layouts
-- Headers / **bold** / _italic_ / [links](https://github.com/) / images
-- Depending on flavour / plugins:
-    - Tables, Code highlighting / rendering / diagrams (e.g. Mermaid), Smilies, Math $e^{i\pi}+1=0$
-- By default (mainly) used for web documents (websites), but some flavours for presentations, books, etc
-- Alternatives: Asciidoc, RTF, LateX.
-- This whole presentation is in Markdown
-- If all people working on a paper support Markdown, this would be the best way (probably)
-- Github renders markdown in `.md` files (hence `Readme.md`), and in issues / code reviews / etc.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Example VCS system **(not git)** with 3 revisions, and revision 3 checked out.
+
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ---
 
@@ -156,22 +84,53 @@ vvvvvv
 
 ---
 
+### How to choose what is one repository?
 
-### What stuff should one commit (in real life)
+- One "project"
+- Belongs together (one cannot work without the other)
+- Same people working on it
+- In the end: many opinions, just choose something
+- You should have between 2 and 5 repos you use regularly
+
+---
+
+### What projects make sense to use a (text-based) VCS for?
+
+We discussed the _idea_ of non-text based diffs (e.g. image diffs), but in practice `git` is text-based.
+
+- >99% of people use `git` with normal (text-based) diff tools
+- So `git` makes sense mostly for text-based formats
+- Code is obvious example
+- However other uses (markdown, csv, html, svg)
+
+You will likely never need it, but it _is_ possible to use other `diff`/`patch` with `git`. e.g. `images`, `xlsx`, `csv`, `pdf`, Jupyter Notebook.
+
+---
+
+### What files are part of your git repository, and which are not?
 
 - Everything that you created (code, images, graphs)
 - Readme files / documentation / instructions (ideally in Markdown)
 - Ideally use text-based formats
 
+vvvvvv
+
 ##### But not:
 - Raw data (usually; you can have a "data repo")
-- Derivative (by script) stuff
+- Derivative (by script) stuff -- _Single source of truth_
 - Huge files (esp if they change a lot)
 - Binary files that change a lot (e.g. Word documents or zip files)
 - Commented out / not used code (make branch!)
 - Code that is in another repo
 - Development files for your environment
 - PASSWORDS / SECRETS (remember that all history is normally kept!)
+
+vvvvvv
+
+- Generally I would advice against files > 1MB
+- GitHub will get upset with files > 50MB (and refuse >100MB)
+- Remember files will always be in history (unless you rewrite)
+- There is something called Git Large File Storage (LFS).
 
 vvvvvv
 
@@ -205,7 +164,7 @@ vvvvvv
 
 ---
 
-### Git is not a backup (but github may be)
+### Git is not a backup (but GitHub may be)
 
 - Editing something in the working directory does nothing with git
 - When you add something to the index, it can be retrieved from the repo if deleted
