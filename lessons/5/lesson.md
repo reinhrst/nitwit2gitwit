@@ -189,18 +189,24 @@ vvvvvv
 - It does not have to work (although commit it as soon as it works), but note in commit message
 - Remember: semantic changes
 - Completely ok to have single-char commits, or 50-page commits
-
+- When it gets too large to lose
 - When you start to change / rewrite lots of code
+
+If your code is not ready yet, just make a commit in a branch!
 
 NB: you push to GitHub after every commit!
 
-vvvvvv
+---
 
 ### Extra: when do you make a branch
 
-Note: preview; branching is in lesson 7
+_branches are cheap_
 
-- When working on something that you don't quite want to share yet in the `main` branch
+NOTE: This is a preview, we will deep-dive into branches soon
+
+vvvvvv
+
+- When working on something that you don't quite want to share yet in the `main` branch (or is not ready)
 - When you start a large "operation", that may take a couple of days (or: a couple of commits) and:
     - you don't want to disturb other repository users until it's done
     - you may at some point (while doing the operation) need access to the previous, working, code
