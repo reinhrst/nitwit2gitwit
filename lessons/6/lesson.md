@@ -1,366 +1,252 @@
 # Lesson 6
 
-- Startup scripts for shell
-- Setup ssh for Github
-- Setup R Studio for use with git(hub)
-- "What should I make a repository" discussion
-- Selective commits (`.gitignore`)
+- GitHub (last week we made our first repo, now we take a closer look)
+- Branches (since even if you don't use them, you do)
+- Build a website (now the real fun starts)
 
 ---
 
-We're going to optimise your shell-experience a bit
+### GitHub: broad overview
 
-|shell|rc file|
-|-------|------|
-|`bash`|`~/.bashrc`|
-|`zsh`|`~/.zshrc`|
+For profit company (owned by Microsoft)
 
-Anything you put in these files (for now, there is no difference between these files) will be executed every time you open a shell.
-
-Try it:
-
-```console
-$ echo 'PS1="\w \$ "' >> .bashrc  # (or .zshrc)
-```
-
-Open a new shell (new tab in terminal program)
+- "Centralised" repo -- either private or public (open source)
+- Very generous free tier, but probably your code can be used for AI training (claims only on public repos)
+- Some tools to make git-stuff nicer (web based interface)
+- Issue tracker
+- Additional collaboration tools (code reviews / project boards / scrum boards)
+- Markdown rendering
+- Build & run "space"
+- Web hosting for people/projects
+- All integrated (links)
 
 vvvvvv
 
-- You can edit these files with nano (or any other text-editor).
-- These files can grow quite large if you work a lot with shell and have many things you like to set-up
-- E.g. my init-files are about 500 lines long :).
+#### Decentralised repo
 
----
-
-### `ssh`
-
-- Stands for Secure SHell (however is not a shell)
-- Allows one to connect securely to another computer and start a shell there
-- Can do other things like copy files (`scp`) or forward ports
-- Used as the default connection method in git(hub)
-
-vvvvvv
-
-#### Password-based authentication
-
-_Grossly simplified_
-
-<span class="mermaid">
+<pre class="mermaid">
 sequenceDiagram
-  participant local
-  participant remote
-  local ->> remote: start ssh session please
-  remote ->> local: sure, my public key is ABC
-  Note over local: check remote's public key
-  Note over local,remote: securely agree on session key
-  local ->> remote: Encrypted(please log in with username X and password Y)
-  local ->> remote: Encrypted(ok, welcome)
-</span>
+    actor Linus
+    actor James
+    actor Anne
+    actor Claire
+    actor Sandra
+    actor John
+    Linus ->> James: sha23
+    Linus ->> Anne:  sha2
+    Anne ->> Claire: sha2,sha5
+    Sandra ->> Anne: sha7
+    John ->> Sandra: sha6,sha3
+    James ->> John: sha13
+    Claire ->> James: sha2
+    Claire ->> Sandra: sha14
+    Sandra ->> Linus: sha1,sha15,sha3
+    John ->> Linus: sha16
+    Linus ->> Claire: sha15
+    Claire ->> Linus: sha13
+    Note over Linus: Releases version 2.16
+</pre>
 
 vvvvvv
 
-#### Key-based authentication
+#### Centralised repo
 
-_Grossly simplified_
-
-<span class="mermaid">
+<pre class="mermaid">
 sequenceDiagram
-  participant local
-  participant remote
-  local ->> remote: start ssh session please
-  remote ->> local: sure, my public key is ABC
-  Note over local: check remote's public key
-  local ->> remote: Encrypted(Here's my public key)
-  local ->> remote: Encrypted(ok, welcome)
-</span>
+    participant repo
+    autonumber
+    actor Linus
+    actor James
+    actor Anne
+    actor Sandra
+    actor John
+    Linus ->> repo: sha23
+    Linus ->> repo:  sha2
+    repo ->>+Anne: all changes
+    repo ->>+Sandra: all changes
+    Anne ->>-repo: sha2,sha5
+    Sandra-->> repo: sha7 (fails)
+    repo ->> Sandra: sha2,sha5
+    Sandra ->>-repo: sha7
+    repo ->>+John: all changes
+    John ->>-repo: sha51,sha3
+    repo ->> Linus: all changes
+    Note over repo,Linus: Releases version 2.16
+</pre>
 
-Imagine "you prove who you are, by being given a locked box, and giving back the content of the box". You never have to show the key to prove that you actually have it.
-
-vvvvvv
-
-- Remember, in PubPrivKey system, encryption happens with a pair a keys: one public one private
-- Private key should never be shared with anyone (unlike e.g. passwords)
-- Private key is often stored encrypted (so needs a passphrase before use)
-- Public key may be shared publicly (e.g. on your website)
-- Anything _encrypted_ with one key can only be _decrypted_ with the other:
-  - If encrypted with public key, decryption requires private key (used for message TO you, everyone can encrypt, only you can decrypt).
-  - If encrypted with private key, decryption requires public key (hence for messages FROM you: everyone can decrypt, but will know for sure that it was you encrypting the message)
-- if A and B want to talk securely (confidential (nobody can read messages) and integer (nobody can spoof or alter messages)):
-  - A --> B: PrA(PuB(message1)) (so: message encrypted first with B's public key, and then A's private key)
-  - B --> A: PrB(PuA(message2))
 
 vvvvvv
 
-- Github only allows connections using `ssh` with Key-Based Authentication (no password authentication). Anonymous connections are allowed over HTTPS (though the `git` util; on a browser you can login through HTTPS).
-- So in order to use Github, we need to have a (unique) private/public key pair.
-- We will then associate our public key with our account, so github knows that if that key is used, it is you wanting in.
-- Even github will not know (or ever ask for, etc) your private key.
-- Keep your private key as secure as your Github password (as in: never let it leave your computer)
-- If you have multiple computers, best to generate 1 key per computer and associate multiple keys in your Github account.
-- If you loose your private key (and only use it for Github): no problem, just generate a new key, and associate it with your account.
-- (System administrators use their keys to other computers through `ssh`, so they (must) really care about key security; in our case, slightly less problematic).
+#### Github and centralised repo
+
+- Git is _free software_ and everyone can (and could) set up a centralised repo server for free (if they have a server)
+- Github offers these kinds of repos "as a service" (GaaS)
+- Github made repos free for Open Source projects and private projects
+- Github added additional useful tools (like bug tracker)
+- These days most open source projects on Github (83%), some on GitLab (37%) and some others. Almost nobody self-hosted.
+
+- Centralised repo just special case of Decentralised repo
+- Centralised repo great, if it's always up, and you have internet connection.
+- Even with centralised repo, decentralised workflow still works.
+
+_percentages were (possibly) made up by ChatGPT, please don't quote :)_
+
+vvvvvv
+
+
+#### Github suggested git workflows
+
+- "Conventions" on how to do things
+- _pull requests_
+    - Basically request for your changes to be pulled into some branch(es)
+    - If you don't have access
+    - By convention in some repos
+    - If you want someone to check you work
+    - Allows for code reviews
+
+vvvvvv
+
+#### Project management
+
+- Github issues: list of bugs / questions / wishlist / (what you want it to be). Iterative back and forth / status / link to commits.
+- Code reviews: back and forth on changes before merge is done
+- Project boards: Very flexible, a.o. scrum boards
+- Often too limited for very large projects, but great in 99% of cases
+
+vvvvvv
+
+#### Other tools
+
+- Lot of code needs a _build_ or _Continuous Integration_ step (e.g. make HTML from Markdown, compile programs, **run tests**). Github provides (secure) server-space where scripts can be run automatically.
+- Everyone gets a webspace (`https://#USERNAME#.github.io/`) that you can use for free (one per account). Afaik webspace per _repo_ is a paid option.
+- All GitHub tools try to be integrated; so commit messages can link (or modify) to issues, links are made between different parts of the system.
+
+vvvvvv
+
+#### Why use GitHub in single-person-projects
+
+- Backup
+- Great if you (occasionally) work on multiple computers
+- Issues (yes also for 1 person)
+- Automatic builds / tests (but this is advanced)
+- Maybe in the future you want to share / collaborate
 
 ---
 
-### Github and SSH key
+#### Markdown
 
-- So in order to use Github, we need to have a (unique) private/public key pair.
-- Let's first check (in GitBash / Zsh) if we already have one. If so, it should be in `~/.ssh/` directory. `ls` that directory and look for two files `id_*` and `id_*.pub` (the `.pub` is the public key, the other one the private key).
-- If you don't have the keys, we create some (from thin air; [instructions](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)):
-  - First create `~/.ssh/` if that does not exist
-  - Now run `ssh-keygen -t ed25519 -C "computername"`
-  - When it asks `Enter a file in which to save the key`, just press enter (accept the default)
-  - When it asks for passphrase, for now we select an empty passphrase
-- Because we did not add a passphrase, we can (I think) skip the ssh-agent stuff
-- Now connect to github: `ssh git@github.com` (explain parts of the command)
-
-vvvvvv
-
-- OK, that didn't do much, because Github doesn't know about our key yet :)
-- Follow [these instructions](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account#adding-a-new-ssh-key-to-your-account):
-  - print the ***public*** ssh key: `cat ~/.ssh/id_XXXXXX.pub` and copy this to clipboard (select is sometimes enough, otherwise we have to experiment)
-  - Go to <https://github.com/>, log in, click your photo on the right top and choose "settings"
-  - Go to "SSH and GPG keys" --> New SSH Key
-  - Title: computer name, type: Authentication key, key: whatever you just copied, and "Add SSH key"
-- Now again connect to github: `ssh git@github.com`
-
-```console
-$ ssh git@github.com
-Hi reinhrst! You've successfully authenticated, but GitHub does not provide shell access.
-Connection to ssh.github.com closed.
-```
-
-<!-- .element class="fragment" -->
+- Markdown is a language that allows you to write (readable) plain text documents, which render to text with layouts
+- Headers / **bold** / _italic_ / [links](https://github.com/) / images
+- Depending on flavour / plugins:
+    - Tables, Code highlighting / rendering / diagrams (e.g. Mermaid), Smilies, Math $e^{i\pi}+1=0$
+- By default (mainly) used for web documents (websites), but some flavours for presentations, books, etc
+- Alternatives: Asciidoc, RTF, LateX.
+- This whole presentation is in Markdown
+- If all people working on a paper support Markdown, this would be the best way (probably)
+- Github renders markdown in `.md` files (hence `Readme.md`), and in issues / code reviews / etc.
 
 ---
 
-### Push some work to github
+### Local git
 
-- On the Github homepage, choose "New" (repository)
-- Choose a name, make it private, and don't select anything else (but click "Create Repository)
-- At the top of the new page, you can choose between "https" and "ssh"; make sure you choose "ssh"
-
-...or push an existing repository from the command line
-```bash
-git remote add origin git@github.com:reinhrst/projectA.git
-git branch -M main
-git push -u origin main
-```
-
-^^^^ these lines are the commands we need to execute to connect our (existing) local git to Github
-
-vvvvvv
-
-```bash
-git remote add origin git@github.com:reinhrst/projectA.git
-# this tells our local git that we want to add a new remote repository to talk to.
-# The remote repository is called "origin" (default name) and can be found at this address
-git branch -M main
-# This renames the current branch to "main"; useful sometimes, but not now
-# so we will skip this
-git push -u origin main
-# Tells our local git to push the "main" branch to "origin"
-# (normally the remote branch name will be the same as the local branch name (main)
-# but this is not required, and in certain situations it makes sense to have
-# different names)
-```
-
-- So let's execute the first and third line in your own local git repository (make sure to use the line you got on the webpage, and not `reinhrst/projectA.git`)
-- After pushing, reload the webpage.
-
-vvvvvv
-
-Let's make a quick Readme file for this repository:
-
-```console
-$ echo "# Save a unicorn (today)
-
-This repository contains my work on project save-a-unicorn.
-It contains:
-- R code to create maps of unicorn sightings
-- Instructions on how to build unicorn traps
-- Field-instructions on how to deal with unicorn-:poop: (aka gold)
-" > Readme.md
-$ git add Readme.md
-$ git commit -m "added a readme file"
-$ git push
-```
-
-Now reload our webpage
-
-_Readme files on private repos are very useful to remind future-you what this repo was about_
-
-
-vvvvvv
-
-From now on, after every commit in this repository, you should type `git push` to push it (no need to do `-u origin` unless you have a new branch).
+- Exercises will only take you that far; you _really_ learn when you work with it.
+- **Take the pain**
+    - Two hours per week is not enough
+    - You will run into problems _before_ you learn the solution
 
 ---
 
-#### Workflow new Github repo
 
-##### 1. Local in the lead
-- Create repo on your computer (`git init`)
-- Create empty repo on Github
-- Copy-paste the `git remote add` and `git push -u origin main` codes
+### What stuff should one commit (in real life)
 
-##### 2. Github in the lead
-- Create repo on Github, including Readme / License / anything (Github will do `git init`)
-- `git clone` on your local computer
+- Everything that you created (code, images, graphs)
+- Readme files / documentation / instructions (ideally in Markdown)
+- Ideally use text-based formats
 
-NB: `git clone` clones an existing repo from Github (or elsewhere); it can be used for new and (long) existing repos.
+##### But not:
+- Raw data (usually; you can have a "data repo")
+- Derivative (by script) stuff
+- Huge files (esp if they change a lot)
+- Binary files that change a lot (e.g. Word documents or zip files)
+- Commented out / not used code (make branch!)
+- Code that is in another repo
+- Development files for your environment
+- PASSWORDS / SECRETS (remember that all history is normally kept!)
+
+vvvvvv
+
+_There are always exceptions to this rule, in time you'll find out what works for you. However have rules within one repo!_
 
 ---
 
-### Setup R Studio to work with git(hub)
+### Open vs closed source and license
+
+The first thing you have to choose when making a new repo in GitHub is whether it's public or private
+
+- public: the whole world can see it: open source
+- Note that there is a difference between "open source" and "anything can use/copy this"
+Tempting to make everything private, but nicer to make things public. Also people interested in you may check out your code / find your code through Google
+
+If you make something public later, be aware that all history will also become public!
+
+
+vvvvvv
+
+- A license (typically in LICENSE.TXT, or LICENSE.MD) is a legally binding agreement of what can be done with the code:
+  - Everything, no restrictions: MIT, CC0
+  - Only in other Open Source projects: GPL
+  - Create Commons:
+    - CC0: Public domain
+    - BY: credit must be given to the author
+    - SA: Adaptations must be shared under the same terms
+    - NC: Only non-commercial use
+    - ND: No derivates are allowed
+- Note that others might have opinions on public/private and the license: journals, universities, etc
 
 ---
 
-### "What should I make a repository" discussion
+### Git is not a backup (but github may be)
 
-- Git should not dictate your directory structure (usually)
-- Normally, your directory structure will look something like this:
-
-```asciiart
-projects
-|- projectA
-|  |- src
-|  |- data
-|  |- output
-|  |- cache
-|  |- doc
-|- projectB
-|  |- src
-|  |- data
-|  |- output
-|  |- cache
-|  |- doc
-```
-
-vvvvvv
+- Editing something in the working directory does nothing with git
+- When you add something to the index, it can be retrieved from the repo if deleted
+- When something is committed, it can be retrieved from the repo (as long as it's a parent of some branch)
+- However remember: the repo is only a local directory; only when you push to someone else (or GitHub), or backup your directory (to external HD / Dropbox / email to yourself).
 
 
-- Or with one more level
-
-```asciiart
-projects
-|- Gdansk
-|  |- projectA
-|  |  |- src
-|  |  |- data
-|  |  |- output
-|  |  |- cache
-|  |  |- doc
-|  |- projectB
-|  |  |- src
-|  |  |- data
-|  |  |- output
-|  |  |- cache
-|  |  |- doc
-|- OxNav
-|  |- projectC
-|  |  |- src
-etc
-```
-
-vvvvvv
-
-- The dirs with `*` are the ones that you want to make repo roots (where the `.git` directory lives)
-- The dirs with `$` are the ones that you want to add to your repos
-
-```asciiart
-projects
-|- projectA *
-|  |- src $
-|  |- data
-|  |- output
-|  |- cache
-|  |- doc $
-|- projectB *
-|  |- src $
-|  |- data
-|  |- output
-|  |- cache
-|  |- doc $
-```
-```asciiart
-projects
-|- Gdansk
-|  |- projectA *
-|  |  |- src $
-|  |  |- data
-|  |  |- output
-|  |  |- cache
-|  |  |- doc $
-|  |- projectB *
-|  |  |- src $
-|  |  |- data
-|  |  |- output
-|  |  |- cache
-|  |  |- doc $
-|- OxNav
-|  |- projectC *
-|  |  |- src $
-etc
-```
-
-vvvvvv
-
-- Sometimes you find that one project borrows from another. For instance, if in `projectA` you wrote an amazing function, you might have somewhere in `projectB` something like:
-\
-```
-import "../../projectA/src/function.R"
-```
-
-- This is not good (since a repo should not depend on things outside of the repo)
-
-Solutions:
-
-- If projectB uses most of projectA's code, make projectA a module and import it in projectB
-- Else make a module "KasiaLibrary" (in it's own git repo) and move the shared code in there. Make this module a dependency of both.
+- Really _really_ important stuff need online and offline backups.
 
 ---
 
-### Selective commits - MARTYNA CHANGE :)
+### How often should one commit their code
 
-- You can only commit the `src` and `doc` directories to your repository by doing `git add src doc`, rather than `git add .`.
-- You don't have to add directories to the repo, you add files. So even to an empty repo, you can do `git add src/test.R src/library/subdir/test.R`. No need to `git mkdir` (also, it's not possible to do so)
-- (Because git has no concepts of directories, you were making placeholder files during the gitlab course; if you want a `git clone` to create an (empty) `data` directory, you just check in a `data/.placeholder` file.)
-- However, if you only check in some files / directories, there will always be a mess in your `git status` with untracked files.
-- Also, if you want to ignore (for git) files _inside_ directories, things get even more complex; you'd have to do `git add src/*.R src/*.Rmd` or something.
-
-## 🎈`.gitignore`🎈
-
-<!-- .element class="fragment" -->
+It's a personal preference / agree on rules per project or repo / you will get a feeling for what works for you _(for now: often to get experience)_
 
 vvvvvv
 
-### `.gitignore`
+##### My suggestion:
+- When you finish something
+- When you start working on something else
+- At least every couple of hours (lunchtime, before end of day?)
+- It does not have to work (although commit it as soon as it works), but note in commit message
+- Remember: semantic changes
+- Completely ok to have single-char commits, or 50-page commits
 
-- Put a file called `.gitignore` in your repo root (next to the `.git` directory)
+- When you start to change / rewrite lots of code
 
-```gitignore
-# ignore all .doc files (anywhere)
-*.doc
-
-# ignore all .html files (anywhere)
-*.html
-
-# ignore all files in ANY directory named temp
-temp/
-
-# ignore all files in the data,cache and output dir in the root directory
-/data/
-/cache/
-/output/
-
-# make an exception for the placeholder file in data
-!/data/.placeholder
-```
+NB: you push to GitHub after every commit!
 
 vvvvvv
 
-- The `.gitignore` file is committed like anything else, so the ignores apply to all people sharing the repo
-- There is also a `global.gitignore` file (in your home dir) that applies to your whole computer, and a way to add files to the ignore list without putting them in the shared `.gitignore` file.
-- In time you'll learn to put the files specific to the _project_ in `.gitignore`, whereas the files specific to your OS / IDE (e.g. `.DS_Store`) in the other ignore locations
+### Extra: when do you make a branch
+
+Note: preview; branching is in lesson 7
+
+- When working on something that you don't quite want to share yet in the `main` branch
+- When you start a large "operation", that may take a couple of days (or: a couple of commits) and:
+    - you don't want to disturb other repository users until it's done
+    - you may at some point (while doing the operation) need access to the previous, working, code
+    - you are not sure that it's a good idea what you're doing, and only want to make it part of the main codebase when you're sure it works
+- When you want to experiment / test something
+- When you need to make changes to an older version (e.g. someone reports a bug to a certain version).
+
+Note: just working in `main` and not pushing is **NOT** how to do it (although technically you have a branch now).
