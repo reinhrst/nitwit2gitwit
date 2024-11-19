@@ -1,3 +1,7 @@
+---
+title: Course Description
+---
+
 ## Course description
 
 ### Name
@@ -23,11 +27,13 @@ Build a working knowledge, from the base up, of `git` and GitHub.
 ---
 
 ### Content
+::: {.smaller}
 - `git` is one of the most used Version Control Systems
 - GitHub is a website that allows easier collaboration between one or more `git` users
 - The main goal of the course is to give the students the knowledge and experience to work with `git` and GitHub on a regular basis, for (collaboration in) writing code, writing papers.
 - The course focusses on understanding _why_ and _how_ `git` works, as well as how one would use it in practice. This understanding of the basics will make students appreciate the tool more, allows students to understand and fix any problems they might run into, and will make students more eloquent users of `git`.
 - The course includes the _why_ of GitHub, as well as working with some of the most used tools. Alternatives to GitHub will also be discussed.
+:::
 
 ---
 

@@ -1,4 +1,8 @@
-## Conversions
+---
+title: "Playtime 3"
+date: 2024-10-16
+---
+# Conversions
 
 Don't use an online converter, but you may use one to check your answers.
 
@@ -9,7 +13,7 @@ Convert the following into decimal
 - `0x7f`
 - `0xfaceb00c`
 
-vvvvvv
+---
 
 Convert the following into hexadecimal
 
@@ -25,8 +29,7 @@ The ones below are advanced:
 - `b1100001110100101` (extra points if done without converting to decimal first)
 
 
----
-## Math
+# Math
 
 The following sums are in binary, answers should also be in binary.
 Ideally you will be able to do them without converting them to decimal in your head (even if you convert to decimal to check your answer).
@@ -39,7 +42,7 @@ Ideally you will be able to do them without converting them to decimal in your h
 - `0b10000 - 0b1`
 - `0b100 * 0b10`
 
-vvvvvv
+---
 
 The same for hex sums
 
@@ -54,9 +57,6 @@ The same for hex sums
 - `0x1000 - 0x1`
 - `0xd0d0 / 0x10` (advanced)
 
-
----
-
-## Finally
+# Finally
 
 Redo the playtime/hands-on from the lesson (possibly we didn't get to finish it).

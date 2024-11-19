@@ -1,0 +1,16 @@
+format:
+  revealjs:
+    slide-number: true
+    chalkboard:
+      buttons: true
+    preview-links: auto
+    slide-level: 2
+    transition: slide
+    controls: true
+    smaller: true
+    history: false
+    navigation-mode: vertical
+    css:
+      - "/lessons/presentation.css"
+    include-in-header:
+      - text: '<script src="/lessons/presentation.js" type="module"></script>'

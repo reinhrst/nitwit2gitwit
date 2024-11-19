@@ -1,0 +1,28 @@
+project:
+  type: website
+  render:
+    - "*.qmd"
+  resources:
+    - "*.webp"
+    - "*.png"
+    - "*.jpeg"
+    - "*.jpg"
+    - "*.svg"
+    - "*.css"
+
+website:
+  title: "From Nitwit to Gitwit"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+author: Claude

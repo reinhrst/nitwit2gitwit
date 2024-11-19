@@ -1,4 +1,9 @@
-## Catchup of last week
+---
+title: "Lesson 4: Crypto, hash and local git"
+date: 2024-10-23
+---
+
+# Catchup of last week
 
 - I will sometimes drill down a bit deep, in the hope that the shallow parts stick
 - Important about number systems:
@@ -9,29 +14,25 @@
 - Windows users are cursed with line endings
 - `diff` generates a diff-file between two files, `patch` applies that diff-file
 
----
-
 # Lesson 4
 
 - Crypto and hash
 - Local git
 
----
+# Cryptography
 
-## Cryptography
-
-<pre class="mermaid">
+```{mermaid}
   %%{init: {'theme': 'neutral', 'look': 'handDrawn'}}%%
   flowchart LR
     A[Message] -->|encrypt| B[Encrypted message]
     B -->|decrypt| C[Original Message]
-</pre>
+```
 
 (Ultimate) design goal for Cryptography
 
 - Nobody but sender and recipient will know message content
 
-vvvvvv
+---
 
 Additional goals:
 
@@ -41,7 +42,7 @@ Additional goals:
 
 (Quantum Cryptography: guarantee that only one party has received message)
 
-vvvvvv
+---
 
 Encryption (encoding) and decryption (decoding) happens with _keys_.
 
@@ -56,9 +57,7 @@ _Breaking this code will take 100 times the age of the universe\*\*\*_
 
 Cryptography is a field in itself (within mathematics)
 
----
-
-## Symmetric encryption
+# Symmetric encryption
 
 Like a safe with a limited number of keys (typically: two).
 When you open the safe and it contains a message that is not from you, it _has to be put in there_ by the other key owner.
@@ -70,9 +69,7 @@ Problem:
 - Digital keys are much easier to copy than real ones. Even if you know that you kept your key safe, there is no way to know if the other key is safe.
 
 
----
-
-## Asymmetric encryption
+# Asymmetric encryption
 
 Used in two ways:
 
@@ -86,7 +83,7 @@ In practice (often):
 - The private key (= you) can encrypt a message that only the public key can decrypt (what is the use of this?)
 - Using two keypairs, encryption and authentication can be achieved
 
-vvvvvv
+---
 
 Asymmetric encryption (non)problems:
 
@@ -100,9 +97,7 @@ Public Key Infrastructure (PKI) helps a bit:
 - Keys are _signed_ with other keys
 - Always gets back to some key you need to trust
 
----
-
-## Hashing
+# Hashing
 
 "A hash function is any function that can be used to map data of arbitrary size to fixed-size values" (wikipedia)
 
@@ -126,7 +121,7 @@ Some examples (to use on The Raven)?
 - Smarter: pos 1 is number of a's, pos 2 = number of b's, etc
 -->
 
-vvvvvv
+---
 
 A hashing function takes (an arbitrary number of, incl 0) _bytes_ as input and returns (a predefined number of) _bytes_ as output.
 
@@ -141,7 +136,7 @@ A file on the computer (and any data in memory) are just bytes, so you can hash 
 
 You can also hash multiple files (with some tricks) into a single hash.
 
-vvvvvv
+---
 
 In practice a "good" hash function:
 
@@ -160,7 +155,7 @@ _If_ you choose the right function:
 - "Show that you know something without revealing it"
 - Put in buckets in determined way
 
-vvvvvv
+---
 
 Some examples: CRC-32, MD5, SHA1, SHA2, SHA3, SHA256, SHA512
 
@@ -182,11 +177,10 @@ E.g: 4 bytes (32 bits, 4B possibilities, after 9300 values you have a 1% possibi
 16 bytes (128 bits) has even with 26B values a 0.0000000000000001% chance of collision (10^-18)
 -->
 
-vvvvvv
 
-### Size of a hash
+## Size of a hash
 
-<pre><code data-trim data-noescape data-line-numbers="2|1-2|2-5|2-3,6-9|2,10-11|" data-fragment-index="2">
+```table
 Base16:▕ 1 ▕ c ▕ 6 ▕ 1 ▕ 7 ▕ a ▕ 0 ▕ f ▕ c ▕ 0 ▕ 1 ▕ c ▕ 0 ▕ 8 ▕ 9 ▕ 6 ▕
 Memory: 0001110001100001011110100000111111000000000111000000100001100000
 Bytes: ▕       ▕       ▕       ▕       ▕       ▕       ▕       ▕       ▕
@@ -198,18 +192,21 @@ Latin_1:        ".=z.À..`"
 Latin_2:        ".=z.Ŕ..`"
 Hex:          0x1c617a0fc01c0860    (or 0x1C617A0FC01C0860)
 Decimal:               2045049913869076576</code></pre>
+```
 
-- 64 bits (base 2)
-- 16 nibbles (base 16) <!-- .element: class="fragment" data-fragment-index="2" -->
-- 8 bytes (base 256) <!-- .element: class="fragment" data-fragment-index="3"  -->
-- 8 characters (BUT: only in "old" encodings) <!-- .element: class="fragment" data-fragment-index="4"  -->
-- hex-number of length 16 (without 0x!) (decimal nr of length 19) <!-- .element: class="fragment" data-fragment-index="5"  -->
+- [64 bits (base 2)]{.fragment}
+- [16 nibbles (base 16)]{.fragment}
+- [8 bytes (base 256)]{.fragment}
+- [8 characters (BUT: only in "old" encodings)]{.fragment}
+- [hex-number of length 16 (without 0x!) (decimal nr of length 19)]{.fragment} 
 
-<span markdown="1" class="fragment" data-fragment-index="6">Normally length is in bits or bytes. Therefore a if the hash is `0x1c 61 7a 0f c0 1c 08 60`, it's of length _8 bytes_, or _64 bits_.</span>
+. . .
 
-vvvvvv
+Normally length is in bits or bytes. Therefore a if the hash is `0x1c 61 7a 0f c0 1c 08 60`, it's of length _8 bytes_, or _64 bits_.
 
-# Signatures
+---
+
+## Signatures
 
 Hashing + encryption can be used to create digital signatures:
 
@@ -219,9 +216,7 @@ Hashing + encryption can be used to create digital signatures:
 - This way a signature only adds a couple of bytes to a document's length
 - This is why it's important that it's infeasible to find collisions in the used hash function.
 
----
-
-## Playtime
+# In-class-playtime
 
 - Use the `md5sum` program to calculate MD5 hash of different Raven versions.
 - Calculate md5 hash of `hello world`
@@ -233,9 +228,7 @@ Hashing + encryption can be used to create digital signatures:
 - How big is an md5 hash? How big a sha256 hash? And the sha512 hash?
 - Advanced: did we _actually_ calculate the md5 of "hello world"?
 
----
-
-### Version Control System (VCS) / Source Code Management (SCM)
+# Version Control System (VCS) / Source Code Management (SCM)
 
 - Simple numbers for "(development) versions"
 - Go back and forward between versions (e.g. if someone reports a bug, or if you knew it used to work last week)
@@ -244,7 +237,7 @@ Hashing + encryption can be used to create digital signatures:
 - Using patch-files to save space
 - Branches
 
-vvvvvv
+---
 
 History:
 
@@ -252,9 +245,7 @@ History:
 - Mostly centralised (lock files -- disadvantages)
 - In 2005 `git` was developed as decentralised (+local) VCS, for the linux kernel
 
----
-
-### Content, change, semantic change
+# Content, change, semantic change
 
 | Ver | Content                  | Change           | Sem Changes            |
 | --- | ------------------------ | ---------------- | ---------------------- |
@@ -263,23 +254,19 @@ History:
 | 3   | We are flying to Gdansk  | Bergen -> Gdansk | Go to Gdansk after all |
 | 4   | You are flying to Gdansk | We -> You        | Actually I'm not going |
 
----
+# VCS basics
 
-### VCS basics
-
-<pre class="mermaid" id="vcs-diagram">
+```{mermaid}
 sequenceDiagram
 	VCS->>working directory: checkout
     working directory->>editor: load file(s)
     editor->>working directory: save file(s)
 	working directory->>VCS: commit
-</pre>
+```
 
 You never edit files directly in the VCS. You always get files from the VCS into your local directory (`checkout`). There you edit the files, and then send the changes back to the CVS (`commit)`.
 
----
-
-#### VCS (git) terms
+# VCS (git) terms
 
 | term              | def                                                                            |
 | ----------------- | ------------------------------------------------------------------------------ |
@@ -293,6 +280,12 @@ You never edit files directly in the VCS. You always get files from the VCS into
 | parent            | if at revision A, the parent is that revision that came just before revision A |
 | id/_sha_            | a "number" for your commit / revision                                          |
 |                   |                                                                                |
+
+---
+
+
+| term              | def                                                                            |
+| ----------------- | ------------------------------------------------------------------------------ |
 | a _tag_          | A manually placed (but movable) label to a revision. E.g. a concrete version.                  |
 | a _branch_          | All commits from the root to a named branch-tip (like tag but moves on commit)  |
 | `merge`           | Combine all commits in two branches, to create a new revision (with 2 parents) |
@@ -301,9 +294,7 @@ You never edit files directly in the VCS. You always get files from the VCS into
 | `pull`            | `fetch` + `merge`                                                                |
 | `push`            | push new commits to "remote location"                                          |
 
----
-
-### Examples with git terms
+# Examples with git terms
 
 | id/sha                                                         | revision                                                                                 | a commit                                                                    | commit message                                                                         |
 | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
@@ -312,16 +303,15 @@ You never edit files directly in the VCS. You always get files from the VCS into
 | 1-2                                                            | We are flying to Bergen                                                                  | going -> flying                                                             | Go by airplane                                                                         |
 | 1-3                                                            | We are flying to Gdansk                                                                  | Bergen -> Gdansk                                                            | Go to Gdansk after all                                                                 |
 | 1-4                                                            | You are flying to Gdansk                                                                 | We -> You                                                                   | Actually I'm not going                                                                 |
-|                                                                | **branch: past (from rev 1)**<!-- .element: class="fragment" data-fragment-index="1" --> |                                                                             |                                                                                        |
-| 2-2<!-- .element: class="fragment" data-fragment-index="1" --> | We were going to Bergen<!-- .element: class="fragment" data-fragment-index="1" -->       | are -> were<!-- .element: class="fragment" data-fragment-index="1" -->      | Story is better in the past<!-- .element: class="fragment" data-fragment-index="1" --> |
-|                                                                | **Merged (in main)**<!-- .element: class="fragment" data-fragment-index="2" -->          |                                                                             |                                                                                        |
-| M-2<!-- .element: class="fragment" data-fragment-index="2" --> | You were flying to Gdansk<!-- .element: class="fragment" data-fragment-index="2" -->     | Merge 1-4 & 2-2 <!-- .element: class="fragment" data-fragment-index="2" --> | _\*All changes\*_<!-- .element: class="fragment" data-fragment-index="2" -->           |
+|                                                                | [**branch: past (from rev 1)**]{.fragment data-fragment-index=1} |                                                                             |                                                                                        |
+| [2-2]{.fragment data-fragment-index=1} | [We were going to Bergen]{.fragment data-fragment-index="1"}       | [are -> were]{.fragment data-fragment-index="1"}      | [Story is better in the past]{.fragment data-fragment-index="1"} |
+|                                                                | [**Merged (in main)**]{.fragment data-fragment-index="2"}          |                                                                             |                                                                                        |
+| [M-2]{.fragment data-fragment-index="2"} | [You were flying to Gdansk]{.fragment data-fragment-index="2"}     | [Merge 1-4 & 2-2 ]{.fragment data-fragment-index="2"} | [_\*All changes\*_]{.fragment data-fragment-index="2"}           |
 
-vvvvvv
 
-### The same, in a git diagram
+## The same, in a git diagram
 
-<pre class="mermaid">
+```{mermaid}
 gitGraph
     checkout main
     commit id: "1"
@@ -334,7 +324,7 @@ gitGraph
     checkout main
     commit id: "1-4"
     merge past id: "1-4 & 2-2"
-</pre>
+```
 
 
 - "Main" branch is `main` (or `master`)
@@ -346,9 +336,7 @@ gitGraph
 
 Note: how to choose a branch name?
 
----
-
-### Local git
+# Local git
 
 _It's essential to understand git local mode before moving on to non-local._
 
@@ -359,9 +347,9 @@ For now, forget about `pull`, `fetch` and `push`
 
 Many devs (incl myself) have local gits on Dropbox for backup (less these days)
 
----
+# How to build a (local) VCS using diff and patch
 
-### How to build a (local) VCS using diff and patch
+. . .
 
 ```none
 /
@@ -395,13 +383,9 @@ Many devs (incl myself) have local gits on Dropbox for backup (less these days)
 - raven.txt
 ```
 
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
 Example VCS system **(not git)** with 3 revisions, and revision 3 checked out.
 
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-vvvvvv
+---
 
 - `commit`:
   - Create a new subdirectory under `commits`
@@ -412,16 +396,14 @@ vvvvvv
 - Sequential version numbers a bad idea. What if we use the _hash_ of (`message.txt` + `parents.txt` + `diffs/*`)? That is _almost exactly_ what `git` does.
 - When `vcs checkout 2`, we just apply diffs for commits `1` and `2` and have version `2`
 
----
-
-### How is git different
+# How is git different
 
 - uses `.git` directory
 - not one directory per commit (also lots of optimisations)
 - use `sha` as commit/revision number
 - allows for more complex branching / merging
 
-<pre class="mermaid">
+```{mermaid}
 gitGraph
     commit id: "d025a921"
     commit id: "2ad61971"
@@ -465,11 +447,9 @@ gitGraph
     commit id: "b8df9f45"
     checkout crazy-idea
     commit id: "8db12eed"
-</pre>
+```
 
----
-
-### How to think about git
+# How to think about git
 
 - Git is a tree/subway map, where each "station" is a _revision_ (a "version" of the code).
 - Between any two revisions there is a _diff_
@@ -481,19 +461,18 @@ gitGraph
 - If two commits have the same sha, they are the exact same commit package (barring the Birthday Problem; but you need $>10^{15}$ commits to have a 1-in-a-billion chance of collision)
 - Therefore if two _revisions_ have the same _sha_ its the same revision (→ the same code)
 
-vvvvvv
+---
 
 > Thus, an **organic** SHA-1 collision is less likely than every member of your programming team being attacked and killed by wolves in unrelated incidents on the same night.
 
 
-vvvvvv
+---
 
 - A _tag_ is a unique (semantic) label that points to a sha. It can be chosen by the user, and can be moved. Typ: version number
 
 - A _branch_ (act. branch-tag) is like a tag; it points to the latest sha on a branch (and moves when a new commit is made to the branch).
 
-<pre class="mermaid">
-%%{init: {"useMaxWidth": true}}%%
+```{mermaid}
 gitGraph
     commit id: "d025a921"
     commit id: "2ad61971"
@@ -502,11 +481,10 @@ gitGraph
     commit id: "f42f95c9" tag: "v0.2"
     commit id: "541d5c05"
     commit id: "ba88d9ef"
-    commit id: "aa1b0e8f" tag: "main" 
-</pre>
+    commit id: "aa1b0e8f" tag: "main"
+```
 
-<pre class="mermaid">
-%%{init: {"useMaxWidth": true}}%%
+```{mermaid}
 gitGraph
     commit id: "d025a921"
     commit id: "2ad61971"
@@ -517,11 +495,10 @@ gitGraph
     commit id: "ba88d9ef"
     commit id: "aa1b0e8f"
     commit id: "c881ce59"
-    commit id: "56ac0a73" tag: "main" 
-</pre>
+    commit id: "56ac0a73" tag: "main"
+```
 
-<pre class="mermaid">
-%%{init: {"useMaxWidth": true}}%%
+```{mermaid}
 gitGraph
     commit id: "d025a921"
     commit id: "2ad61971"
@@ -535,12 +512,10 @@ gitGraph
     commit id: "56ac0a73"
     commit id: "22339b36" tag: "v0.3"
     commit id: "b0944c21"
-    commit id: "cbd67e23" tag: "main" 
-</pre>
+    commit id: "cbd67e23" tag: "main"
+```
 
----
-
-### Explain index
+# Explain index
 
 With `commit` you move changes from your working directory to git. But which changes?
 
@@ -552,19 +527,17 @@ Then when you're ready, you `commit` the index
 
 The _index_ is therefore a subset of the changes between latest checked out version, and your working directory.
 
-vvvvvv
+---
 
-<pre class="mermaid" id="index-diagram">
+```{mermaid}
 sequenceDiagram
     current revision-)index: git checkout
     index->>working directory: git checkout
     working directory->>index: git add
     index->>current revision: commit (makes new revision)
-</pre>
+```
 
----
-
-### Extra: set up git editor
+# Extra: set up git editor
 
 When you commit something, `git` will ask for a commit message.
 In order to do so, `git` will open an editor.
@@ -573,7 +546,7 @@ By default this editor is `vim`, the one and only absolute best editor in the wo
 
 So we will need to switch this for `nano`.
 
-vvvvvv
+---
 
 First, confirm that `nano` is installed on your system: `nano somefile.txt`.
 It should open an editor and allow you to edit and then save a file.
@@ -582,17 +555,15 @@ If not, do `brew install nano` (on Mac).
 
 Now, we need to make sure `git` uses `nano` instead of `vim`:
 
-vvvvvv
+---
 
 - `git config --global --list` shows the current global (=not repository specific) git configuration.
 - `git config --global --list | grep editor` shows if there is anything about an editor
 - `git config --global core.editor nano` sets the editor (check with the command above)
 
----
+# (local) git cheat sheet
 
-### (local) git cheat sheet
-
-```
+```shell
 git subcommand subcommand-options -- general way to interact with git
 git help -- show all subcommands
 git help subcommand -- show help for certain subcommand
@@ -610,9 +581,7 @@ git help subcommand -- show help for certain subcommand
 | `diff`     | Run a `diff` between different commits, or a commit and your local files      |
 | `log`      | See a list, starting at the current commit and showing all parents            |
 
----
-
-## Discussion
+# Discussion
 
 - How to choose what is one repository?
 - What projects make sense to use a text-based VCS for?

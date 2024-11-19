@@ -1,6 +1,10 @@
+---
+title: "Playtime 5"
+date: 2024-10-30
+---
 For this playtime, we continue where we left off last time:
 
-```console
+```bash
 $ pwd
 /home/claude/minions
 $ ls -la
@@ -18,10 +22,12 @@ $ git status
 
 We're first going to check some differences between changes in index and changes in working directory
 
----
+# Exercise 1
+
 Create `unicorns.txt`, add it to the index (but don't commit!)
 
-```console
+::: {.hidden-answer}
+```bash
 $ pwd
 /home/claude/minions
 $ echo "Unicorns I love them,
@@ -47,16 +53,15 @@ $ git add unicorns.txt
 $ git status -s
 A  unicorns.txt
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
----
+# Exercise 2
 
 Make an edit (no matter what) to `bananas.txt`
 
-```console
+::: {.hidden-answer}
+
+```bash
 $ nano bananas.txt
 # It doesn't matter what we do, I literally just added an `a` to  Bananahahaaa
 # CTRL-O - enter - CTRL-X to quit
@@ -64,16 +69,15 @@ $ nano bananas.txt
 # We don't do git status now, because this is the next exercise
 # But one star for you if you did :)
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
----
+# Exercise 3
 
 Run `git status` (both with and without `-s`); explain what you see
 
-```console
+::: {.hidden-answer}
+
+```bash
 $ git status -s
  M bananas.txt
 A  unicorns.txt
@@ -95,21 +99,20 @@ Changes not staged for commit:
 # (Obviously) the same, but with more text :))
 ```
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show answer</button>
-
----
+# Exercise 4
 
 Stage your changes in `bananas.txt` (and confirm with `git status` that all changed are staged now)
 
+::: {.hidden-answer data-hidden-type="Hint"}
+
 - To "stage" means "to add to the index". Also note that (technically) you're staging _your changes_ (you're adding _your changes_ to the index), you're not staging your file unless it's a new file (although, people often say "I'm staging my file"). There are ways to stage only certain changes in your file, but this should generally only be a last resort (since you shouldn't be working on more than one problem at a time anyways).
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show hint</button>
-
-```console
+::: {.hidden-answer}
+```bash
 $ git add bananas.txt
 $ git status -s
 M  bananas.txt
@@ -117,15 +120,15 @@ A  unicorns.txt
 # M is in the first column now!
 ```
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show answer</button>
-
----
+# Exercise 5
 
 Make some more changes to both `unicorns.txt` and `bananas.txt` (still no commit)
 
-```console
+::: {.hidden-answer}
+
+```bash
 $ git status -s
 M  bananas.txt
 A  unicorns.txt
@@ -137,12 +140,9 @@ $ echo "One more banana" >> bananas.txt
 
 # again, git status is for the next exercise :)
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
-vvvvvvvv
+---
 
 - There are many ways do "edit a file".
 - Nano is only one of the editors (actually the traditional editors on \*nix systems are `vi` or `vim` and `emacs`. Both are very very powerfull (quite a lot of programmers swear by them for all their work) but they are not very user-friendly (steep learning curve). So `nano` is used for people who don't want to start with 10 lessons of "how to use vim" :)
@@ -150,11 +150,12 @@ vvvvvvvv
 - (if you don't get this and the next remark, don't worry, they're very advanced). You could try to do something like (don't do this) `cat bananas.txt | tr a b > bananas.txt`. As we saw in lesson 2, `tr a b` replaces every `a` with a `b`. This will fail, because since all commands will run at the same time, it will write to the file while reading from it, and the result is an empty file.....
 - So you _could_ do something like `cat bananas.txt | tr a b > bananas1.txt && rm bananas.txt && mv bananas1.txt bananas.txt`
 
----
+# Exercise 6
 
 Run `git status`; explain what you see (or, if you want to get an extra star: predict what you will see before you run `git status` :))
 
-```console
+::: {.hidden-answer}
+```bash
 $ git status -s
 MM bananas.txt
 AM unicorns.txt
@@ -163,17 +164,15 @@ AM unicorns.txt
 # so if we were to commit now..... (I won't tell you, because this is
 # exactly what we'll be doing soon :))
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
----
+# Exercise 7
 
 Before committing, we'll use `git diff` to see what changes we have.
 - Run `git diff` and explain what you see
 
-```console
+::: {.hidden-answer}
+```bash
 # remember to scroll to the bottom for the whole story
 $ git diff
 diff --git a/bananas.txt b/bananas.txt
@@ -203,22 +202,20 @@ index 9a64460..c12cf20 100644
 #
 # Obviously your exact diff may look different depending on the content of your files
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
-vvvvvvvv
+---
 
 
 One small detail to add is that `git diff` shows the diff between the index and the working directory only for those files that are in the index. So if you have files in your working directory that you never did `git add` on, they are not included in the diff.
 
 
----
+# Exercise 8
 
 - Run `git diff --staged` and explain what you see
 
-```console
+::: {.hidden-answer}
+```bash
 $ git diff --staged
 diff --git a/bananas.txt b/bananas.txt
 index 1abe203..4b53994 100644
@@ -253,12 +250,9 @@ index 0000000..9a64460
 # Therefore it is a good idea to always run "git diff --staged" before a
 # "git commit", so that you're sure which changes you're committing.
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
-vvvvvvvv
+---
 
 In case you ever see someone else do this: `git diff --cached` is the same as `git diff --staged`. 
 
@@ -268,12 +262,17 @@ You'll see it a lot with git that many actions can be achieved with different co
 
 Where possible I will try to use the more modern/more user-friendly commands here, even though I personally would never use them :).
 
----
+# Exercise 9
 
 - Add the unstaged changes in `bananas.txt` to the index as well, so that all changes (both the ones currently in the index, and the ones currently in the working directory) are in the index
 - Confirm that this worked with `git status` and `git diff --staged`
 
-```console
+(answer on page below)
+
+---
+
+::: {.hidden-answer}
+```bash
 $ git add bananas.txt
 $ git status
 On branch main
@@ -324,21 +323,23 @@ index 0000000..9a64460
 
 ```
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show answer</button>
-
----
+# Exercise 10
 
 Now the opposite, we want the changes in `bananas.txt` not in the index any longer. Afterwards, confirm that you succeeded.
 
+::: {.hidden-answer data-hidden-type="Hint"}
 If you look at the output of the `git status` command, it actually shows you how to do this.
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show hint</button>
+(answer on page below)
 
-```console
+---
+
+::: {.hidden-answer}
+```bash
 $ git status
 On branch main
 Changes to be committed:
@@ -375,12 +376,10 @@ index 0000000..9a64460
 # No more bananas. You could also look at "git diff" and see that all diffs are in there.
 ```
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
+:::
 
 
-vvvvvvvv
+---
 
 The old way of doing `git restore --staged <file>` is `git reset <file>`, so you may sometimes encounter that too.
 
@@ -388,11 +387,12 @@ It's also useful to imagine what the `git restore --staged <file>` command actua
 
 Note that this command does not actually change the file in the working directory. The `bananas.txt` file in the working directory always had all changes in it, however _compared to the index_ it had fewer changes when some of the changes were already staged.
 
----
+# Exercise 11
 
 Finally, what you've been waiting for. Commit the index!
 
-```console
+::: {.hidden-answer}
+```bash
 $ git commit -m "unicorn song"
 [main b70de99] unicorn song
  1 file changed, 9 insertions(+)
@@ -403,21 +403,18 @@ $ git status --short
 # Both only have local changes, nothing in index anymore
 ```
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show answer</button>
-
----
+# Exercise 12
 
 Show the diff but only for the `unicorn.txt` file
 
 `git diff` takes extra parameters; if the extra parameter is a filename, it shows the diff only for that file.
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show hint</button>
-
-```console
+::: {.hidden-answer}
+```bash
 $ git diff unicorns.txt
 diff --git a/unicorns.txt b/unicorns.txt
 index 9a64460..c12cf20 100644
@@ -430,11 +427,9 @@ index 9a64460..c12cf20 100644
 +One more unicorn
 ```
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show answer</button>
-
-vvvvvvvv
+---
 
 Many `git` commands take parameters, and often the parameters can be either a filename or a `commitref` (a `commitref` is anything that points to a commit; this can be a `sha`, a `tag`, a `branch`, etc; we'll dive into these in a future lesson).
 
@@ -444,17 +439,16 @@ This obviously leads to a problem when something is both a filename and a `commi
 
 Therefore, it's often suggested to make sure that you don't make branches with the names of files or directories :).
 
----
+# Exercise 13
 
 We have changed our mind. `unicorn.txt` is fine the way it is (in git) and we want to remove the changes in the local directory.
 
 Remember what `git restore --staged <file>` actually does, and what the different parts of the command mean.
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show hint</button>
-
-```console
+::: {.hidden-answer}
+```bash
 $ git diff unicorns.txt
 diff --git a/unicorns.txt b/unicorns.txt
 index 9a64460..c12cf20 100644
@@ -477,21 +471,20 @@ $ git status --short
 # check with "ls" and "cat" that the unicorns.txt file is still there)
 ```
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show answer</button>
-
-vvvvvvvv
+---
 
 Another (older) way to do this is `git checkout unicorns.txt`.
 
 Files that are restored this way, are overwritten with the version from the latest revision. There is no way to get back your changes if you accidentally do this (sometimes you can still get your original file back in the editor if you have it open, but not always). Another good reason to commit stuff often!
 
----
+# Exercise 14
 
 Now commit the local changes in `bananas.txt` to the repository.
 
-```console
+::: {.hidden-answer}
+```bash
 $ git status --short
  M bananas.txt
 $ git add .
@@ -520,19 +513,18 @@ $ git commit -m "almost done"
  1 file changed, 2 insertions(+), 1 deletion(-)
 ```
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
-vvvvvvvv
-
-Rather than using `git add bananas.txt` I used `git add .`. As you may recall, `.` is the current directory, so with this command I add all the changes in the current directory to the index (`git add bananas.txt` would obviously have worked just as well in this case, I just wanted to do something else :)).
+:::
 
 ---
 
+Rather than using `git add bananas.txt` I used `git add .`. As you may recall, `.` is the current directory, so with this command I add all the changes in the current directory to the index (`git add bananas.txt` would obviously have worked just as well in this case, I just wanted to do something else :)).
+
+# Exercise 15
+
 Now finally, use `git log` to see all commits
 
-```console
+::: {.hidden-answer}
+```bash
 $ git log
 commit 6c5fd12ff047afb1161a024834f601d859f7252f (HEAD -> main)
 Author: Claude <claude@claude.nl>
@@ -566,12 +558,7 @@ Date:   Fri Mar 24 17:50:15 2023 +0000
 # "git log | head -n 10" (try this now) shows only the first 10 lines
 ```
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
----
-
+:::
 
 # ⭐️⭐️⭐️ Done ⭐️⭐️⭐️
 

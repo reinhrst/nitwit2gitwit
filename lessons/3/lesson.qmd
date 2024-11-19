@@ -1,4 +1,8 @@
-## Homework take-aways
+---
+title: "Lesson 3: Numerical systems, CLI commands, `diff` and `patch`"
+date: 2024-10-16
+---
+# Homework take-aways
 
 `cat test.txt` will print the content of `test.txt` to the screen.
 
@@ -10,12 +14,13 @@ Sometimes CTRL-D on newline.
 
 However, don't press it twice, or you'll exit your shell ;)
 
-- This is the one time when CTRL-C is also CTRL-C on Mac.
-- For windows users a warning: don't use CTRL-C for copying in `gitbash`.
+::: {.callout-note}
+Mac users: This is the one time when CTRL-C is also CTRL-C.
+:::
 
-<!-- .element class="note" -->
-
----
+::: {.callout-warning}
+Windows users: don't use CTRL-C for copying in `gitbash`.
+:::
 
 # Lesson 3
 
@@ -23,9 +28,7 @@ However, don't press it twice, or you'll exit your shell ;)
 - CLI commands: pipe, redirect, how programs fit together (& terminal)
 - Diff and Patch
 
----
-
-## Sizing things in computers
+# Sizing things in computers
 
 - Everything is counted in bytes
 - kB, MB, GB, TB (note: steps of 1024)
@@ -36,17 +39,13 @@ However, don't press it twice, or you'll exit your shell ;)
 - Other times, multiple bytes work together to make a number (e.g. 4 bytes can represent a number between 0 and 4,294,967,296 (or -2,147,483,647 and 2,147,483,648, or float)
 - That is why we now need to talk about number systems
 
----
-
-## Numeral systems
+# Numeral systems
 
 If you thought that at least numbers were something you could count on being simple....
 
+. . .
+
 **You're wrong!!**
-
-<!-- .element class="fragment" -->
-
-vvvvvv
 
 ## Numeral systems
 
@@ -55,10 +54,7 @@ vvvvvv
 - Hexadecimal (base 16)
 - Others
 
-
----
-
-## Decimal (base 10):
+# Decimal (base 10):
 
 
 <foobar>
@@ -73,9 +69,7 @@ $$
 $$
 </foobar>
 
----
-
-## Binary (base 2)
+# Binary (base 2)
 
 
 Written as `0b.....`
@@ -102,17 +96,13 @@ $$
 
 _There are 10 types of people in the world: those who understand binary, and those who don't._
 
-vvvvvv
-
 ## Endianness
 
-![byte](3/byte.webp)
+![byte](byte.webp)
 
 Please decode what byte is in the signal above
 
----
-
-## Hexadecimal (hex; base 16)
+# Hexadecimal (hex; base 16)
 
 Written as `0x.....`
 We need characters for the numbers 10-15: `A=10, B=11, C=12, D=13, E=14, F=15`.
@@ -130,8 +120,7 @@ $$
 
 Two hex-digits are one byte (16 * 16 = 256)
 
----
-(lesser systems)
+# lesser systems
 
 ## Octal (base 8)
 
@@ -145,9 +134,7 @@ Uses symbols `0-9a-zA-Z` (10 + 26 + 26 = 62) and two extra (often `+` and `\`).
 
 Used to display binary data in "printable symbols"
 
-vvvvvv
-
-### Side note: other non-computer bases
+# Side note: other non-computer bases
 
 - Base 10 comes from "counting on one's fingers"
 - Base 12  (duodecimal) minor and speculative usage, foot-inch, dozen-gross, months in year, 12 hours in a day (and 12 in a night).
@@ -168,9 +155,7 @@ UK until 1971: 4 farthing = 1 penny, 12 pence = 1 shilling, 20 shilling = £1
 
 Note that base 12 and base 60 nice for mathematical reasons.
 
----
-
-## Why all these bases / when to use which
+# Why all these bases / when to use which
 
 - Decimal is just because people are used to it
 - Computers work with bits and bytes (= 8 bits), which have 2 and $2^8=256$ values. So it's nice if your number system uses powers of 2 or powers of 256.
@@ -179,8 +164,7 @@ Note that base 12 and base 60 nice for mathematical reasons.
 - Hexadecimal has $2^4=16$ values per digit (so 4 bits = 1 _nibble_, 2 hex-digits = 1 byte)
 - Base 64 has $2^6=64$ values per digit (so 4 digits = 24 bits = 3 bytes)
 
-
-vvvvvv
+---
 
 Generally things will have a prefix:
 
@@ -196,9 +180,7 @@ Sometimes, you can only know from context:
 - Some commandline programs (like `chmod` always expect octal numbers)
 - Some domains always use hexadecimal (e.g. in HTML (and R), color grey is `rgb(127, 127, 127) == #7F7F7F`. So `#111111 !== rgb(11, 11, 11)`
 
----
-
-## CLI programs
+# CLI programs
 
 
 ```text
@@ -215,8 +197,6 @@ Sometimes, you can only know from context:
                       V
                 return code
 ```
-
-vvvvvv
 
 ## Connect them
 
@@ -237,8 +217,6 @@ vvvvvv
 
 ```
 
-vvvvvv
-
 ## Default filedescriptors
 
 - `stdin`: standard input (to a program). Connected to terminal (what you type) by default, if not piped in from somewhere else
@@ -251,9 +229,8 @@ Redirections
 - `>` sends the `stdout` of the previous program to a file
 - `>>` appends the `stdout` of the previous program to a file
 - `<` uses the content of a file as `stdin` to the **previous** program
----
 
-## Some commands
+# Some commands
 These commands all work on `stdin`, but can also take a filename (or multiple)
 
 - `cat` -- print content
@@ -268,13 +245,11 @@ These commands all work on `stdin`, but can also take a filename (or multiple)
 
 e.g. `cat test.txt | grep hello | tr he ba`
 
----
-
 # Hands-on
 
 For this hands-on work, you need some files. In order to get the files, we will _clone_ a `git` repo from GitHub:
 
-```
+```bash
 # make sure you're in a directory where you want to make a subdir "raven"
 git clone --branch lesson3 https://github.com/reinhrst/raven
 cd raven
@@ -298,9 +273,7 @@ For now we focus on `original.txt`.
 - Now the same, but with line numbers
 - Can you make the poem about a Tiger?
 
----
-
-## Line endings
+# Line endings
 
 One thing we have to talk about is line endings.
 
@@ -318,7 +291,7 @@ There are special characters here as well:
 - 0x0a = LINE FEED / NEWLINE (also written as `\n`)
 - 0x0d = CARRIAGE RETURN (CR; also written as `\r` or `^M`)
 
-vvvvvv
+---
 
 Windows and the rest of the world disagree on what should be on the end of a line of text:
 
@@ -332,19 +305,19 @@ If you open a file with windows line-endings in an editor without support, every
 
 If you open a file with unix line-endings in a (windows) editor without support, all newlines seem to have disappeared (sometimes replaced by some character).
 
-vvvvvv
+---
 
-![Carriage returns on linux](3/carriage-return-on-unix.png)
+![Carriage returns on linux](carriage-return-on-unix.png)
 
 A file with windows line-endings opened in a mac editor. The `^M` is actually a single byte (0x0d, CR).
 
-vvvvvv
+---
 
-![Unix line endings on notepad](3/unix-lines-on-notepad.webp)
+![Unix line endings on notepad](unix-lines-on-notepad.webp)
 
 A file with unix line endings opened in notepad (pre-2018; these days notepad does the right thing)
 
-vvvvvv
+---
 
 These days most editors can deal with both types of enters, however some may always save files with a certain kind of line ending.
 
@@ -354,12 +327,12 @@ The solution is some magic: By default, on Windows, `git` converts all line endi
 
 Tools like `diff` and `patch` also use magic, but...
 
-vvvvvv
+---
 
 sometimes with magic, things go wrong...
-![Things go wrong](3/things-go-wrong.jpeg)
+![Things go wrong](things-go-wrong.jpeg)
 
-vvvvvv
+---
 
 If you ever find yourself in trouble:
 
@@ -378,9 +351,7 @@ $ file original.txt
 original.txt: Unicode text, UTF-8 text
 ```
 
----
-
-## `diff` & `patch`
+# `diff` & `patch`
 
 Understanding `git` means understanding `diff` and `patch`, which do most of the interesting work.
 
@@ -388,14 +359,14 @@ Understanding `git` means understanding `diff` and `patch`, which do most of the
 - `diff --color --unified file1 file2` shows the difference between 2 files in better format
 - `patch orginal patchfile -o -` applies the patchfile (result of diff) to original
 
-vvvvvv
-
+::: {.callout-note}
 - To save the diff to a file, make sure to exclude the `--color` option -- text files cannot have colour.
 - Windows users will have to run `diff --unified --strip-trailing-cr file1 file2` to create a patch file with the correct line endings.
 Note that this is only for this week, as soon as we start with `git` it should not be a problem anymore.
 - Alternatively, Windows users can run `diff --unified file1 file2 > patchfile.patch` and then `dos2unix patchfile.patch`
 
-<!-- .element class="note" -->
+:::
+
 ---
 
 Let's use `diff` so we understand how it works

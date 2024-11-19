@@ -1,0 +1,13 @@
+---
+title: About the course
+---
+
+This website contains the slides and the homework assignments for the From Nitwit To Gitwit course, that was first given in 2023.
+These pages are a living document; they will be updated and adjusted each year.
+
+The goal of the course is to give people who work with computers and code, but are not developers, an idea of what `git` is, why one would want to use the shell, and why GitHub may or may not be interesting to use in one's workflow.
+An explicit goal is that the students actually understand _why_ of their actions, not just the _how_.
+
+The course takes about 10 weeks, with a 1.5 hour lecture each week, and 1 hour homework.
+
+In case there is any interest by others to adopt this course, please reach out on nitwit2gitwit@claude.nl.

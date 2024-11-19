@@ -1,4 +1,9 @@
-### Take-aways last week
+---
+title: "Lesson 5: More local git"
+date: 2024-10-30
+---
+
+# Take-aways last week
 
 - Hashing creates a small number/string from any size of information that (faiap) uniquely identifies this information
 - Any change in original data will result in a completely different hash
@@ -6,7 +11,7 @@
 - `git` uses _sha_-hashes as its revision "numbers". The same sha → the same commit, the same revision, the same code
 - Do `git` every day!
 
-vvvvvv
+---
 
 If you compare two hashes and first X hex-digits match, how large is the change that the underlying data is different:
 
@@ -18,22 +23,21 @@ If you compare two hashes and first X hex-digits match, how large is the change 
 | 7 | $\approx0.0000000037\approx10^{-9}$  |
 | 40 | $\approx0.00000000000000000000000000000000000000000000000068\approx10^{-48}$  |
 
----
-
 # Lesson 5
 
 - Take a breath
 - Much more about local git
 
----
-
-### Git for Windows
+# Git for Windows
 
 - Not a full Linux for windows
 - Other solutions, such as WSL
 
----
-### How to build a (local) VCS using diff and patch
+# How to build a (local) VCS using diff and patch
+
+(since we skipped this last week)
+
+. . .
 
 ```none
 /
@@ -67,24 +71,17 @@ If you compare two hashes and first X hex-digits match, how large is the change 
 - raven.txt
 ```
 
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
 Example VCS system **(not git)** with 3 revisions, and revision 3 checked out.
 
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
----
-
-### Local git
+# Local git
 
 - Exercises will only take you that far; you _really_ learn when you work with it.
 - **Take the pain**
     - Two hours per week is not enough
     - You will run into problems _before_ you learn the solution
 
----
 
-### How to choose what is one repository?
+# How to choose what is one repository?
 
 - One "project"
 - Belongs together (one cannot work without the other)
@@ -92,9 +89,7 @@ Example VCS system **(not git)** with 3 revisions, and revision 3 checked out.
 - In the end: many opinions, just choose something
 - You should have between 2 and 5 repos you use regularly
 
----
-
-### What projects make sense to use a (text-based) VCS for?
+# What projects make sense to use a (text-based) VCS for?
 
 We discussed the _idea_ of non-text based diffs (e.g. image diffs), but in practice `git` is text-based.
 
@@ -105,17 +100,13 @@ We discussed the _idea_ of non-text based diffs (e.g. image diffs), but in pract
 
 You will likely never need it, but it _is_ possible to use other `diff`/`patch` with `git`. e.g. `images`, `xlsx`, `csv`, `pdf`, Jupyter Notebook.
 
----
-
-### What files are part of your git repository, and which are not?
+# What files are part of your git repository, and which are not?
 
 - Everything that you created (code, images, graphs)
 - Readme files / documentation / instructions (ideally in Markdown)
 - Ideally use text-based formats
 
-vvvvvv
-
-##### But not:
+## But not:
 - Raw data (usually; you can have a "data repo")
 - Derivative (by script) stuff -- _Single source of truth_
 - Huge files (esp if they change a lot)
@@ -125,20 +116,21 @@ vvvvvv
 - Development files for your environment
 - PASSWORDS / SECRETS (remember that all history is normally kept!)
 
-vvvvvv
+---
 
 - Generally I would advice against files > 1MB
 - GitHub will get upset with files > 50MB (and refuse >100MB)
 - Remember files will always be in history (unless you rewrite)
 - There is something called Git Large File Storage (LFS).
 
-vvvvvv
-
-_There are always exceptions to this rule, in time you'll find out what works for you. However have rules within one repo!_
-
 ---
 
-### Open vs closed source and license
+::: {.callout-tip}
+_There are always exceptions to this rule, in time you'll find out what works for you. However have rules within one repo!_
+:::
+
+
+# Open vs closed source and license
 
 The first thing you have to choose when making a new repo in GitHub is whether it's public or private
 
@@ -149,7 +141,7 @@ Tempting to make everything private, but nicer to make things public. Also peopl
 If you make something public later, be aware that all history will also become public!
 
 
-vvvvvv
+---
 
 - A license (typically in LICENSE.TXT, or LICENSE.MD) is a legally binding agreement of what can be done with the code:
   - Everything, no restrictions: MIT, CC0
@@ -162,9 +154,7 @@ vvvvvv
     - ND: No derivates are allowed
 - Note that others might have opinions on public/private and the license: journals, universities, etc
 
----
-
-### Git is not a backup (but GitHub may be)
+# Git is not a backup (but GitHub may be)
 
 - Editing something in the working directory does nothing with git
 - When you add something to the index, it can be retrieved from the repo if deleted
@@ -174,15 +164,12 @@ vvvvvv
 
 - Really _really_ important stuff need online and offline backups.
 
----
-
-### How often should one commit their code
+# How often should one commit their code
 
 It's a personal preference / agree on rules per project or repo / you will get a feeling for what works for you _(for now: often to get experience)_
 
-vvvvvv
 
-##### My suggestion:
+## My suggestion:
 - When you finish something
 - When you start working on something else
 - At least every couple of hours (lunchtime, before end of day?)
@@ -196,15 +183,13 @@ If your code is not ready yet, just make a commit in a branch!
 
 NB: you push to GitHub after every commit!
 
----
-
-### Extra: when do you make a branch
+# Extra: when do you make a branch
 
 _branches are cheap_
 
 NOTE: This is a preview, we will deep-dive into branches soon
 
-vvvvvv
+---
 
 - When working on something that you don't quite want to share yet in the `main` branch (or is not ready)
 - When you start a large "operation", that may take a couple of days (or: a couple of commits) and:

@@ -1,7 +1,13 @@
+---
+title: "Playtime 1"
+date: 2024-10-02
+---
 # Play time
 
 
 Note: when it says "print" it means print to the terminal or somewhere else, not to paper.
+
+# Exercise 1
 
 - How many parameters are there in the following command:
 
@@ -10,13 +16,12 @@ git log --follow --date=iso8601 --pretty=format:'%H %ad %d' main index.html
 ```
 
 
-Answer: 6. `git` is the program name, `log` (1) `--follow` (2) `--date=iso8601` (3) `--pretty=format:'%H %ad %d'` (4) `main` (5) `index.html` (6)
-<!-- .element class="hidden-answer" -->
+::: {.hidden-answer}
+Six. `git` is the program name, `log` (1) `--follow` (2) `--date=iso8601` (3) `--pretty=format:'%H %ad %d'` (4) `main` (5) `index.html` (6)
+:::
 
-<button>show answer</button>
 
-
----
+# Exercise 2
 
 - Make sure we are in the `/tmp` directory
 - Now make a directory "project"
@@ -26,13 +31,13 @@ Answer: 6. `git` is the program name, `log` (1) `--follow` (2) `--date=iso8601` 
 - Print the contents of this file to the console
 
 
----
+# Exercise 3
 
 - Make a directory B next to directory A
 - In this directory make a file `many hellos.txt` (with a space), containing 10 lines with the word "hello"
 - Now print (to the console) in 1 command the contents of both `test.txt` and `many hellos.txt`
 
----
+# Exercise 4
 
 - Copy `test.txt` to the `B` directory
 - Rename the `test.txt` file to `onehello.txt`
@@ -41,7 +46,7 @@ Answer: 6. `git` is the program name, `log` (1) `--follow` (2) `--date=iso8601` 
 - List all files in the `B` directory
 - Print the content of both files
 
----
+# Exercise 5
 
 - Try to remove the `A` directory
 - Remove the files in the `A` directory and remove it

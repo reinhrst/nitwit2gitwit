@@ -1,3 +1,7 @@
+---
+title: "Playtime 4"
+date: 2024-10-23
+---
 ## Playtime
 
 - Each page has one assignment.
@@ -10,15 +14,13 @@
 - The solutions may contain more `ls` and `pwd` and `git status` and `md5sum` commands than necessary, however this so that the student can check they have the same thing
 - Sometimes there is a vertical slide with extra deep-dive info
 
-vvvvvvvv
+---
 
 Congratulations, you found the vertical slide. Some exercises will have these vertical slides, and you can find more info, or deep-dive info in there.
 
 There may be solutions or hints to the exercise in the vertical scroll, so only go there after you have solved the exercise.
 
----
-
-### Extra assignment (multiple down-pages, read all)
+# Extra assignment (multiple down-pages, read all)
 
 At some point (but maybe better after you do at least some of the exercises):
 
@@ -27,37 +29,34 @@ At some point (but maybe better after you do at least some of the exercises):
   For me, this class is one repository.
   Behave (the app + website) is another. I actually have a separate repository for the behave paper.
 
-vvvvvvvv
+---
 
 - Make a first commit with the current state of your code (don't worry about the exact commit message; first commit can just be called "initial state" or something like that).
   Make sure you choose what to check in; data and results from your code runs (e.g. graphs that you created) should not be checked in. Files larger than 1MB should (probably) not be checked in. Plugins/packages that you downloaded from somewhere else should (probably) not be checked in.
 
-vvvvvvvv
+---
 
 - If you work on this code, try to commit a new version whenever you tell yourself "I did that very well, it's working now".
   Try to come up with semantic commit messages -- if you find yourself writing messages like "I did this and I did this and I did this", you should probably commit more often :).
 
----
-
-### Start of exercises
+# Exercise 1
 
 Create a new directory in your home directory named `minions` and move to this new directory
 
+::: {.hidden-answer}
 ```bash
 $ cd ~  # make sure we're in the home directory
 $ # if there already is a directory "minions" (i.e. you want to start again), remove it: `rm -r minions`
 $ mkdir minions
 $ cd minions
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
----
+# Exercise 2
 
 Start a new git respository in this directory
 
+::: {.hidden-answer}
 ```bash
 $ pwd
 /home/claude/minions
@@ -79,12 +78,9 @@ drwxr-xr-x 3 claude claude 4096 Mar 24 11:01 .
 drwxr-x--- 1 claude claude 4096 Mar 24 11:01 ..
 drwxr-xr-x 7 claude claude 4096 Mar 24 11:04 .git
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
-vvvvvvvv
+---
 
 - `ls -la` is a short form for `ls -l -a` (in lesson 2 we saw that often two short flags (`-l` and `-a`) can be pulled together into `-la`).
 
@@ -94,9 +90,9 @@ vvvvvvvv
 
 - The exact format differs per system, but usually contains similar information
 
-vvvvvvvv
+---
 
-```
+```text
 total 12
 drwxr-xr-x 2 claude claude 4096 Mar 24 10:56 .
 drwxr-x--- 1 claude claude 4096 Mar 24 10:56 ..
@@ -111,9 +107,8 @@ drwxr-x--- 1 claude claude 4096 Mar 24 10:56 ..
 - `Mar 24 10:56` is the modified time (last time something changed). It depends on the system which timezone this is in (in our case: UTC)
 - The `1` and `2` are number of links, please ignore :)
 
-vvvvvvvv
 
-#### hidden files
+## hidden files
 
 - In Windows, each file has a small flag (piece of metadata) that descibes if a file is hidden or not. You can have a file `bananas.txt` and make it a hidden file (and it won't show in your explorer, unless you switch it to show hidden files).
 - In \*nix systems (incl Linux and MacOS) this works differently. A hidden file is any file with a name starting with with a `.` (dot).
@@ -121,16 +116,15 @@ vvvvvvvv
 - This also explains why if you use a USB stick from Mac on Windows, you will see files like `.DS_Store`, which you don't see on mac. These are hidden files on mac, but not on windows.
 - The directory `.git` is therefore also a hidden directory. Even though it's a good idea to ignore `.git` directory, there are many hidden files that are useful to be aware of.
 
----
+# Exercise 3
 
 Remove repository in `minions` directory
 
-Literally the only thing that makes the directory a git repository, is the presence of the .git directory
+::: {.hidden-answer data-hidden-type="Hint"}
+Literally the only thing that makes the directory a `git` repository, is the presence of the `.git` directory
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show hint</button>
-
+::: {.hidden-answer}
 ```bash
 $ pwd
 /home/claude/minions
@@ -150,21 +144,19 @@ fatal: not a git repository (or any of the parent directories): .git
 # also git knows it's not a git repository anymore
 #(it looks in the current director, and ALL parents (until it gets to /)
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
-vvvvvvvv
+---
 
 Deleting the repo means you lose all info (commits, log messages, history) in the repo (unless it's backed up, e.g. in GitHub)
 
 In "normal life" there is little reason to ever delete the repo; this exercise is mostly to show that the repository is no magic, just a directory and nothing more.
 
----
+# Exercise 4
 
 Recreate git repository and check the log (note, checking the log may fail at this time)
 
+::: {.hidden-answer}
 ```bash
 $ pwd
 /home/claude/minions
@@ -181,15 +173,14 @@ $ git log
 fatal: your current branch 'main' does not have any commits yet
 # makes sense, the branch is empty, there is nothing to show
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
 
-<button>show answer</button>
-
----
+# Exercise 5
 
 Create a simple file `bananas.txt`, write some text (minimal 5 lines) and save the file
 
+::: {.hidden-answer}
 ```bash
 $ pwd
 /home/claude/minions
@@ -207,12 +198,9 @@ drwxr-x--- 1 claude claude 4096 Mar 24 11:22 ..
 drwxr-xr-x 7 claude claude 4096 Mar 24 11:17 .git
 -rw-r--r-- 1 claude claude  145 Mar 24 11:23 bananas.txt
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
-
-<button>show answer</button>
-
-vvvvvvvv
+---
 
 ```bash
 # alternative way to create the file
@@ -238,9 +226,12 @@ windy
 and a chance of snow"" > weather_report.txt
 ```
 
----
+# Exercise 6
 
 Run git status. What does it tell you?
+
+
+::: {.hidden-answer}
 
 ```bash
 $ pwd
@@ -265,19 +256,19 @@ nothing added to commit but untracked files present (use "git add" to track)
 # Think of "track changed" in Word; untracked means that changes are not being tracked (and remember, everything, including creation of a file, is a change).
 ```
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show answer</button>
-
----
+# Exercise 7
 
 Move the file (or technically the changes) into the index
 
+::: {.hidden-answer data-hidden-type="Hint"}
+
 The `add` subcommand takes a filename as parameter
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show hint</button>
+::: {.hidden-answer}
 
 ```bash
 $ pwd
@@ -294,13 +285,13 @@ $ git add bananas.txt
 # or `git add .` to add (everything in) the current directory.
 ```
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show answer</button>
-
----
+# Exercise 8
 
 Run git status again. What does it tell you now?
+
+::: {.hidden-answer}
 
 ```bash
 $ pwd
@@ -323,15 +314,15 @@ Changes to be committed:
 # It shows that the bananas.txt file is not longer untracked, but now ready to be committed
 ```
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show answer</button>
-
----
+# Exercise 9
 
 Commit index into repo. Create a commit message
 
-```python
+::: {.hidden-answer}
+
+```bash
 # NB: THIS ANSWER BOX CAN BE SCROLLED DOWN FOR THE WHOLE ANSWER
 $ pwd
 /home/claude/minions
@@ -382,11 +373,9 @@ drwxr-xr-x 8 claude claude 4096 Mar 24 18:16 .git
 # but the file is (obviously) still there
 ```
 
-<!-- .element class="hidden-answer" -->
+:::
 
-<button>show answer</button>
-
-vvvvvvvv
+---
 
 `git status --short` format.
 
@@ -400,7 +389,7 @@ vvvvvvvv
 - `D` means the file is [D]eleted
 - `??` means an untracked file.
 
-vvvvvvvv
+---
 
 Example (note that colours are wrong)
 
@@ -414,9 +403,7 @@ means:
 - `bananas.txt` was "Added to index, no local changes" (`A` as first character, space as second)
 - `orange.txt` was "Modified in local directory, but changes were not staged" (staged means: present in index)
 
-vvvvvvvv
-
-### git config
+## git config
 
 - First time you use git on a new computer, git wants to know who you are (name and email).
   Git will never do anything with this data, except add it to every commit you make.
@@ -428,9 +415,7 @@ vvvvvvvv
 
 - Takeaway: this is for convenience only, never take a name or email address on a git commit as _proof_ that it was that person!
 
-vvvvvvvv
-
-### A good commit message
+## A good commit message
 
 - As discussed in the lesson, a good commit message says "what the change means", not "what the change is".
 - So `Make code not crash with large input files` is a good commit message. `Changed "MAX_SIZE=500" into "MAX_SIZE=1000" in line 34` is a bad message.
@@ -442,7 +427,7 @@ vvvvvvvv
 
 Good (but maybe bit elaborate) commit message:
 
-```shell
+```text
 Bugfix: code crashed if input was empty
 
 It turned out that if you provided an empty list to the `process()` function, the code would crash.
@@ -450,15 +435,13 @@ This is because `process()` would display a percentage completion, which was `nr
 Added an if statement that makes progress = 100% if input.length == 0
 ```
 
-vvvvvvvv
+---
 
 ![XKCD commit messages commic](https://imgs.xkcd.com/comics/git_commit_2x.png)
 
 The sad truth, especially late at night - Source: [XKCD](https://xkcd.com/1296/)
 
-vvvvvvvv
-
-### Last one (I promise!)
+## Last one (I promise!)
 
 - `git commit` without a commit message on the command line, will open the nano editor
 - You have to save the text message to some pre-aranged location (the default save place), and `git commit` will pick the message up from there (this is what we did in the "solution")
@@ -474,13 +457,14 @@ git commit -m "ONE MORE TYPO!!!!" # WRONG: you cannot use ! on the terminal (in 
 git commit -m "A fix for the "cannot open editor" bug"  # WRONG: the whole message must be between quotes, but the " before `cannot` closes the start quote
 ```
 
----
+# Exercise 10
 
 Create `fluffy.txt`, add it to index and commit
 
 (nb: it's hard to find good semantic commit messages when you're just doing exercises. I think just using "exercise page 26" or something is fine)
 
-```console
+::: {.hidden-answer}
+```bash
 $ pwd
 /home/claude/minions
 $ git status -s
@@ -494,16 +478,11 @@ $ git commit -m "exercise 26"
  1 file changed, 1 insertion(+)
  create mode 100644 fluffy.txt
 ```
+:::
 
-<!-- .element class="hidden-answer" -->
+# Congratulations
 
-<button>show answer</button>
-
----
-
-### Congratulations
-
-# 🎉
+🎉
 
 You made it to the end
 

@@ -1,0 +1,8 @@
+---
+title: Home
+listing:
+  contents:
+    - "lessons/*/*.qmd"
+  sort: false
+  type: table
+---

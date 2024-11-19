@@ -1,0 +1,32 @@
+.hidden-answer::before {
+  content: attr(data-hidden-type) " (click to show):"
+}
+.shown-answer::before {
+  content: attr(data-hidden-type)" (click to hide):"
+}
+.hidden-answer:not([data-hidden-type])::before {
+  content: "Answer (click to show):"
+}
+.shown-answer:not([data-hidden-type])::before {
+  content: "Answer (click to hide):"
+}
+
+.shown-answer::before, .hidden-answer::before {
+  display: block;
+  font-size: .7em;
+}
+.shown-answer, .hidden-answer {
+  border: 1px solid green;
+  margin: .7em;
+}
+.hidden-answer > * {
+  filter: blur(.5em);
+}
+
+.reveal.smaller h1, h2, h3 {
+  font-size: 2em !important;
+}
+
+.mermaid-js {
+  max-width: 100%;
+}
