@@ -15,6 +15,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      - uses: quarto-dev/quarto-actions/setup@v2
       - name: Build
         uses: quarto-dev/quarto-actions/render@v2
       - name: Deploy
