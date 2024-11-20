@@ -2,3 +2,5 @@ lessons/index.md
 /dist
 /_site/
 /.quarto/
+*.quarto_ipynb
+*.html
