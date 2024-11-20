@@ -149,6 +149,7 @@ _percentages were (possibly) made up by ChatGPT, please don't quote :)_
 - Can work in projects (Markdown is single file)
 - Execute code and add to output
 - Lots of documentation and examples
+- Downside: Github will not render it anymore, so less suited for Readme.md.
 - [This whole presentation is in Quarto]{.fragment data-fragment-index="1"}
 - [If all people working on a paper support Markdown, this would be the best way (probably)]{.fragment data-fragment-index="1"}
 
@@ -293,14 +294,29 @@ gitGraph
   commit
 ```
 
-The ultimate fate of a branch:
+## Why branches
 
-- Merged into another branch
-- Replace the original branch
-- Another "view" of the project (e.g. an anonymized version of `behave`)
-- An experiment that gets abandoned
-- ...
-  
+- Explicit branches (with the goal of):
+  - Merged into another branch
+  - Replace the original branch
+  - Another "view" of the project (e.g. an anonymized version of `behave`)
+  - An experiment that gets abandoned
+  - ...
+- Implicit branches (Branches in git are _everywhere_ so merging is too)
+  - local branches
+  - remote repositories
+  - forking
+  - pull requests
+
+---
+
+- Branching is super easy.
+- Merging is easy-ish (most of the time)
+- Merge conflicts are scary but usually also easy
+
+A merge-conflict happens when changes somehow overlap 
+
+
 # Branches cheatsheet
 
 Git branches cheat sheet
@@ -314,6 +330,13 @@ Git branches cheat sheet
 |`git branch --delete BRANCH`|Delete branch BRANCH _if it's all merged_
 |`git branch --delete --force BRANCH`|Delete branch BRANCH _even if not fully merged_
 |`git branch -d/-D BRANCH`|`-d` == `--delete`; `-D` == `--delete --force`
+
+::: {.callout-note}
+`git checkout BRANCH` normally checks out a branch (meaning: this is the branch that you are now working on).
+If you have local changes (in the `index` or the working directory), these are rebased on the new branch.
+This means that the diff between the old branch and the changes is made, and that is applied to the new branch.
+If this leads to a conflict, checkout will fail and tells you to manually clean up your files.
+:::
 
 ## A note on deleting branches
 
@@ -366,7 +389,7 @@ gitGraph
 :::
 :::::
 
-# Recombining
+# Merging (recombining)
 
 |command|description|
 |---|---|
@@ -374,17 +397,228 @@ gitGraph
 |`git cherry-pick REVISION`|Apply the changes in REVISION to the current branch
 |`git rebase BRANCH`|Unattach current branch from LCA-point, and reattach at BRANCH
 
-There are multiple merge-strategies.
+```{mermaid}
+gitGraph
+    commit id: "1"
+    branch A
+    checkout main
+    commit id: "M1"
+    commit id: "M2"
+    checkout A
+    commit id: "A1"
+    commit id: "A2"
+    checkout main
+    commit id: "M3"
+```
 
-Also valid is "manual merging"
+When you merge branch `A` into branch `main` it _means_:
 
-## Conflicts
+- At the end, `main` should have all the changes in branch `A` (in addition to what it already had)
 
-merge / cherry-pick / rebase may fail because of conflicts.
+## Merge methods
 
-In this case: manually fix the problem and manually make the commit.
+- (manually -- no git;  sometimes if change is simple (or super complex))
+- merge-commit
+- rebase / fast-forward
+- squash
 
-(Rebase is more complex)
+## Manual merge
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    branch A
+    checkout main
+    commit id: "M1"
+    commit id: "M2"
+    checkout A
+    commit id: "A1"
+    commit id: "A2"
+    checkout main
+    commit id: "M3"
+```
+
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    commit id: "M1"
+    commit id: "M2"
+    commit id: "M3"
+    commit id: "A1&2 manually"
+```
+
+In some complex merge situations, manual merge is the only (practical) solution
+
+## merge-commit
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    branch A
+    checkout main
+    commit id: "M1"
+    commit id: "M2"
+    checkout A
+    commit id: "A1"
+    commit id: "A2"
+    checkout main
+    commit id: "M3"
+```
+
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    branch A
+    checkout main
+    commit id: "M1"
+    commit id: "M2"
+    checkout A
+    commit id: "A1"
+    commit id: "A2"
+    checkout main
+    commit id: "M3"
+    merge A tag:"merge-commit"
+```
+
+A merge-commit has 2 (or more) parents, and may contain extra "diffs" to indicate how to resolve merge-conflicts.
+
+```bash
+git merge BRANCH
+```
+
+## Rebase & fast-forward
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    branch A
+    checkout main
+    commit id: "M1"
+    commit id: "M2"
+    checkout A
+    commit id: "A1"
+    commit id: "A2"
+    checkout main
+    commit id: "M3"
+```
+
+In rebase (we rebase `A` to `main`) we first move the base (LCA) of branch `A` to the tip of `main` (note that `A1` and `A2` will need to change (at least their parent). Note that "committer" or "commit date" are **not** changed.
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    checkout main
+    commit id: "M1"
+    commit id: "M2"
+    commit id: "M3"
+    branch A
+    commit id: "A1*"
+    commit id: "A2*"
+```
+
+Then we "fast-forward" `main` (basically no commits are changed, just the `main` label is moved).
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    commit id: "M1"
+    commit id: "M2"
+    commit id: "M3"
+    commit id: "A1*"
+    commit id: "A2*"
+```
+
+## squash-merge
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    branch A
+    checkout main
+    commit id: "M1"
+    commit id: "M2"
+    checkout A
+    commit id: "A1"
+    commit id: "A2"
+    checkout main
+    commit id: "M3"
+```
+
+Squash
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    branch A
+    checkout main
+    commit id: "M1"
+    commit id: "M2"
+    checkout A
+    commit id: "A1&2"
+    checkout main
+    commit id: "M3"
+```
+
+(continued on next slide...)
+
+---
+
+Rebase
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    checkout main
+    commit id: "M1"
+    commit id: "M2"
+    commit id: "M3"
+    branch A
+    commit id: "A1&2*"
+```
+
+Now just fast-forward
+
+```{mermaid}
+gitGraph
+    commit id: "1"
+    commit id: "M1"
+    commit id: "M2"
+    commit id: "M3"
+    commit id: "A1&2*"
+```
+
+```bash
+git merge --squash BRANCH
+```
+
+## Notes about merges
+
+- In the diagrams we pretend the branch disappears after merge; this is a manual operation (and not always what you want)
+- Git merge always tries to do it's best to not create conflicts, but if it does, you will have to manually fix them
+- Rebase may result in rebase conflicts (which are more or less the same)
+- avoid conflicts by not checking in more than you want (remember `git diff --cached` before commit)!!!!
+
+## Differences in strategies
+
+Each strategy has its advantages and disadvantages; what you want to use depends on personal preference.
+
+|     |mergecommit|rebase/ff|squash|manual|
+|-----|-----------|---------|------|---|
+|nr commits in _main_| 1 (merge) | multiple | 1 (squashed) | 1 (manual)
+|_main_ is in chronological order | yes | no | ??? | ???
+|history | split (complex) | straight | straight | straight
+|original commits available | yes | yes | no | no
+|original blame available | yes | yes | no | no 
+|branch visible in history | yes | no | no | no
+|branch is rewriten| no | yes | yes | ???
+
+When in doubt (but this is personal preference):
+
+- merge commit for branch merges
+- rebase for `pull`
+- squash if you made lots of small commits that are not interesting to anyone
 
 # Playtime: Make Quarto Website
 
@@ -564,4 +798,38 @@ gitGraph
   merge layout-experiments
   merge typos
 ```
+
+# Working with remote repository
+
+Each local `git` project has 0 or more remotes.
+The default name for a remote is `origin`, but you can add more.
+
+You can list the remotes using `git remote` (add `-v` for more info).
+
+Each branch on the remote is a branch locally (e.g. `remotes/origin/main`).
+This is because your local `main` may be different from what the remote has, or may even be called differently locally.
+
+You should never work directly with the remote branches.
+
+`git branch` lists all branches, as `-a` for remote branches too.
+
+## Cheatsheet
+
+| command              | description                                                                            |
+| ----------------- | ------------------------------------------------------------------------------ |
+| `git fetch`       | Updates the `remotes/origin/*` branches. Does not update local branches
+| `git rebase remotes/origin/main`       | Rebases your `main` branch on the remote branch. This means that `remotes/origin/main` is now an ancestor of your local `main`. In normal operations, you will never use this command.
+| `git pull`        | does a `git fetch` and a `git rebase remotes/.../...` for the branch that your local branch is tracking (means: is connected to). This is the command you will normally use. Note that you might be asked to fix merge conflicts.
+| `git push`        | push new commits on local branch to the remote location. This only work if remote branch is an ancestor of the local branch.
+---
+| command              | description                                                                            |
+| ----------------- | ------------------------------------------------------------------------------ |
+| `git push -f`        | push new commits on local branch to the remote location, regardless of whether it's an ancestor.
+
+
+::: {.callout-warning}
+Never do a `push -f` unless you are sure what you are doing.
+Doing so is one of the few ways how you can destroy the history on GitHub, making everyone angry (in the best case).
+`push -f` is _almost never_ the solution, unless you _want to_ destroy history and have lots of backups in case you fuck up.
+:::
 
