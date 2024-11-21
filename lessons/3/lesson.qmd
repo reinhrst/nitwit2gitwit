@@ -1,6 +1,6 @@
 ---
 title: "Lesson 3: Numerical systems, CLI commands, `diff` and `patch`"
-date: 2024-10-16
+date: 2024-10-23
 ---
 # Homework take-aways
 

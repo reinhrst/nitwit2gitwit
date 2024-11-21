@@ -1,0 +1,143 @@
+---
+title: "Playtime 6"
+date: 2024-11-20
+---
+
+# Playtime 6
+
+In today's playtime we are going to work together on a quarto website for recipes.
+The goal of the lesson is for you guys to get a bit of a feel of how it is to work together on a repository.
+Learning quarto is of course a nice side effect but is explicitly _not_ a goal.
+Also, making a good recipe is not a goal.
+
+It all means that for me it's OK if you guys just ask ChatGPT:
+
+> Hey, make me a Markdown page describing how to make an authentic New York Pizza" and use that.
+
+Then again, leaking Markdown and quarto _is_ useful and making actual recipes is also appreciated.
+
+(next page below)
+
+---
+
+Ideally you would work on this task for 10 minutes each day for a couple of days in a row and check in your code every time.
+This way you all should get an experience of what it's really like to work on a repository where other people are working at the same time.
+If you don't know what do do because you're done after the first day, just make small updates to your page, or create a second one!
+
+I understand completely if you argue back that in this case you _should_ be working in a branch and maybe only merge all your work to `main` when it's all finished.
+I fully agree, but this is _not_ what we are doing this time: for this exercise everything should be on the `main` branch and pushed to GitHub as soon as possible.
+We do this in order to actually get some commits on the main repository (which means you can train with lots of commits happening on a repository).
+
+Please do all `git` things on the commandline and not in RStudio (at least in the beginning; if at the 3rd day you want to play with RStudio `git` integration, I can only applaud that!)
+
+# Step 1
+
+- If not done yet, please accept the GitHub invites you have in your mail to joing the nitwit2gitwit organisation, and the course-2024 team.
+This will give you read and write access to the repository we work with.
+- The repository is at <https://github.com/nitwit2gitwit/recipes-2024>.
+I added some code so that after each push to GitHub, the website is built and published at <https://n2g-recipes-2024.claude-apps.com> (this might take a couple of minutes).
+Even though the repository is private, this website can be seen by everyone.
+Please visit the website and see what is there.
+- Now clone the repository (`main` branch so no need to switch branches) and start a RStudio project in the directory you cloned it in.
+Render the website in RStudio and see that it's the same.
+
+# Step 2
+
+Add a file in the `/recipes/` directory with the `.qmd` extension (e.g. `donuts.qmd`).
+The first couple of lines should be:
+
+```text
+---
+title: "Your dish's name"
+author: "Your name"
+---
+```
+
+Underneath you can start writing your recipe.
+Maybe only start with the first 10 lines, finishing and making it pretty can be later.
+Feel free to use `cheese-fondue.qmd` as an example.
+
+# Step 3
+
+- Save and render your file and see how it looks.
+- The quarto project is set up so that any file in the `/recipes/` directory automatically appears in the `recipe` tab at the top.
+Check if that works for you.
+- If everything is OK, commit your files and push
+- Remember, if push fails, it may be because someone else pushed since the last time you pulled.
+In that case you might need to pull. If pull fails (or you want to learn something), see below.
+
+---
+
+Pulling may result in the following message (or similar):
+
+```text
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint:
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint:
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+```
+
+With the knowledge from last lesson, you should be able to understand what it says.
+
+---
+
+It wants to know what it should do if you pull, but `main` and `remotes/origin/main` diverged:
+
+```{mermaid}
+gitGraph
+  commit id:"123abc"
+  commit id:"456def"
+  branch remotes/origin/main
+  commit id:"789bcd"
+  checkout main
+  commit id:"234efa"
+```
+
+It says there are three ways this situation can be resolved:
+
+- rebase (meaning that `main` will be rebased on `remotes/origin/main` and then fast-forwarded)
+- merge (means a merge-commit is made)
+- fast-forward-only: it means that in the case above, it cannot fast-forward, so it will fail and you need to manually resolve the situation.
+
+It used to be the default that `git pull` would merge, but it turned out this was not what most people wanted.
+So since a couple of years, you have to explicitly tell `git` what you want.
+
+---
+
+My preference is to use rebase, so you have to set this to the config.
+
+```bash
+git config pull.rebase true
+```
+
+Above is only for the one git repository you're working on.
+To set it globally: 
+
+```bash
+git config --global pull.rebase true
+```
+
+
+::: {.callout-note}
+Quick explanation on the term "fast-forward" used in `git`.
+"fast-forward" means that no revisions have to be made, and all that needs to happen is that a branch will now point to a different revision.
+So in case `remotes/origin/main` has one more commit than `main`, `main` can be fast-forwarded by pointing to the lastest commit of the remote branch.
+
+If two branches diverged, fast-forward is not possible.
+:::
+
+# Step 4
+
+Over the next couple of days, finish the recipe, or update it, add images or tables, or what you want, or add another recipe.
+Commit & push once or twice a day.
+Normally you would do `git pull` every day when you start working (but if you forget, no worries, you will just have to rebase later).
+
+Since everyone will be working on their own files, you should not get into any conflicts -- however if you want to live on the wild side, you may also update `index.qdm` every now and then -- with the risk that you will get conflicts if someone else also is editing it.

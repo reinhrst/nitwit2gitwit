@@ -1,6 +1,6 @@
 ---
 title: "Lesson 2: Version Control System"
-date: 2024-10-09
+date: 2024-10-16
 ---
 
 # Version Control System

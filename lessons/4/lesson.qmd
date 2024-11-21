@@ -1,6 +1,6 @@
 ---
 title: "Lesson 4: Crypto, hash and local git"
-date: 2024-10-23
+date: 2024-10-30
 ---
 
 # Catchup of last week
