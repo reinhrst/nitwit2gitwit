@@ -41,6 +41,62 @@ Please visit the website and see what is there.
 - Now clone the repository (`main` branch so no need to switch branches) and start a RStudio project in the directory you cloned it in.
 Render the website in RStudio and see that it's the same.
 
+(scroll down to see a step-by-step solution, in case you get stuck)
+
+---
+
+```bash
+# First go to the directory in which you want to make the clone
+# NB: making a clone (by default) always makes a new subdirectory which is the
+# last part of the repository url
+$ cd nitwit2gitwit
+$ git clone https://github.com/nitwit2gitwit/recipes-2024
+Cloning into 'recipes-2024'...
+remote: Enumerating objects: 56, done.
+remote: Counting objects: 100% (56/56), done.
+remote: Compressing objects: 100% (42/42), done.
+remote: Total 56 (delta 17), reused 48 (delta 9), pack-reused 0 (from 0)
+Receiving objects: 100% (56/56), 768.09 KiB | 1.79 MiB/s, done.
+Resolving deltas: 100% (17/17), done.
+# Don't forget to actually go into the directory you just made (was made by git clone)
+$ cd recipes-2024
+
+# Extra (but the commands below don't do anything but give you info)
+$ git remote -v
+origin	https://github.com/nitwit2gitwit/recipes-2024 (fetch)
+origin	https://github.com/nitwit2gitwit/recipes-2024 (push)
+# Makes sense, there is one remote (that is used for both fetch(pull) and push), which was set automatically
+# when we cloned. In advanced situations one may want to have different remotes for fetch and push
+# but I have never encountered these situations yet.
+$ git branch --all
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+# Also makes sense, there are three branches (one local main, one remote main, and one remotes/origin/HEAD, which is always there for every remote)
+# I understand that some of you might have been a bit confused that during the lesson we had to do now "git checkout quarto".
+# This was only because the quarto version of the slides was in the "quarto" branch, there was nothing magic.
+# I could have named the branch "rabbitears" or "weirdpresentationformat" or whatever.
+```
+
+---
+
+The next step is to create a new RStudio project.
+First make sure you know in which directory you cloned the repository (do `pwd` in the terminal if you are unsure).
+
+- In RStudio go to File->New Project..."
+- Now click "Existing Directory", since we already have an existing directory with code.
+- Browse to the recipes-2024 directory (the one created by `git clone`) and click "Create Project".
+- Now, in order to render the website, open `index.qmd` in RStudio, and click "Render".
+- After a while you should see the exact same site as on <https://n2g-recipes-2024.claude-apps.com>.
+- Check that at the top there is a "Recipes" link, that brings you to a page with a list of all recipes. There should at least be a Cheese Fondue and a Carrot Cake there (and possibly more by the time you do this).
+
+(Next page: screenshot how Rstudio file tree should look after you create the project)
+
+---
+
+![How Rstudio file tree should look after you create the project (exact details may differ but should be these files)](rstudio.webp)
+
+
 # Step 2
 
 Add a file in the `/recipes/` directory with the `.qmd` extension (e.g. `donuts.qmd`).
