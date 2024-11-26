@@ -1,0 +1,381 @@
+---
+title: "Lesson 7: Experiences, bugs, and merge experience"
+date: 2024-11-27
+---
+
+# I owed you from last week
+
+I tried to explain last week the situation when the remote and the local branch diverge.
+
+There are three branches that we care about (in this example `main` but can be anything):
+
+- The `main` branch on GitHub
+- The `remotes/origin/main` branch locally (aka `origin/main`)
+- The `main` branch locally
+
+There can be 500 other people having `main` branches, but those are their problems.
+You only care about these three.
+
+## (Recap: fast forward)
+
+Fast-forward means that commits from branch B are added to branch A without any rewrite.
+This is only possible if A is an ancestor of B.
+
+Fast-forward is possible:
+```{mermaid}
+%%{init: { 'logLevel': 'debug', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A'}, 'theme': 'default' , 'themeVariables': {
+              'git0': '#ff0000',
+              'git1': '#00ff00',
+              'git2': '#0000ff',
+              'git3': '#ff00ff',
+              'git4': '#00ffff',
+              'git5': '#ffff00',
+              'git6': '#ff00ff',
+              'git7': '#00ffff'
+       } } }%%
+gitGraph
+  commit
+  commit
+  branch B
+  commit
+  commit
+```
+
+Fast-forward is not possible:
+```{mermaid}
+%%{init: { 'logLevel': 'debug', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A'}, 'theme': 'default' , 'themeVariables': {
+              'git0': '#ff0000',
+              'git1': '#00ff00',
+              'git2': '#0000ff',
+              'git3': '#ff00ff',
+              'git4': '#00ffff',
+              'git5': '#ffff00',
+              'git6': '#ff00ff',
+              'git7': '#00ffff'
+       } } }%%
+gitGraph
+  commit
+  commit
+  branch B
+  commit
+  commit
+  checkout A
+  commit
+```
+
+---
+
+We should realise how these branches work together:
+
+```{mermaid}
+flowchart LR
+    A(GitHub main) -->|fetch| B(origin/main)
+    B -->|pull| C(local main)
+    C -->|push| A
+```
+
+- `fetch` fetches any changes from GitHub to `origin/main`.
+Since GitHub main can only get more commits added (unless `push -f`),
+this `fetch` is always a fast-forward
+(however if not, `fetch` does not care, it just copies whatever is the GitHub `main` branch).
+- `push` pushes your local branch to GitHub. (if not `-f`) this will only succeed if this is a fast-forward. Else it will fail (and tell you to pull first). `push` will also do a `fetch` after the `push`, so that `origin/main` is also up-to-date.
+- `pull` first does a `fetch` and then somehow combines `origin/main` and `main`. The _goal_ of `pull` is to make GitHub `main` (=`origin/main` after a `fetch`) an ancestor of `main`.
+
+## Three options
+
+No changes in `origin/main` --> nothing to do in `pull`:
+```{mermaid}
+flowchart LR
+  A((A)) --> B((B)) --> C((C)) --> D((D))
+  D --o originmain>origin/main]
+  D --> E((E)) --> F((F))
+  F --o main>main]
+```
+
+No changes in `main`  --> `pull` can just fast-forward `main`:
+```{mermaid}
+flowchart LR
+  A((A)) --> B((B)) --> C((C)) --> D((D)) --> E((E)) --> F((F))
+  F --o originmain>origin/main]
+  D --o main>main]
+```
+
+The branches have diverged:
+```{mermaid}
+flowchart LR
+  A((A)) --> B((B)) --> C((C)) --> D((D)) --> E((E)) --> F((F)) --o originmain>origin/main]
+  D --> G((G)) --> H((H)) --o main>main]
+```
+
+## `pull --no-rebase` (merge)
+
+Before:
+
+```{mermaid}
+flowchart LR
+  A((A)) --> B((B)) --> C((C)) --> D((D)) --> E((E)) --> F((F)) --o originmain>origin/main]
+  D --> G((G)) --> H((H)) --o main>main]
+```
+
+After:
+
+```{mermaid}
+flowchart LR
+  A((A)) --> B((B)) --> C((C)) --> D((D)) --> E((E)) --> F((F)) --o originmain>origin/main]
+  D --> G((G)) --> H((H)) --> M((M)) --o main>main]
+  F --> M
+```
+
+After merge, `origin/main` can be fast-forwarded to `main` (F is ancestor of `main`); since `origin/main` is a copy of GitHub `main`, `push` to GitHub `main` should work (unless someone else just pushed).
+
+## `pull --rebase`
+
+Before:
+
+```{mermaid}
+flowchart LR
+  A((A)) --> B((B)) --> C((C)) --> D((D)) --> E((E)) --> F((F)) --o originmain>origin/main]
+  D --> G((G)) --> H((H)) --o main>main]
+```
+
+Step 1:
+
+```{mermaid}
+flowchart LR
+  A((A)) --> B((B)) --> C((C)) --> D((D)) --> E((E)) --> F((F)) --o originmain>origin/main]
+  E --> G1((G*)) --> H1((H*)) --o main>main]
+```
+
+Step 2 (etc, 1 step per commit):
+
+```{mermaid}
+flowchart LR
+  A((A)) --> B((B)) --> C((C)) --> D((D)) --> E((E)) --> F((F)) --o originmain>origin/main]
+  F --> G2((G**)) --> H2((H**)) --o main>main]
+```
+
+---
+
+Actually:
+
+```{mermaid}
+flowchart LR
+  A((A)) --> B((B)) --> C((C)) --> D((D)) --> E((E)) --> F((F)) --o originmain>origin/main]
+  D --> G((G)) --> H((H)) --o main>main]
+```
+
+`git pull --rebase`
+
+```{mermaid}
+flowchart LR
+  A((A)) --> B((B)) --> C((C)) --> D((D)) --> E((E)) --> F((F)) --o originmain>origin/main]
+  D --> G((G)) --> H((H)) --- orph1(orphaned)
+  E --> G1((G*)) --> H1((H*)) --- orph2(orphaned)
+  F --> G2((G**)) --> H2((H**)) --o main>main]
+```
+
+---
+
+The first time you `pull` in a repository, `git` asks what strategy you want to use:
+
+```text
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint:
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint:
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+```
+
+If you choose "fast-forward only", it just means that a `pull` will fail if there are diverging branches.
+
+
+# Bugs (= error / mistake / problem)
+
+
+![In the 1940's actual bugs would crawl into (nice and warm) computers: "First actual case of bug being found" (1947)](first_bug.jpg)
+
+. . .
+
+"Unfortunately" the term "bug" predates this (Edison was using it).
+
+## Issues
+
+
+# What was the experience from last week's homework
+
+. . .
+
+It was meant to be furstrating some times, and mistakes were meant to be made.
+
+(I look at how Audrey learns, and assume all humans are the same ;))
+
+---
+
+Anyways, let's go through what happened in the repository.
+In order to learn from each other's challenges!
+
+
+# Playtime: Make Quarto Website
+
+(aka: merge experience)
+
+We're going the play around a bit.
+We do this in a Quarto Website in RStudio (but things would be equally valid in other editors / other code).
+We will use the commandline for all `git` stuff.
+You may certainly do this same exercise again later using the built-in tools in RStudio.
+
+## Step 1
+
+Create a new project "Recipes" in RStudio, Quarto Website.
+Check the box "Create a git repository".
+
+::: {.callout-note}
+We could initialize the git repository in the commandline interface as well using `git init`.
+However RStudio also populates `.gitignore` for us.
+Let's quickly look at this file to see what RStudio put in there for us.
+:::
+
+## Step 2
+
+- Press "Render" and see that you have a website (it might need to install some stuff).
+- In Rstudio, click "render on save".
+- Change the title of the website in `_quarto.yaml` and save. See the result.
+- Change `index.qmd` to a nice welcome page: "Welcome to Claude's kitchen" (or what you want). If you feel brave, add an image, save and check.
+- Change `about.qmd` and write 2 lines about the website, and add some bullet points. Then save and check.
+- Click the "Source" button to see the actual file content (Markdown).
+
+Now that we have something, let's commit a first version (using the cli). Make sure no files that should not get checked in are checked in!
+
+Also let's `cat` the `about.qmd` file, just to make sure it's text.
+
+::: {.callout-note}
+In the documentation Quarto seems to suggest that the file extensions should be `.Qdm`, but by default they are `.qmd`.
+Personally I don't like using capitals in extensions, but both seem to work equally well.
+:::
+
+## Step 3
+
+- Add three pages to the website for some recipes (`applepie.qmd`, `mojito.qmd`, `cheese-fondue.qmd`); go to "File -> New File -> Quarto Document", then save it with the right file name. Copy-paste some recipe into each of them (doesn't have to be the right one, but three different ones). Note that you may have to click "refresh" on your files-overview.
+- Create links to the recipes on the `index.qmd`: (Using: "Insert -> Link" and `appliepie.qmd` as file name, or `[Aplepie](applepie.qmd)` in Markdown). NOTE: intensionally make a typo in one of the link texts (not the filename to which you link).
+- Save, check, and commit.
+
+## Step 4
+
+- Create a branch `layout-experiments`
+- Create a branch `vegan`
+- Create a branch `typos`
+- In `main` we make one more recipe (be creative). Commit
+- In branch `layout-experiments`, experiment with a new theme (see <https://quarto.org/docs/output-formats/html-themes.html>, change in `_quarto.yml`, you will have to manually press "Render" again to check) and commit.
+- In branch `layout-experiments`, add a emoji to each link on `index.qdm` and commit
+- In branch `vegan`, change your recipes to be vegan and commit
+- In branch `typos`, fix the typo that I made you make in step 3 (if you did not, just imagine there is a typo and "fix" it).
+
+## Step 5
+
+We have this, time to merge
+```{mermaid}
+gitGraph
+  commit
+  commit
+  branch layout-experiments
+  branch vegan
+  branch typos
+  checkout main
+  commit
+  checkout layout-experiments
+  commit
+  commit
+  checkout vegan
+  commit
+  checkout typos
+  commit
+```
+
+- Merge `vegan` into `main`. Feel free to delete the `vegan` branch afterwards.
+
+## Step 6
+
+```{mermaid}
+gitGraph
+  commit
+  commit
+  branch layout-experiments
+  branch vegan
+  branch typos
+  checkout main
+  commit
+  checkout layout-experiments
+  commit
+  commit
+  checkout vegan
+  commit
+  checkout typos
+  commit
+  checkout main
+  merge vegan
+```
+
+- Merge `layout-experiments` into `main`. Feel free to delete the branch afterwards.
+
+## Step 7
+
+```{mermaid}
+gitGraph
+  commit
+  commit
+  branch layout-experiments
+  branch vegan
+  branch typos
+  checkout main
+  commit
+  checkout layout-experiments
+  commit
+  commit
+  checkout vegan
+  commit
+  checkout typos
+  commit
+  checkout main
+  merge vegan
+  merge layout-experiments
+```
+
+- Merge `typos` into `main`. This will fail. Use `git status` to check which files are the problem, and manually fix these files. Then add the file and commit (see next page).
+
+---
+
+::: {.hidden-answer}
+```bash
+$ git merge typos
+Auto-merging index.qmd
+CONFLICT (content): Merge conflict in index.qmd
+Automatic merge failed; fix conflicts and then commit the result.
+# There is a conflict because the same line was edited in multiple revisions.
+$ git status
+On branch main
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both modified:   index.qmd
+
+no changes added to commit (use "git add" and/or "git commit -a")
+# Manually edit `index.qmd`. Note that RStudio is actually smart enough to detect the conflict markers and offer you the markdown version to fix the error. Fix it and save the correct version.
+
+$ git add index.qmd
+$ git commit
+[main 1ff5925] Merge branch 'typos'
+# Note that `git commit` already has "Merge branch `typos`" filled in as commit message. It remembered that it was doing that.
+```
+:::
+
+## Done
