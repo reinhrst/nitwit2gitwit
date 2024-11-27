@@ -3,6 +3,13 @@ title: "Lesson 7: Experiences, bugs, and merge experience"
 date: 2024-11-27
 ---
 
+# Planning
+
+- 4 December no N2G
+- 11 December lesson 8
+- 18 December (probably) lesson 9
+- ???
+
 # I owed you from last week
 
 I tried to explain last week the situation when the remote and the local branch diverge.
@@ -221,28 +228,47 @@ If you choose "fast-forward only", it just means that a `pull` will fail if ther
 ## A good bug report:
 
   - Minimal steps / code to reproduce
+  - What version of the product (ideally you check on the latest version)
   - Description of parts of your system that make sense (e.g. mention which R version you have and which packages you have installed).
   - Screenshots are often helpful
   - However copy the error / output as text (to simplify finding this issue in the future)
   - Make sure you have a good title that explains what it's about (in a list of 200 issues). "Bug" or "Broken" is not a good title.
   - If the person will be able to fix the issue / answer the question in 10 minutes without having to ask more information, it's much more likely that it will be picked up.
 
-## GitHub issue labels
+## GitHub issue properties
 
-Github issues can have 0 or more labels.
-The following are the default labels (but you can make your own).
+- Title
+- Description (incl images)
+- Timeline (discussion, mention, events)
+- State (Open or closed)
+- Assignees (0 or more, incl yourself)
+- Labels (0 or more)
+- Projects
+- Milestone
+- Development (branch or PR)
+
+Normal search only shows open issues
+
+## Built in labels
+
+Type:
 
 - `bug`
 - `enhancement`
 - `question`
+
+Extra info:
+
 - `good first issue`
 - `help wanted`
 - `documentation`
+
+Resolution:
+
 - `duplicate`
 - `invalid`
 - `wontfix`
 
-In addition it has states "open" and "closed".
 
 ## GitHub issues etiquettes
 
@@ -254,13 +280,23 @@ It's considered nice to make a pull request in that case (if your fix is general
 _ I personally spend at least an hour on a problem / bug before I post it to someone else's repo.
 Sometimes it's hard to spend this time knowing that there is a chance that the owner does not care / will not answer, still it's worth it.
 - Remember that you're asking a random person to do some work for you (even if it's just answering your question). An attitude "I don't have time to narrow down the root cause of this issue, but I'm asking you to do it" usually doesn't get you far.
+
+## More GitHub issues etiquettes
+
 - Honey catches more flies than vinegar
 - If the repo owner does not agree with you / does not want to fix your issue, _assume they are right_.
 They probably thought more about the subject matter than you.
+And even if they are wrong, it's unlikely you will convince them.
 - You can always fork the repository and make your own fix (and use that).
 
+## "GitHub issues" superpowers
 
-
+- Make issues directly from code
+- Make issues directly from diffs
+- Refer to a commit in your bug
+- Connect a development branch / PR to an issue
+- Refer to issues in commits (and even close them in a commit)
+- use @username to derectly involve someone
 
 
 # What was the experience from last week's homework
@@ -284,6 +320,17 @@ It should be: yes I want to come for lunch, let me just commit this ..... there 
 Anyways, let's go through what happened in the repository.
 In order to learn from each other's challenges!
 
+---
+
+I would like everyone to make an issue in the repo, assign it to someone. Please make it small enough to fix in 2 minutes.
+
+# Discussion: what's next
+
+- More recipes
+- Welcome to Gdansk guide
+- Fieldwork guide
+- Manuscript guide
+- Git game :)
 
 # Playtime: Make Quarto Website
 
