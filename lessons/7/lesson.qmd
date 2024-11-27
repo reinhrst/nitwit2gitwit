@@ -207,6 +207,61 @@ If you choose "fast-forward only", it just means that a `pull` will fail if ther
 
 ## Issues
 
+- GitHub has several interesting tools, among which an issue tracker (aka bugtracker)
+- Different kinds of issues (important to diffrentiate):
+  - Bugs (error messages, obvious errors, "documentation says A, it does B")
+  - Feature requests / enhancement
+  - Questions
+- Important to understand that "code does not do what _I_ want" is not a bug, usually a FR.
+- Important to _properly describe_ what you want. This week I received bug reports / questions:
+  - "push does not work"
+  - "I cannot pull the code after cloning it"
+  - "Nano does not let me save"
+
+## A good bug report:
+
+  - Minimal steps / code to reproduce
+  - Description of parts of your system that make sense (e.g. mention which R version you have and which packages you have installed).
+  - Screenshots are often helpful
+  - However copy the error / output as text (to simplify finding this issue in the future)
+  - Make sure you have a good title that explains what it's about (in a list of 200 issues). "Bug" or "Broken" is not a good title.
+  - If the person will be able to fix the issue / answer the question in 10 minutes without having to ask more information, it's much more likely that it will be picked up.
+
+## GitHub issue labels
+
+Github issues can have 0 or more labels.
+The following are the default labels (but you can make your own).
+
+- `bug`
+- `enhancement`
+- `question`
+- `good first issue`
+- `help wanted`
+- `documentation`
+- `duplicate`
+- `invalid`
+- `wontfix`
+
+In addition it has states "open" and "closed".
+
+## GitHub issues etiquettes
+
+- It's completely OK (and even encouraged) to point out mistakes in some complete stranger's code / documentation (but be respectful).
+- Even if you think it's a stupid mistake that never should have been made, it may have evolved over time.
+- Remember that the person maintaining the code probably does so in their free time, and may have other priorities.
+Usually they will take time to reply to a (well made) issue, but not necessarily want to spend more than 5 minutes right now (often they promise time "in a couple of weeks" -- we all know when that is.
+It's considered nice to make a pull request in that case (if your fix is generally useful).
+_ I personally spend at least an hour on a problem / bug before I post it to someone else's repo.
+Sometimes it's hard to spend this time knowing that there is a chance that the owner does not care / will not answer, still it's worth it.
+- Remember that you're asking a random person to do some work for you (even if it's just answering your question). An attitude "I don't have time to narrow down the root cause of this issue, but I'm asking you to do it" usually doesn't get you far.
+- Honey catches more flies than vinegar
+- If the repo owner does not agree with you / does not want to fix your issue, _assume they are right_.
+They probably thought more about the subject matter than you.
+- You can always fork the repository and make your own fix (and use that).
+
+
+
+
 
 # What was the experience from last week's homework
 
@@ -215,6 +270,14 @@ If you choose "fast-forward only", it just means that a `pull` will fail if ther
 It was meant to be furstrating some times, and mistakes were meant to be made.
 
 (I look at how Audrey learns, and assume all humans are the same ;))
+
+---
+
+I know that 10 minutes per day was maybe a bit optimistic, _but we need to get there_.
+
+If it takes you 20 minutes to make a commit, you are never going to do it.
+
+It should be: yes I want to come for lunch, let me just commit this ..... there ..... done.
 
 ---
 
