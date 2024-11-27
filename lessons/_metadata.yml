@@ -7,6 +7,7 @@ format:
     slide-level: 2
     transition: slide
     controls: true
+    controls-layout: bottom-right
     smaller: true
     history: false
     navigation-mode: vertical
