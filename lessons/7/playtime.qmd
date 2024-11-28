@@ -50,7 +50,7 @@ When you look at some code and you wonder "Why &*^@*^# did the author do things 
 
 Since you guys already want to start playing a bit with conflicts, I decided to write something quick on this.
 
-Conflicts can only every happen when doing a `merge` or `rebase` (including using `pull` which does these things under water).
+Conflicts can only ever happen when doing a `merge` or `rebase` (including using `pull` which does these things under water).
 If you want to play with conflicts, the easiest is to make some branches (much easier that pushing and pulling to GitHub).
 
 ## Mini cheatsheet
