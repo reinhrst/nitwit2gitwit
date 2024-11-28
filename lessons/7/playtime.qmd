@@ -364,6 +364,24 @@ $ git branch -d branch1
 
 ---
 
+::: {.callout-note}
+It's interesting that actually these conflict rules work very well for both a shopping list and for code.
+
+In case of our shopping list, it makes sense that if I delete the shopping list (e.g. because I did the shopping, or likewise because the party was cancelled), and my partner changes something on that list (that I did not see yet), the list cannot just be removed. In this case 250g of sugar was added; maybe it's not needed because I bought 1kg (or it was for the same, cancelled, party). On the other hand, maybe it is now necessary to get 250g of sugar. `git` cannot know this and therefore leaves the solution to you.
+
+Likewise with code the same rules apply.
+Imagine that you remove 1 file from your project because it's not being used anymore.
+However someone else just edited that file and added a function that _is_ being used everywhere.
+In that case, it's nice that `git` helps you by not just deleting the file.
+
+That this system is not fool-proof can be understood by the following situation.
+You delete a file after you carefully check that it's not being used anywhere anymore.
+However someone else just added some code somewhere else that uses this file again.
+In this case `git` will not give you a conflict.
+
+Therefore it's always important to test that your merged code works as intended (either manually test it, or have automatic tests).
+:::
+
 ---
 
 ::: {.hidden-answer}
