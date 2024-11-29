@@ -3,6 +3,33 @@ title: "Playtime 7"
 date: 2024-11-27
 ---
 
+# Step 1: fix the default git pull behaviour
+
+For those on GitBash (=windows), it turns out that during installation of GitBash it asks if you want default pull behaviour to be `merge` or `rebase`.
+The default option (which I told you guys to choose when we did this in week 1) is `fast-forward` or if not possible `merge`.
+
+This leads to quite complex splitting and merging in the `main` branch, and lots of merge commits, and although this is not wrong (some repositories may even demand this behaviour), it makes things hard to follow for beginning gitters, and hard to explain for the teacher (or even to understand :)).
+
+![Our current convoluted network graph with lost of branches and merges](network-graph.webp)
+
+---
+
+In order to fix this, I would advise that everyone on GitBash to run:
+
+```bash
+git config --global pull.rebase true
+```
+
+This tells that from now on we want to use rebase for pull on all repositories (unless you overwrite this for a certain repository).
+
+What you will notice is that next time you do a `git pull` when your branch has diverged from GitHub is that it says something like:
+
+```shell
+Successfully rebased and updated refs/heads/main.
+```
+
+rather than telling you to write the commit message for the merge commit.
+
 # To do coming weeks
 
 From this week on, if you want to reach out to me about the course, please post a bug on <https://github.com/reinhrst/nitwit2gitwit>, for things including, but not limited to:
