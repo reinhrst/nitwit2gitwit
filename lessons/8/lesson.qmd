@@ -1,0 +1,133 @@
+---
+title: "Lesson 8: Mobbing up & Pull Requests"
+date: 2024-12-11
+from: markdown+emoji
+---
+
+# How was the homework
+
+- Lots of interaction on issues: nice
+- Super proud that I see issues now that I never saw before but that were fixed
+- Super proud to see you guys experiment
+- Didn't follow it all
+- Don't assign: just confusing. Use `@username` instead
+- quickly go through commits
+
+Did people remember the conflicts-homework?
+How was that?
+
+---
+
+- Kasia's experience
+- Own experiences: `git diff`
+
+We'll go through the list of some interesting issues:
+
+<https://github.com/nitwit2gitwit/recipes-2024/issues?q=label%3Ainteresting-to-discuss-next-lesson+>
+
+
+# Should I be worried about Warnings and 404: Not Found
+
+Very good! Way too often people just ignore warnings.
+It's like warnings in real life:
+
+> It's OK to ignore the _:warning: this product contains peanunts_ or _:warning: the contents of this cup are hot_ warning if you understand what they mean.
+If you see a _:warning: &#12468;&#12472;&#12521;&#30772;&#22320;&#21306;_, it's probably time to look for a dictionary before you go on.
+
+In CS/code the reason to fix your warnings is:
+
+- Usually the warnings point to a deeper underlying problem
+- Even if you understand and accept the warning, having 20 warnings every time, may hide the 21st warning (or error).
+- Even though you understand the warning, every next person has to also understand the warning.
+
+## :warning: &#12468;&#12472;&#12521;&#30772;&#22320;&#21306;
+
+![](gz.jpeg)
+
+# The greek Mu does not render for me on the page (aka Character encodings)
+
+(actually this was also the main issue with the :carrot::carrot::carrot:)
+
+- Remember, computers work in bytes (number between 0 and 255)
+- However we like to see letters (not just numbers)
+- Easy solution: ASCII: `A`=0x41..`Z`=0x5A, `a`=0x61...`z`=0x7a, `0`=0x30..`9`=0x39
+- Puctuation, brackets, etc inbetween
+- Control characters and special characters (tab=0x09, NL=0x0a, CR=0x0d, space=0x20)
+- done within 7 bits (in 60s 7-bit computers + storage space super expensive), only 128 characters
+- Life is good
+
+## Character encodings 2
+
+- Turns out not everyone speaks English
+- Need for other Western European languages: &Euml;&eacute;&Ntilde;&Agrave;&uacute;&ugrave;&acirc;&Otilde;&Acirc;&Igrave;&iuml;&aelig;&aring;&aacute;&ograve;&icirc;&auml;&oslash;&ocirc;&Yacute;&ntilde;&iacute;&oacute;&Uacute;&uuml;&ccedil;&Uuml;&Ucirc;&Icirc;&Atilde;. How about we use the space between 128-255 for that since all computers are 8 bit by now.
+- Turns out there are Eastern Europeans too: &Ncaron;&Lcaron;&Zacute;&scedil;&ecaron;&ncaron;&Uring;&Sacute;&Gbreve;&zdot;&Ecaron;&cacute;&Ccaron;&Aogon;&uring;&tcaron;&zcaron;&rcaron;&zacute;&Zcaron;&Cacute;&Tcaron;&Scedil;&Oacute;&Dcaron;&ccaron;&Lacute;&lacute;&dcaron;&oacute;. No problem, we just use the characters between 128-255 again. What are the chances that someone from Eastern Europe will even want to share a computer file with Western Europe? And even if they do, most characters will still show correctly.
+- Wait, some don't even use latin as their base??!?!?
+    - &#1063;&#1058;&#1091;&#1094;&#1092;&#1041;&#1045;&#1084;&#1074;&#1086;&#1073;&#1054;&#1076;&#1047;&#1100;&#1050;&#1052;&#1079;&#1101;&#1040;&#1083;&#1088;&#1053;&#1066;&#1070;&#1102;&#1072;&#1055;&#1085;&#1061;
+    - &#936;&#919;&#922;&#931;&#957;&#960;&#945;&#968;&#925;&#916;&#949;&#967;&#917;&#929;&#927;&#933;&#965;&#918;&#964;&#974;&#950;&#961;&#969;&#953;&#959;&#955;&#954;&#928;&#926;&#946;
+    - &#1594;&#1589;&#1573;&#1591;&#1602;&#1586;&#1571;&#1584;&#1577;&#1592;&#1569;&#1574;&#1580;&#1572;&#1601;&#1608;&#1587;&#1607;&#1579;&#1582;&#1575;&#1581;&#1610;&#1570;&#1590;&#1588;&#1583;&#1609;&#1603;&#1606;
+    - &#1601;&#1603;&#1583;&#1610;&#1586;&#1606;&#1575;&#1571;&#1588;&#1580;&#1574;&#1572;&#1589;&#1591;&#1582;&#1578;&#1604;&#1608;&#1592;&#1607;&#1570;&#1609;&#1711;&#1662;&#1602;&#1584;&#1594;&#1587;&#1576;&#1577;
+- Ok no worries. It will still be fine for everyone to have their own encoding for the 128-255 part, just never talk across borders.
+
+## Character encodings 3
+
+- So we have character encodings `Latin-1`, `Latin-2`, `Latin-3`, `Latin-4`, `Cyrillic`, `Arabic`, each having different encodings for 127-255.
+- Turns out that some languages have more than 127 characters....
+- Also turns out that new characters arrive (stupid :eu: adding &euro;), meaning you have to throw some out.
+
+---
+
+![](fine-mess.jpeg)
+
+## unicode
+
+- Brilliant idea: we will give every character a unique number (unicode codepoint)
+- Let's keep 0-127 the same ASCII
+- But then we number on (by now there are almost 155k characters defined, space for more than 1M characters)
+- Hey, we also have space for Emojis now (so emojis are not images, they are "characters". That's why they look different on iPhone and Android
+- Now all we need is a way to map the unicode codepoint to bytes.
+- Could just use 3 bytes for every character, but super inefficient (for latins)
+- Most used (in Europe/America) UTF-8 (1 byte for ASCII, 2 bytes for next 1920 chars, 3 bytes for next 61440, 4 bytes fir next 1M)
+- However Chinese/Japanese/Korean may prefer UTF-16 (more efficient for them)
+- Some texts still in legacy encodings
+
+## Character Encodings Conclusion
+
+- Character Encodings are a mess (and confusing -> interview question)
+- The only way to (almost always) be safe is: only use ASCII
+- Many systems (e.g. HTML) allow outputing non-ascii characters by using just ASCII
+- However, not always the most efficient method (and may make source code hard to read)
+- If you get into a mess: make sure your editor (and every other step in your system) is set to use UTF-8
+
+# Don't make an "Enjoy" header
+
+- Markdown is about semantic layout
+- Tempting to use default semantics formatting in order to format stuff
+- May have unexpected side-effects
+- (although I think everybody does it)
+
+# when Pauline commits it's weird
+
+- Well spotted!
+- When working with GitHub there are two different "users" for each commit:
+  - The name/email set in `git` (through `git config set --global ...`)
+  - The GitHub account that first uploads the commit to GitHub
+- Even when everything is normal, this does not have to be the same (e.g. I may rebase some branch, thereby changing all commits; when I then upload them to GitHub, I'm the first uploader, even though they may be someone else's commit).
+- The name/email in `git` has no security (I can set mine to "Elon Musk/elon@tesla.com" and no checks are made)
+  - `git` has a system of _signing_ your commits, but normal people don't do that
+  - So if someone wants to impersonate Kasia to write a recipe under her name....
+- The GitHub account name is _not_ possible to fake (so you will be found out in the end).
+- If the `git` email address and GitHub email address are not the same, you will get some message on GitHub.
+
+# Untracked file .DS_Store
+
+- Again, well spotted!
+- Normally you will want to check in everything in `git status` (to avoid forgetting an image)
+- However some files should not be checked in
+  - Files that are "part of the project" (e.g. `/site/`)
+  - Files that are "part of the editor instance" (`.Rhistory`)
+  - Files that are "part of the OS or other stuff on your computer" (`.DS_Store`)
+- These files should be in `.gitignore` so that you know not the check them in / will still see missed files
+- However files "of your OS or specific editor" are even better kept in a global gitignore (esp if repo is not yours)
+- More fine-grained options possible
+
+# Pull requests
