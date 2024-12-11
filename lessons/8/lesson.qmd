@@ -1,5 +1,5 @@
 ---
-title: "Lesson 8: Mobbing up & Pull Requests"
+title: "Lesson 8: Forks, Pull Requests & Mobbing up"
 date: 2024-12-11
 from: markdown+emoji
 ---
@@ -130,4 +130,192 @@ In CS/code the reason to fix your warnings is:
 - However files "of your OS or specific editor" are even better kept in a global gitignore (esp if repo is not yours)
 - More fine-grained options possible
 
+# Forking
+
+> A fork is a new repository that shares code and visibility settings with the original “upstream” repository.
+
+## Why fork
+
+A fork allows you to make changes in a repository, without the original owner being involved:
+
+- You may want to make some changes (and push them to GitHub)
+  1. and the original repository owner does not agree with them (and declines to merge them)
+  1. and the original repo owner does not reply
+  1. and not bother the original repository owner (because they are experimental / for very specific situation
+  1. you want to make a Pull Request
+
+Note that 1 and 2 produce a long-lived fork, while 3 &amp; 4 are short-lived forks (usually)
+
+Usually a fork is made if you don't have write access to the repo, but it doesn't have to be.
+
+## How to fork
+
+Using `git`:
+```bash
+git clone https://github.com/username/reponame
+git remote remove origin
+git remote add origin https://github.com/yourusername/yourreponame
+git push
+```
+
+However much easier to use GitHub UI (just press "Fork" button").
+Now GitHub knows that it's a fork (and allows you to stay up to date) / make a PR.
+
+. . .
+
+::: {.callout-warning icon=false}
+## Playtime
+Everyone creates a fork of the nitwit2gitwit repository.
+
+Note the extra UI of the fork.
+:::
+
+. . .
+
+::: {.callout-tip}
+## Forking and Starring
+
+Note that if you want to keep track of a repo, you may also star :star: it.
+Both stars and fork counts help others see how popular a repo is.
+And if you choose a tool to use, you probably would prefer the more popular one.
+
+**Also be aware not to confuse a forked repo for the original -- although sometimes you need the fork**
+:::
+
 # Pull requests
+
+> In a Pull Request (PR) you request someone else to pull in (or merge) your changes.
+
+- You either have a branch in the same repo, or a branch (could be `main`) in a fork that has some commits that are not in the target branch (usually `main`).
+- Ideally your branch is rebased on target branch (so: target can fast-forward to you)
+- You make an official request (PR) to merge the changes (your PR can be marked "draft" to show you're not done)
+- PRs are issues, and visible to the same people. Often you have both an issue and a separate PR (but doesn't have to be). Often in an issue you gage interest.
+- Repos can have PR rules (e.g. tests that get run, documents you need to sign, people who need to code-review).
+- GitHub PR's have elaborate code review tools
+- Your PR will either get accepted, or rejected, (or will hang on forever)
+- Even if your PR does not get accepted, people who care can use your branch
+
+## Why PR
+
+- Often you make a PR to a repo you don't have write access to
+- Also, if you're going to change someone else's code, it's nice to ask them (through a PR)
+- Sometimes you use PRs to a repo you _do_ have write access to, just because you want to ask others what they think, or do a code review.
+- Imagine working on a paper together. PR with lots of small changes, each one can be discussed in the code review
+- Some repos have (unwritten) rules that all changes always go through PRs
+- Proposing / making a PR can promote goodwill to deal with your issue
+- Making PRs and getting feedback on them is a great way to better understand the code, become a better programmer, and making contacts.
+
+::: {.callout-note}
+A PR can be as little as a single character (typo, bug in code), or as big as a full rewrite of all files in the repo.
+
+Your PR will have most chance to be accepted if it deals with a single issue.
+A PR saying "I fixed these 5 bugs, and also added some documentation and fixed some typos" is less likely to succeed (unless they all had a common cause).
+:::
+
+## PR etiquettes
+
+- Although creating a PR can create goodwill on the author's side to look at your problem in more detail, making a really bad PR may backfire. If your proposed code-change does not even run, you show that you did not even try.
+- If the repo contains tests, you should run those tests locally.
+- Try to maintain the same coding style. 
+- If the PR runs tests online, you should react if they fail.
+- Like with issues, always check if there are no previous attempts at the exact same PR (someone may already have done your work!)
+- It's completely OK to make an issue describing the bug / feature, and then add the text "I'd be happy to make a PR if you're interested". This way you can get some commitment from the owner that they will look at the PR.
+- As with issues, don't get angry if the owner disagrees -- you can always develop your own fork. If you are right, people will start using your fork.
+- Make sure that you're legally allowed to use the stuff you're contributing (license)
+- See your PR through to the end
+
+## PR Example
+
+::: {.callout-warning}
+## Pay attention
+The final homework will be about making a PR and getting it accepted
+:::
+
+. . .
+
+::: {.callout-tip}
+## Playtime
+Make a PR towards the nitwit2gitwit repo
+:::
+
+
+# Bonus: `git` in RStudio
+
+RStudio has a built in `git` client.
+It's 100% compatible with the commandline `git` client.
+You can freely switch between one and the other.
+
+![Git tab in Rstudio](rstudio-git.webp)
+
+---
+
+::: {.callout-tip}
+## Playtime
+- Do a `git log | head -n 20` in cli (in the `recipes-2024` dir)
+- Now press `pull` in Rstudio
+- Do a `git log | head -n 20` in cli (in the `recipes-2024` dir)
+- Press "history" in Rstudio
+- Edit some file and save it
+- Run `git status`
+- Now stage the file in Rstudio
+- Run `git status`
+- Now commit the file in RStudio. DON'T PUSH
+- Finally, we  want to undo the last commit (first with `git revert`, then by resetting`
+:::
+
+## `git reset`
+
+`git reset` changes the commit that the current branch points to.
+
+- `git reset 00ac05` means "make the current branch point to `00ac05`
+- (`git reset --hard 00ac05` does the same, but also checks out the new code)
+- `git reset branch1` means "make the current branch point to whatever `branch1` points to now
+- `git reset HEAD~1` means "make the current branch point to the parent of `HEAD`"
+- `git reset HEAD~2` means "... to the parent of the parent of `HEAD`", etc.
+- `git reset origin/main` means "make the current branch point to whatever was the `main` branch on `origin`, last time we fetched (or: remove all local commits)
+
+::: {.callout-warning}
+This is one of those "with great power...." commands.
+Where normally `git` only allows you to add new info (never permanently delete something that was committed before), `git reset` _does_ have the power to make existing commits orphans (and schedule them for deletion).
+
+At least as long as you don't do `git push -f`, everything on GitHub will be safe.
+:::
+
+# Playing with `git` / more commands
+
+We only brushed the surface of `git` commands.
+There are commands to
+
+- restore a file that was deleted, or from another branch (`git restore`)
+- unstage a file (`git restore --staged`)
+- to update the latest commit (`git commit --amend`) -- only do this if not pushed yet
+- to do a binary search in a list of commits (`git bisect`)
+- to import other git repositories into your own (`git submodule add`)
+- to quickly store your local changes to use later (`git stash`)
+- etc
+
+
+::: {.callout-note}
+When you `git clone` a repo, by default the submodules are not cloned.
+Sometimes you see instructions to run `git submodule update --init --recursive` after a clone -- this is to install all submodules as well.
+:::
+
+---
+
+Google/ChatGPT is your friend, however, be safe:
+
+- Whatever is on GitHub is safe (as long as you don't do `push -f`)
+- `git` is just a directory in your working directory. If you want to try something scary, just make a copy of the whole directory `cp -r myrepo myrepo2` and experiment. If it works, you can even directly push from `myrepo2` and pull again in `myrepo`.
+- Likewise, you can just make backups of your full repo (or zip it and mail it to yourself or whatever you like)
+- If you really mess up (e.g. you do a `git reset` and lose some important commits), don't panic. `git` will only remove orphans after a while, if you run `git` in that directory. So, first thing to do, make a backup (zip the whole directory).
+Once you have this, you can always send this zipfile to a smart person and they can probably recover your work.
+- Then again, most git commands (if you don't use `--force` or `--hard`) should not remove any code.
+
+
+# Playtime
+
+Homework for the coming weeks (we will discuss progress next week):
+
+- Make a PR to another repo (ideally a meaningful change on a repo of someone you don't know)
+- If nothing else, try to correct someone's spelling
+- However if you're more engaged, try to find some realy bug, possibly from their "good-first-issue" list.
