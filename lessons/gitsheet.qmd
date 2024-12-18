@@ -1,7 +1,6 @@
 ---
   title: Cheatsheet - git bash commands
   author: Maureen
-  toc: true
   title-block-banner: '#D09EBF'
   title-block-banner-color: 'black'
 ---
@@ -17,9 +16,8 @@ To be filled in along my -our- journey with new tips/ commands.
 
 ------------------------------------------------------------------------
 
-### basic commands
-```{bash}
-
+## basic commands
+```bash
 $ pwd          #show the current directory
 $ cd           #change directory
 $ mkdir        #make directory
@@ -40,26 +38,32 @@ $ grep Raven   #only show the lines with the word "Raven"
 $ tr abc def   #replace every a with d, every b with e, etc.
 ```
 
-Filedescriptors
+## Filedescriptors
 
-:   *stdin* : standard input to a program.
+*stdin*
+ : standard input to a program.
 
-    *stdout* : standard output from a program.
+*stdout*
+ : standard output from a program.
 
-    *stderr* : standard error from a program. It will send warnings and error messages.
+*stderr*
+ : standard error from a program. It will send warnings and error messages.
 
-Redirects
 
-:   *\>* : sends the stdout of the previous program to a file; overwrite, e.g. echo "write a very long text or not" \> test.txt
+## Redirects
 
-    *\>\>* : appends stdout to a file, e.g. echo "long text again" \>\> test.txt
+*\>*
+ : sends the stdout of the previous program to a file; overwrite, e.g. echo "write a very long text or not" \> test.txt
 
-    *\|* : pipe character, connects the stdout of the previous program to the stdin of the next program
+*\>\>*
+ : appends stdout to a file, e.g. echo "long text again" \>\> test.txt
 
-### (local) git commands
+*\|*
+ : pipe character, connects the stdout of the previous program to the stdin of the next program
 
-```{bash}
+## (local) git commands
 
+```bash
 $ git status    #shows what files differ between "current revision"
 $ git init      #start a new empty git repo in the current directory
 $ git checkout  #change between branches
@@ -74,10 +78,9 @@ $ git log       #see the history of all the commits
 *git commit -a -m "what your commit is about"*, is a way to add, commit and wrote your commit message out of nano. Very useful, but the file must already exist in the index. This means that the first time you create/add a file to git, you need to do a real "*git add*" then a "*git commit -m*".
 :::
 
-### (remote) git commands
+## (remote) git commands
 
-```{bash}
-
+```bash
 $ git fetch     #updates the origin branches, but not the local branches
 $ git pull      #do a git fetch and git rebase; that's what you do all the time to be up to date locally with what others did
 $ git push      #push new local commits to the remote location (github)

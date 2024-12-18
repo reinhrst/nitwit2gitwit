@@ -2,6 +2,7 @@
 title: Home
 listing:
   contents:
+    - "lessons/*.qmd"
     - "lessons/*/*.qmd"
   sort: false
   type: table
