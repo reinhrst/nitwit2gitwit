@@ -1,0 +1,82 @@
+---
+  title: Cheatsheet - git bash commands
+  author: Maureen
+  toc: true
+  title-block-banner: '#D09EBF'
+  title-block-banner-color: 'black'
+---
+
+![a nerdy octopus, illustrated by @camerongraphics](images/octopus.jpg){fig-align="center" width="350"}
+
+::: {.callout-important appearance="simple"}
+This is my cheat sheet to go back to, when lost for some steps in git. To be filled in along my journey with new tips/ commands.
+:::
+
+------------------------------------------------------------------------
+
+### basic commands
+
+```{bash}
+
+$ pwd          #show the current directory
+$ cd           #change directory
+$ mkdir        #make directory
+$ rmdir        #remove empty directory
+$ ls           #list directory
+$ touch        #creates an empty file (e.g. touch file.txt)
+$ cat          #print out a file to see out's inside
+$ cp           #copy a file (e.g. cp file.txt file2.txt)
+$ mv           #rename a file (e.g. mv file.txt document.txt)
+$ rm           #delete a file
+$ nano         #simple text editor to write in a file (CTRL+O and enter to save, CTRL+X to exit)
+$ history      #shows previous command  
+$ exit         #quit this shell
+$ echo         #print
+$ wc -1        #count lines
+$ wc -c        #count characters
+$ grep Raven   #only show the lines with the word "Raven"
+$ tr abc def   #replace every a with d, every b with e, etc.
+```
+
+Filedescriptors
+
+:   *stdin* : standard input to a program.
+
+    *stdout* : standard output from a program.
+
+    *stderr* : standard error from a program. It will send warnings and error messages.
+
+Redirects
+
+:   *\>* : sends the stdout of the previous program to a file; overwrite, e.g. echo "write a very long text or not" \> test.txt
+
+    *\>\>* : appends stdout to a file, e.g. echo "long text again" \>\> test.txt
+
+    *\|* : pipe character, connects the stdout of the previous program to the stdin of the next program
+
+### (local) git commands
+
+```{bash}
+
+$ git status    #shows what files differ between "current revision"
+$ git init      #start a new empty git repo in the current directory
+$ git checkout  #change between branches
+$ git add       #index the changes I make before commit
+$ git restore   #restore files from repo
+$ git commit    #commit the changes in the index into the repository
+$ git diff      #run a diff between different commits to see difference in the files
+$ git log       #see the history of all the commits
+```
+
+::: {.callout-tip appearance="minimal"}
+*git commit -a -m "what your commit is about"*, is a way to add, commit and wrote your commit message out of nano. Very useful, but the file must already exist in the index. This means that the first time you create/add a file to git, you need to do a real "*git add*" then a "*git commit -m*".
+:::
+
+### (remote) git commands
+
+```{bash}
+
+$ git fetch     #updates the origin branches, but not the local branches
+$ git pull      #do a git fetch and git rebase; that's what you do all the time to be up to date locally with what others did
+$ git push      #push new local commits to the remote location (github)
+```
