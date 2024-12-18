@@ -10,7 +10,7 @@
 
 ::: {.callout-important appearance="simple"}
 This is a cheat sheet to go back to, when lost for some steps in git. It summarise all the cheat sheets present in the different lessons (yet to be updated).
-I did for myself in the beginning but you can't take it and use it as it is or use it as a template for your own.
+I did it for myself at the beginning, but you can take it and use it as it is or as a template for your own.
 
 To be filled in along my -our- journey with new tips/ commands.
 :::
