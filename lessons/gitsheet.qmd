@@ -9,7 +9,10 @@
 ![a nerdy octopus, illustrated by @camerongraphics](images/octopus.jpg){fig-align="center" width="350"}
 
 ::: {.callout-important appearance="simple"}
-This is my cheat sheet to go back to, when lost for some steps in git. To be filled in along my journey with new tips/ commands.
+This is a cheat sheet to go back to, when lost for some steps in git. It summarise all the cheat sheets present in the different lessons (yet to be updated).
+I did for myself in the beginning but you can't take it and use it as it is or use it as a template for your own.
+
+To be filled in along my -our- journey with new tips/ commands.
 :::
 
 ------------------------------------------------------------------------
