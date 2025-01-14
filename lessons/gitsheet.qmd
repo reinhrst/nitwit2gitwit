@@ -75,7 +75,7 @@ $ git log       #see the history of all the commits
 ```
 
 ::: {.callout-tip appearance="minimal"}
-*git commit -a -m "what your commit is about"*, is a way to add, commit and wrote your commit message out of nano. Very useful, but the file must already exist in the index. This means that the first time you create/add a file to git, you need to do a real "*git add*" then a "*git commit -m*".
+*git commit -a -m "what your commit is about"*, is a way to add, commit and write your commit message out of nano. Very useful, but the file must already exist in the index. This means that the first time you create/add a file to git, you need to do a real "*git add*" then a "*git commit -m*".
 :::
 
 ## (remote) git commands
