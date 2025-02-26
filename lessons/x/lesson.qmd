@@ -1,0 +1,74 @@
+---
+title: "Final meeting: recap, looking ahead"
+date: 2025-02-26
+from: markdown+emoji
+---
+
+# Homework
+
+> Make PR  to a repo of someone that you don't know.
+
+## Quick recap
+
+- A PR is a Pull Request
+- A _Pull Request_ is the GitHub way by telling someone "I really like what you have done, here there is a small suggestion to make things even better".
+- A PR will either result in it getting merged (possibly with some changes), it being rejected (usually because you and the repo owner don't agree on what would make the repo better) or it will be ignored (possibly after some interaction), mostly because the repo owner doesn't have time (right now).
+
+## Result from poll
+
+- Done and PR accepted: 0
+- Done and PR rejected: 1
+- Done and PR ignored: 0
+- Will do: 0
+- Tried and fialed: 3
+- Did not try: 2
+- No response: 3
+
+Let's discuss, what happened, what went wrong?
+
+# Why and when would I want to use `git` + GitHub again?
+
+- Keeps a history of all you have done
+- Allows you to look at historical changes (and hopefully _why_ they were done)
+- Allows you to reverse certain changes you made in the past
+- Allows you to clean up your code without losing anything
+- A full backup not only of your code but of the whole history
+- A future collaborator / doctoral student / colleague will be much easier to get up to speed
+- It looks more professional (also during a job interview, or if you show your code at a conference)
+- Almost impossible to do later
+
+---
+
+- Take 10 minutes a day for the first week (5 minutes a day afterwards) to commit your work
+- There is no better time to start than "right now"
+- It is similar to cleaning up your desk / room / etc (except not the huge upfront cost)
+- A bit of time spent every day now, vs _huge_ savings next time you need something (+ more predictable)
+
+
+# GitHub super powers
+
+- You get to be in direct contact with the people who write the stuff you use
+- You get to ask them help and questions, and suggest improvements
+- Whether your requests are dealt with depends on the quality of the request and the owner(s) of the repo / other users.
+- However be aware of contact possibilities; usually if there is a Discord link, you will get better help there.
+
+## Questions / bug reports in GitHub issues
+
+- Be very elaborate about what you are trying to do, what you would expect, and what you are seeing (obviously removing privacy / security info).
+- Make sure you understand the tool before asking a question (many people are VERY BAD at describing what their tool is actually for, what they are accomplishing, and what the limitations are. The idea is often "if you got to this page, you probably know what we are doing".)
+- Be aware that some info may be outdated (I very often see my own repos that stil have a readme file that was for the initial version 5 years ago....)
+- Check a reasonable amount of issues (also recently closed ones) for similar problems. It will also give you an idea how happy the people are to respond (before you spend 20 minutes writing your question)
+- In your case make sure you mention what are facts and what are assumptions. We (people) tend to be terrible at this. Nothing is worse than helping a user with an issue, only to find out in the end that actually what they wrote as the problem is not actually the problem. It's ok to say you're a newby.
+- In my case, in 50% of cases while writing my issue I find the answer. Be open to that!
+
+## Security
+
+Be aware that purely because something is on GitHub, it's safe.
+
+- The author may be maliscious
+- The author may make (very far reaching) mistakes
+- The author may have let in not-safe code (either through a PR or through a dependency)
+- You may use the tool wrongly
+
+
+Always google around to see what others think about the tool you're using.
